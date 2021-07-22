@@ -12,6 +12,7 @@
 	<!-- Font-family -->
 	<link href="{% static 'https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700&display=swap' %}" rel="stylesheet">
 	<link href="{% static 'https://fonts.googleapis.com/css2?family=Rubik&display=swap' %}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- Font-awesome link -->
 	<!-- <link rel="stylesheet" type="text/css" href="{% static 'assets/font-awesome/css/font-awesome.min.css' %}"> -->
 </head>
@@ -125,27 +126,29 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6 mx-auto">	
-				<form method="post">
+				<form method="post">{% csrf_token %}
 					<h3 class="text-center">REGISTRATION</h3>
 					
 					<div class="latestForm">
 						<!-- firstname input -->
 						<div class="form-group"> 
-							<input type="text" name="firstname" id="firstName" class="form-control" value="" required> 
-							<label class="form-control-placeholder" for="firstName">First Name</label>
-							<i class="fa fa-user-o iconSet" aria-hidden="true"></i>
+							<input type="text" name="company_name" id="company_name" class="form-control" value="" required> 
+							<label class="form-control-placeholder" for="company_name">Company Name</label>
+							<i class="fa fa-user iconSet" aria-hidden="true"></i>
 						</div>
 						<!-- last input -->
-						<div class="form-group"> 
+						<!-- <div class="form-group"> 
 							<input type="text" name="lastname" id="lastName" class="form-control" value="" required> 
 							<label class="form-control-placeholder" for="lastName">Last Name</label>
-							<i class="fa fa-user-o iconSet" aria-hidden="true"></i>
-						</div>
+							<i class="fa fa-user iconSet" aria-hidden="true"></i>
+							
+						</div> -->
+						
 						<!-- email input -->
 						<div class="form-group"> 
 							<input type="email" name="email" id="email" class="form-control" value="" required> 
 							<label class="form-control-placeholder" for="email">E-mail Address</label>
-							<i class="fa fa-envelope-o iconSet" aria-hidden="true"></i>
+							<i class="fa fa-envelope iconSet" aria-hidden="true"></i>
 						</div>
 						<!-- user input -->
 						<!-- <div class="form-group"> 
@@ -161,14 +164,47 @@
 						</div> 
 						<!-- password input -->
 						<div class="form-group"> 
-							<input type="password" name="conpassword" id="conpwd" class="form-control" value="" required> 
+							<input type="password" name="conpassword" id="conpwd" onblur="checkPassword()" class="form-control" value="" required> 
 							<label class="form-control-placeholder" for="conpwd">Confirm Password</label> 
 							<i class="fa fa-lock iconSet" aria-hidden="true"></i>
+							<span> <i class="fa fa-check text-success" style="display:none;" id="tick"  aria-hidden="true"> password matched</i></span>
+							
+							<span class="ml-1 text-red" id="passerr"></i></span>	
 						</div> 
+					
 					</div> 
 					<!-- /. latestForm -->
 					<!-- Submit button -->
 					<input type="submit" name="submit" class="btn btn-danger btn-block mb-4" id="register" value="Register Now">
+
+
+					<script>
+						function checkPassword(){
+							console.log("fghjklfghj")
+							let pass=document.getElementById("password").value;
+							let cpass=document.getElementById("conpwd").value;
+							console.log(pass)
+							console.log(cpass)
+							if (pass != cpass){
+								document.getElementById('passerr').innerHTML="password not matched"
+								document.getElementById('tick').style.display="none";
+							}else if (cpass==" "){
+								
+									document.getElementById('tick').style.display="none";
+									document.getElementById('passerr').style.display="none";
+	
+							
+	
+							}else{
+								document.getElementById('tick').style.display="block"
+								document.getElementById('passerr').innerHTML=""
+
+
+							}
+
+						}
+					
+					</script>
 
 					<!-- Register buttons -->
 					<div class="text-center"> 
