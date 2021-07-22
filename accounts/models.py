@@ -8,3 +8,5 @@ class UserCompanies(AbstractUser):
     company_name=models.CharField(null=True,blank=True,max_length=200)
     email = models.EmailField(unique=True)
     phone_number=PhoneNumberField()
+
+    
