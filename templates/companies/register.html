@@ -24,7 +24,7 @@
 	<div class="container-fluid">
 		<!-- navbar-brand -->
 		<a class="navbar-brand" href="home.html">
-			<img src="{% static 'accounts/images/contact-us/Logo.png' %}" class="w-100 main-logo" alt="Logo" title="Logo" />
+			<img src="{% static 'accounts/images/contact-us/logo.png' %}" class="w-100 main-logo" alt="Logo" title="Logo" />
 		</a>
 		<!-- toggler/collapsibe Button -->
 		<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,7 +108,7 @@
 		<div class="row">
 			<div class="col-sm-5 nearcol">
 				<h1>You Need Perfect Employees?</h1>
-				<h2 class="text-red">Thousands of prestigious employees for you</h2>
+				<h2 class="text-info">Thousands of prestigious employees for you</h2>
 			</div>
 			<div class="col-sm-7 d-none d-md-block">
 				<div class="row">
@@ -121,6 +121,8 @@
 	</div>
 </section>
 <!-- /. nearJob -->
+
+{% block content %}
 
 <section class="loginForm">
 	<div class="container">
@@ -208,7 +210,7 @@
 
 					<!-- Register buttons -->
 					<div class="text-center"> 
-						<p>Have't Any Account Yet? <a class="clickHere" href="login.html">Click Here</a></p>
+						<p>Have't Any Account Yet? <a class="clickHere" href="{% url 'login_companies' %}">Click Here</a></p>
 						<!-- <p>or</p> -->
 						<!-- <p>Login With Social</p> -->
 						<!-- <a href="#" class="btn btn-danger btn-floating rounded-pill mx-2">
@@ -226,6 +228,7 @@
 		</div>
 	</div>
 </section>
+{% endblock %}
 <!-- /. contactForm -->
 
 <!-- footer start here -->

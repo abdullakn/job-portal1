@@ -1,0 +1,233 @@
+{% extends 'companies/dashboard.html' %}
+
+{% block content %}
+
+<div class="dashboard-content">
+
+    <!-- Titlebar -->
+    <div id="titlebar">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Profile</h2>
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li>My Profile</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="edit-profile-photo">
+                <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=300" alt="">
+                <div class="change-photo-btn">
+                    <div class="photoUpload">
+                        <span><i class="fa fa-upload"></i> Upload Photo</span>
+                        <input type="file" class="upload" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <div class="row">
+        
+        <!-- Table-->
+        <div class="col-lg-12 col-md-12">
+
+            <div class="dashboard-list-box margin-top-0">
+                <h4>Profile Details</h4>
+                <div class="dashboard-list-box-content">
+
+                <div class="submit-page">
+                   
+
+                    <!-- Email -->
+                    <div class="form">
+                        <label>Company Name</label>
+                        <input value="" type="text">
+                    </div>
+
+                    <!-- Title -->
+                    <div class="form">
+                        <label>Email</label>
+                        <input value="" type="email">
+                    </div>
+
+                    <!-- Job Type -->
+                    <div class="form">
+                        
+                        <label>Phone</label>
+                        <input value="" type="text">
+                    </div>
+
+
+                    <!-- Choose Category -->
+                    <div class="form">
+                
+                        <label><i class="fa fa-twitter"></i> Website</label>
+                        <input placeholder="https://www.example.com.com/" type="text">
+                    </div>
+
+
+                    <!-- Location -->
+                   
+
+
+
+                    <!-- Tags -->
+     
+                    <script></script>
+
+
+                    <!-- Description -->
+                    <div class="form" style="width: 100%;">
+                        <h5>Description</h5>
+                        <textarea class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+                    </div>
+
+                    <!-- Application email/url -->
+                    
+
+                </div>
+            </div>
+
+
+            <div class="dashboard-list-box margin-top-30">
+                <h4>Company Location</h4>
+                <div class="dashboard-list-box-content">
+
+                <div class="submit-page">
+
+                    <!-- Company Name -->
+                    <div class="form">
+                        <h5>Country</h5>
+                        <input type="text" placeholder="country">
+                    </div>
+
+                    <!-- Website -->
+                    <div class="form">
+                        <h5>State<span></span></h5>
+                        <input type="text" placeholder="state">
+                    </div>
+
+                    <!-- Teagline -->
+                    <div class="form">
+                        <h5>District <span></span></h5>
+                        <input type="text" placeholder="district">
+                    </div>
+
+                    <!-- Video -->
+                    <div class="form">
+                        <h5>Post-Code <span></span></h5>
+                        <input type="text" placeholder="pin-code">
+                    </div>
+
+                  
+
+
+                </div>
+
+                </div>
+            </div>
+        
+
+						
+
+						
+
+            <div class="dashboard-list-box margin-top-30">
+                <h4>Company Social</h4>
+                <div class="dashboard-list-box-content">
+
+                <div class="submit-page">
+
+                    <!-- Company Name -->
+                    <div class="form">
+                      
+                        <label><i class="fa fa-twitter"></i> Twitter</label>
+                        <input placeholder="https://www.twitter.com/" type="text">
+                    </div>
+
+                    <!-- Website -->
+                    <div class="form">
+                        <label><i class="fa fa-facebook-square"></i> Facebook</label>
+                        <input placeholder="https://www.facebook.com/" type="text">
+                    </div>
+
+                    <!-- Teagline -->
+                    <div class="form">
+                        <label><i class="fa fa-google-plus"></i> Google+</label>
+                        <input placeholder="https://www.google.com/" type="text">
+                    </div>
+
+                    <!-- Video -->
+                    <div class="form">
+                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                        <input placeholder="https://www.linkedin.com/" type="text">
+                    </div>
+
+                  
+
+
+                </div>
+
+                </div>
+            </div>
+            <a href="#" class="button margin-top-30">Save Changes <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+
+
+        <!-- Copyrights -->
+        <div class="col-md-12">
+            <div class="copyrights">© 2019 WorkScout. All Rights Reserved.</div>
+        </div>
+    </div>
+
+</div>
+        <!-- Change Password -->
+        <!-- <div class="col-lg-6 col-md-12">
+            <div class="dashboard-list-box margin-top-0">
+                <h4 class="gray">Change Password</h4>
+                <div class="dashboard-list-box-static">
+
+                    <div class="my-profile">
+                        <label class="margin-top-0">Current Password</label>
+                        <input type="password">
+
+                        <label>New Password</label>
+                        <input type="password">
+
+                        <label>Confirm New Password</label>
+                        <input type="password">
+
+                        <button class="button margin-top-15">Change Password</button>
+                    </div>
+
+                </div>
+            </div>
+        </div> -->
+
+
+
+        <!-- Copyrights -->
+        <!-- <div class="col-md-12">
+            <div class="copyrights">© 2019 WorkScout. All Rights Reserved.</div>
+        </div> -->
+    </div>
+
+</div>
+<!-- Content / End -->
+
+
+</div>
+
+
+
+{% endblock %}

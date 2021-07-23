@@ -1,137 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Login</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Stylesheet -->
-	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-	<!-- Bootstrap 4 link -->
-	<link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css">
-	<!-- Font-family -->
-	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-	<!-- Font-awesome link -->
-	<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.min.css">
-</head>
-<body>
-<!-- header start here -->
-<header id="header">
-<!-- navbar start here -->
-<nav class="navbar navbar-expand-lg navbar-light">
-	<div class="container-fluid">
-		<!-- navbar-brand -->
-		<a class="navbar-brand" href="home.html">
-			<img src="images/logo/Logo.png" class="w-100 main-logo" alt="Logo" title="Logo" />
-		</a>
-		<!-- toggler/collapsibe Button -->
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<!-- navbar links -->
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav navbar-center ml-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="home.html">Home </a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="categories.html">Categories</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="about-us.html">About Us</a>
-				</li>
-				<li class="nav-item drop-down">
-					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Pages</a>
-					<!-- Mega-menu -->
-					<div class="mega-menu fadeIn animated dropdown-menu">
-						<div class="row">
-							<div class="col-sm-3 border-right">
-								<ul class="list-unstyled">
-									<li><a class="dropdown-item" href="company-register.html">Company Register</a></li>
-									<li><a class="dropdown-item" href="employer-login.html">Employer Login</a></li>
-									<li><a class="dropdown-item" href="company-listing.html">Company Listing</a></li>
-									<li><a class="dropdown-item" href="company-details.html">Company Details</a></li>
-									<li><a class="dropdown-item" href="post-job.html">Post Job</a></li>
-								</ul>
-							</div>
-							<div class="col-sm-3 border-right">
-								<ul class="list-unstyled">
-									<li><a class="dropdown-item" href="job-listing.html">Job Listing</a></li>
-									<li><a class="dropdown-item" href="job-details.html">Job Details</a></li>
-									<li><a class="dropdown-item" href="candidate-listing.html">Candidate Listing</a></li>
-									<li><a class="dropdown-item" href="candidate-details.html">Candidate Details</a></li>
-									<li><a class="dropdown-item" href="profile.html">Profile</a></li>
-								</ul>
-							</div>
-							<div class="col-sm-3 border-right">
-								<ul class="list-unstyled">
-									<li><a class="dropdown-item" href="pricing.html">Pricing</a></li>
-									<li><a class="dropdown-item" href="register.html">Register</a></li>
-									<li><a class="dropdown-item" href="forgot-password.html">Forgot Password</a></li>
-									<li><a class="dropdown-item" href="login.html">Login</a></li>
-									<li><a class="dropdown-item" href="faq.html">Faq</a></li>
-								</ul>
-							</div>
-							<div class="col-sm-3">
-								<ul class="list-unstyled">
-									<li><a class="dropdown-item" href="blog.html">Blog </a></li>
-									<li><a class="dropdown-item" href="blog-detail.html">Blog Detail </a></li>
-									<li><a class="dropdown-item" href="coming-soon.html">Coming Soon</a></li>
-									<li><a class="dropdown-item" href="not-found.html">Not Found</a></li>
-									<li><a class="dropdown-item" href="term-conditions.html">Term Conditions</a></li>
-								</ul>
-							</div>
-						</div>
-					</div><!-- /. mega-menu -->
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="contact-us.html">Contact</a>
-				</li>
-			</ul>
-			<!-- navbar right button -->
-			<ul class="navbar-nav navbar-right">
-				<li><a class="btn btn-link mr-sm-2" href="profile.html">
-					<i class="fa fa-upload mr-2" aria-hidden="true"></i> Upload Resume
-				</a></li>
-				<li><a class="btn btn-danger my-2 my-sm-0" href="register.html">Sign Up</a></li>
-			</ul><!-- navbar right button end here -->
-		</div><!-- navbar links -->
-	</div>
-</nav><!-- navbar -->
-</header>
-<!-- header -->
+{% extends 'companies/register.html' %}
 
-<section class="nearJob">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-5 nearcol">
-				<h1>Your dream Job</h1>
-				<h2 class="text-red">Is Near to You</h2>
-			</div>
-			<div class="col-sm-7 d-none d-md-block">
-				<div class="row">
-					<div class="d-flex w-100">
-						<img class="w-100" src="images/contact-us/banner.png" alt="Banner" />
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- /. nearJob -->
 
+{% block content %}
 <section class="loginForm">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6 mx-auto">	
 				<form method="post">
+					{% csrf_token %}
 					<h3 class="text-center">LOGIN</h3>
 					<div class="latestForm">
 						<!-- user input -->
 						<div class="form-group"> 
-							<input type="text" name="username" id="userName" class="form-control" value="" required> 
-							<label class="form-control-placeholder" for="userName">Username</label>
-							<i class="fa fa-user-o iconSet" aria-hidden="true"></i>
+							<input type="email" name="email" id="email" class="form-control" value="" required> 
+							<label class="form-control-placeholder" for="userName">Email</label>
+							<i class="fa fa-envelope iconSet" aria-hidden="true"></i>
 						</div>
 						<!-- password input -->
 						<div class="form-group"> 
@@ -145,10 +28,7 @@
 					<div class="row my-4">
 						<div class="col d-flex justify-content-left">
 							<!-- Checkbox -->
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" name="savepassword" class="custom-control-input" id="savePwd" checked required>
-								<label class="custom-control-label" for="savePwd">Save Password</label>
-							</div>
+							
 						</div>
 
 						<div class="col text-right">
@@ -159,10 +39,11 @@
 
 					<!-- Submit button -->
 					<input type="submit" name="submit" class="btn btn-danger btn-block" id="login" value="LOGIN">
+					<span>{{error}}</span>
 
 					<!-- Register buttons -->
 					<div class="text-center">
-						<p>Have't Any Account Yet? <a class="clickHere" href="register.html">Click Here</a></p>
+						<p>Have't Any Account Yet? <a class="clickHere" href="{% url 'companies_registration' %}">Click Here</a></p>
 						<!-- <p>or</p>
 						<p>Login With Social</p>
 						<a href="#" class="btn btn-danger btn-floating rounded-pill mx-2">
@@ -180,15 +61,6 @@
 		</div>
 	</div>
 </section>
-<!-- /. contactForm -->
 
+{% endblock %}
 
-<!-- footer start here -->
-
-<!-- footer end here -->
-<!-- Js Links -->
-<script src=" {% static 'accounts/js/jquery.min.js' %}"></script>
-<script src="{% static 'accounts/js/popper.min.js' %}"></script>
-<script src="{% static 'accounts/js/bootstrap.min.js' %}"></script>
-</body>
-</html>
