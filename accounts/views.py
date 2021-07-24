@@ -9,10 +9,12 @@ import uuid
 # Create your views here.
 
 def generate_coupen():
-    coupen=str(uuid.uuid4()).replace("-","")[:3]
+    coupen=str(uuid.uuid4()).replace("-","")[:2]
     return coupen
 
 def registration_employee(request):
+    if request.user.is_authenticated:
+        return redirect('employee_home')
     if request.method == 'POST':
         data=request.POST
         first_name=data['firstname']
@@ -24,7 +26,7 @@ def registration_employee(request):
         
         user=UserCompanies.objects.create_user(first_name=first_name,last_name=last_name,email=email,password=password,username=username)
         user.save()
-        return HttpResponse("saved")
+        return redirect('login_employee')
 
     return render(request,'employee/register.html')
 
@@ -45,6 +47,8 @@ def registration_companies(request):
 
 
 def login_employees(request):
+    if request.user.is_authenticated:
+            return redirect('employee_home')
 
     if request.method=='POST':
         data=request.POST
@@ -100,6 +104,17 @@ def login_companies(request):
 
 def companies_home(request):
     return render(request,'companies/dashboard.html')
+
+
+
+   
+    
+def employee_logout(request):
+    if request.user.is_authenticated:
+        print(request.user)
+        logout(request)
+        
+        return redirect('employee_home') 
 
 
 

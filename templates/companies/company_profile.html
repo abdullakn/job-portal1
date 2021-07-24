@@ -20,14 +20,17 @@
             </div>
         </div>
     </div>
+   
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
     <div class="row">
         <div class="col-lg-12">
             <div class="edit-profile-photo">
-                <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=300" alt="">
+                <img {% if profile.logo %} src="/media/{{profile.logo}}" {% else %} src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=300"{% endif %} alt="">
                 <div class="change-photo-btn">
                     <div class="photoUpload">
-                        <span><i class="fa fa-upload"></i> Upload Photo</span>
-                        <input type="file" class="upload" />
+                        <span><i class="fa fa-upload"></i> Upload Logo</span>
+                        <input type="file" value="{{profile.logo}}" class="upload" name="logo" />
                     </div>
                 </div>
             </div>
@@ -35,11 +38,12 @@
         
     </div>
 
-
+  
     <div class="row">
         
         <!-- Table-->
         <div class="col-lg-12 col-md-12">
+            <!-- <form action="" method="POST">{% csrf_token %} -->
 
             <div class="dashboard-list-box margin-top-0">
                 <h4>Profile Details</h4>
@@ -51,20 +55,21 @@
                     <!-- Email -->
                     <div class="form">
                         <label>Company Name</label>
-                        <input value="" type="text">
+                        <input value="{{profile.company_name}}" name="cname" type="text">
                     </div>
+                 
 
                     <!-- Title -->
                     <div class="form">
                         <label>Email</label>
-                        <input value="" type="email">
+                        <input value="{{profile.email}}" name="cemail" type="email">
                     </div>
 
                     <!-- Job Type -->
                     <div class="form">
                         
                         <label>Phone</label>
-                        <input value="" type="text">
+                        <input value="{{profile.phone_number}}" name="cphone" type="text">
                     </div>
 
 
@@ -72,7 +77,7 @@
                     <div class="form">
                 
                         <label><i class="fa fa-twitter"></i> Website</label>
-                        <input placeholder="https://www.example.com.com/" type="text">
+                        <input placeholder="https://www.example.com.com/" name="cwebsite" type="text">
                     </div>
 
 
@@ -89,7 +94,7 @@
                     <!-- Description -->
                     <div class="form" style="width: 100%;">
                         <h5>Description</h5>
-                        <textarea class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+                        <textarea class="WYSIWYG"  name="cdescription" cols="40" rows="3" id="summary">{{profile.descriptiion}}</textarea>
                     </div>
 
                     <!-- Application email/url -->
@@ -108,25 +113,25 @@
                     <!-- Company Name -->
                     <div class="form">
                         <h5>Country</h5>
-                        <input type="text" placeholder="country">
+                        <input type="text" value="{{profile.country}}" name="country" placeholder="country">
                     </div>
 
                     <!-- Website -->
                     <div class="form">
                         <h5>State<span></span></h5>
-                        <input type="text" placeholder="state">
+                        <input type="text" value="{{profile.state}}" name="state" placeholder="state">
                     </div>
 
                     <!-- Teagline -->
                     <div class="form">
                         <h5>District <span></span></h5>
-                        <input type="text" placeholder="district">
+                        <input type="text" value="{{profile.district}}" name="district" placeholder="district">
                     </div>
 
                     <!-- Video -->
                     <div class="form">
                         <h5>Post-Code <span></span></h5>
-                        <input type="text" placeholder="pin-code">
+                        <input type="text" name="postcode" value="{{profile.postcode}}" placeholder="pin-code">
                     </div>
 
                   
@@ -152,25 +157,25 @@
                     <div class="form">
                       
                         <label><i class="fa fa-twitter"></i> Twitter</label>
-                        <input placeholder="https://www.twitter.com/" type="text">
+                        <input name="twitter" value="{{website.twitter}}" placeholder="https://www.twitter.com/" type="text">
                     </div>
 
                     <!-- Website -->
                     <div class="form">
                         <label><i class="fa fa-facebook-square"></i> Facebook</label>
-                        <input placeholder="https://www.facebook.com/" type="text">
+                        <input name="facebook" value="{{website.facebook}}" placeholder="https://www.facebook.com/" type="text">
                     </div>
 
                     <!-- Teagline -->
                     <div class="form">
                         <label><i class="fa fa-google-plus"></i> Google+</label>
-                        <input placeholder="https://www.google.com/" type="text">
+                        <input name="google" value="{{website.google}}" placeholder="https://www.google.com/" type="text">
                     </div>
 
                     <!-- Video -->
                     <div class="form">
                         <i class="fa fa-linkedin" aria-hidden="true"></i>
-                        <input placeholder="https://www.linkedin.com/" type="text">
+                        <input name="linkedin" value="{{website.linkedin}}" placeholder="https://www.linkedin.com/" type="text">
                     </div>
 
                   
@@ -180,8 +185,10 @@
 
                 </div>
             </div>
-            <a href="#" class="button margin-top-30">Save Changes <i class="fa fa-arrow-circle-right"></i></a>
+            <button type="submit" class="button margin-top-30">Save Changes <i class="fa fa-arrow-circle-right"></i></button>
+            <!-- <a href="#" class="button margin-top-30"></a> -->
         </div>
+    </form>
 
 
         <!-- Copyrights -->
@@ -191,6 +198,7 @@
     </div>
 
 </div>
+
         <!-- Change Password -->
         <!-- <div class="col-lg-6 col-md-12">
             <div class="dashboard-list-box margin-top-0">

@@ -71,11 +71,22 @@
                     </aside>
                     <aside class="col-md-4">
                         <div class="careerfy-right">
+                            {% if request.user.is_authenticated %}
                             <ul class="careerfy-user-section">
-                                <li><a class="careerfy-color careerfy-open-signin-tab" href="#">Register</a></li>
-                                <li><a class="careerfy-color careerfy-open-signup-tab" href="#">Sign in</a></li>
+                                
+                                <li><a class="careerfy-color careerfy-open-signin-tab" href="#">{{request.user}}</a></li>
+                                <!-- <li><a class="careerfy-color careerfy-open-signup-tab" href="#">Sign in</a></li> -->
+                               
+
                             </ul>
-                            <a href="#" class="careerfy-simple-btn careerfy-bgcolor"><span> <i class="careerfy-icon careerfy-arrows-2"></i> Post Job</span></a>
+                            <a href="{% url 'employee_logout' %}" class="careerfy-simple-btn careerfy-bgcolor"><span> <i class="careerfy-icon careerfy-arrows-1"></i> Logout</span></a>
+                            {% else %}
+                            <ul class="careerfy-user-section">
+                            <li><a class="careerfy-color careerfy-open-signin-tab" href="{% url 'user_registration' %}">Register</a></li>
+                            <li><a class="careerfy-color careerfy-open-signup-tab" href="{% url 'login_employee' %}">Sign in</a></li>
+                        </ul>
+
+                            {% endif %}
                         </div>
                     </aside>
                 </div>

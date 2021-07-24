@@ -128,7 +128,8 @@
 
 			<ul data-submenu-title="Start">
 				<li class="active"><a href="dashboard.html">Dashboard</a></li>
-				<li><a href="dashboard-messages.html">Messages <span class="nav-tag">2</span></a></li>
+				<!-- <li><a href="dashboard-messages.html">Messages <span class="nav-tag">2</span></a></li> -->
+				<li><a href="{% url 'add_jobs' %}">Add Job </a></li>
 			</ul>
 
 			<ul data-submenu-title="Management">
@@ -150,7 +151,7 @@
 			</ul>	
 
 			<ul data-submenu-title="Account">
-				<li><a href="dashboard-my-profile.html">My Profile</a></li>
+				<li><a href="{% url 'company_profile' %}">My Profile</a></li>
 				<li><a href="index-2.html">Logout</a></li>
 			</ul>
 			
@@ -308,7 +309,7 @@
 
 <!-- Scripts
 ================================================== -->
-<script src="{% static 'scripts/jquery-3.4.1.min.js' %}"></script>
+<!-- <script src="{% static 'scripts/jquery-3.4.1.min.js' %}"></script>
 <script src="{% static 'scripts/jquery-migrate-3.1.0.min.js' %}"></script>
 <script src="{% static 'scripts/custom.js' %}"></script>
 <script src="{% static 'scripts/jquery.superfish.js' %}"></script>
@@ -322,7 +323,7 @@
 <script src="{% static 'scripts/jquery.counterup.min.js' %}"></script>
 <script src="{% static 'scripts/jquery.jpanelmenu.js' %}"></script>
 <script src="{% static 'scripts/stacktable.js' %}"></script>
-<script src="{% static 'scripts/slick.min.js' %}"></script>
+<script src="{% static 'scripts/slick.min.js' %}"></script> -->
 
 
 
