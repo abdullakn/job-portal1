@@ -1,13 +1,12 @@
 from accounts.models import UserCompanies
-from companies.models import CompanyProfile, CompanySocial
+from companies.models import CompanyProfile, CompanySocial, JobDetails
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
+from django.utils.text import slugify
 
 # Create your views here.
 
 
-def add_jobs(request):
-    return render(request,'companies/add_job.html')
 
 
 def company_profile(request):
@@ -107,3 +106,53 @@ def company_profile(request):
         'website':website
     }
     return render(request,'companies/company_profile.html',context)    
+
+
+
+
+    
+def add_jobs(request):
+    if request.method=='POST':
+        data=request.POST
+        files=request.FILES
+        title=data['title']
+        job_type=data['job_type']
+        category=data['category']
+        location=data['location']
+        qualification=data['qualification']
+        experience=data['experience']
+        desc=data['desc']
+        skills=data['skills']
+        industry=data['industry']
+        close_date=data['close_date']
+        additional_data=files['additional_data']
+        max_sal=data['max_sal']
+        min_sal=data['min_sal']
+        slug=slugify(str(request.user)+'%'+title)
+        print(slug)
+        company=CompanyProfile.objects.get(user=request.user)
+        job=JobDetails(user=company,job_title=title,job_type=job_type,category=category,location=location,qualification=qualification,experience=experience,description=desc,req_skills=skills,industry=industry,closing_date=close_date,additional_files=additional_data,salary_min=min_sal,salary_max=max_sal,slug=slug)
+        job.save()
+        return redirect(job_listing)
+
+        
+    return render(request,'companies/add_job.html')
+
+
+
+def job_listing(request):
+    user=CompanyProfile.objects.get(user=request.user)
+    print(user.id)
+    try:
+        job=JobDetails.objects.filter(user=user)
+    except:
+        job=None    
+    print(job)
+    context={
+        'jobs':job
+    }
+    return render(request,'companies/job_list.html',context)
+
+
+# def job_view(request):
+#     return render(request,'employee/job-listings.html')    

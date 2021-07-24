@@ -1,0 +1,88 @@
+{% extends 'companies/dashboard.html' %}
+
+{% block content %}
+
+<div class="dashboard-content">
+
+    <!-- Titlebar -->
+    <div id="titlebar">
+        <div class="row">
+            <div class="col-md-12">
+              
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li>View Jobs</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        
+        <!-- Table-->
+        <div class="col-lg-12 col-md-12">
+
+            <!-- <div class="notification notice">
+                Your listings are shown in the table below. Expired listings will be automatically removed after 30 days.
+            </div> -->
+
+            <div class="dashboard-list-box margin-top-30">
+                <div class="dashboard-list-box-content">
+
+                    <!-- Table -->
+
+                    <table class="manage-table responsive-table">
+
+                        <tr>
+                            <th><i class="fa fa-file-develop"></i> Title</th>
+                            <th><i class="fa fa-check-square-o"></i>Job Type</th>
+                            <th><i class="fa fa-calendar"></i> Date Posted</th>
+                            <th><i class="fa fa-calendar"></i> Date Expires</th>
+                            <th><i class="fa fa-user"></i> Salary Range</th>
+                            <th></th>
+                        </tr>
+                                
+                        <!-- Item #1 -->
+                        {% for job in jobs %}
+                        <tr>
+                            <td class="title"><a href="#">{{job.job_title}} <span class="pending">({{job.category}})</span></a></td>
+                            <td class="centered">{{job.job_type}}</td>
+                            <td>{{job.create_at}}</td>
+                            <td>{{job.closing_date}}</td>
+                            <td class="centered">{{job.salary_min}}-{{job.salary_max}}</td>
+                            <td class="action">
+                                <a href="#"><i class="fa fa-pencil"></i> Edit</a>
+                                <!-- <a href="#"><i class="fa  fa-check "></i> Mark Filled</a> -->
+                                <a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                                
+                        <!-- Item #2 -->
+                      
+
+                        <!-- Item #2 -->
+                      
+
+                    </table>
+
+                </div>
+            </div>
+            <a href="{% url 'add_jobs' %}" class="button margin-top-30">Add New Job</a>
+        </div>
+
+
+        <!-- Copyrights -->
+        <div class="col-md-12">
+            <div class="copyrights">© 2019 WorkScout. All Rights Reserved.</div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -30,6 +30,8 @@
             <div class="dashboard-list-box margin-top-0">
                 <h4>Job Details</h4>
                 <div class="dashboard-list-box-content">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
 
                 <div class="submit-page">
 
@@ -40,19 +42,21 @@
                     </div> -->
 
                     <!-- Title -->
+
+                   
                     <div class="form">
                         <h5>Job Title</h5>
-                        <input class="search-field" type="text" placeholder="" value=""/>
+                        <input class="search-field" name="title" type="text" placeholder="" value=""/>
                     </div>
 
                     <!-- Job Type -->
                     <div class="form">
                         <h5>Job Type</h5>
-                        <select data-placeholder="Full-Time" class="chosen-select-no-single">
-                            <option value="1">Full-Time</option>
-                            <option value="2">Part-Time</option>
-                            <option value="2">Internship</option>
-                            <option value="2">Freelance</option>
+                        <select data-placeholder="Full-Time" name="job_type"  class="chosen-select-no-single">
+                            <option value="Full-Time">Full-Time</option>
+                            <option value="Part-Time">Part-Time</option>
+                            <option value="Internship">Internship</option>
+                            <option value="Freelance">Freelance</option>
                         </select>
                     </div>
 
@@ -60,27 +64,27 @@
                     <!-- Choose Category -->
                     <div class="form">
                         <h5>Category <span></span></h5>
-                        <input class="search-field" type="text" placeholder="Job Category" name="category"  value=""/>
+                        <input class="search-field" type="text" name="category" placeholder="Job Category" name="category"  value=""/>
                     </div>
 
 
                     <!-- Location -->
                     <div class="form">
                         <h5>Location <span></span></h5>
-                        <input class="search-field" type="text" placeholder="e.g. Ernakulam" value=""/>
+                        <input class="search-field" type="text" name="location" placeholder="e.g. Ernakulam" value=""/>
                        
                     </div>
 
                     <div class="form">
                         <h5>Qualification <span></span></h5>
-                        <input class="search-field" type="text" placeholder="Qualification" value=""/>
+                        <input class="search-field" type="text" name="qualification" placeholder="Qualification" value=""/>
                         
                     </div>
 
                     
                     <div class="form">
                         <h5>Experience</h5>
-                        <input type="text" placeholder="Experience...">
+                        <input type="text" name="experience" placeholder="Experience...">
                     </div>
 
 
@@ -93,7 +97,7 @@
                     <!-- Description -->
                     <div class="form" style="width: 100%;">
                         <h5>Description</h5>
-                        <textarea class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+                        <textarea class="WYSIWYG" name="desc" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
                     </div>
 
                     <!-- Application email/url -->
@@ -104,16 +108,16 @@
                     <div class="form">
                         <h5>Required Skills <span></span></h5>
                       
-                        <input class="search-field" type="text" placeholder="HTML,CSS" value=""/>
+                        <input class="search-field" name="skills" type="text" placeholder="HTML,CSS" value=""/>
                    </div>
 
                     <div class="form">
                         <h5>Industry</h5>
-                        <input type="text" placeholder="Industry...">
+                        <input type="text" name="industry" placeholder="Industry...">
                     </div>
                     <div class="form">
                         <h5>Closing Date <span>(optional)</span></h5>
-                        <input data-role="date" style="    padding: 14px 18px;
+                        <input data-role="date" name="close_date" style="   padding: 14px 18px;
                         outline: none;
                         font-size: 14px;
                         color: #909090;
@@ -131,26 +135,46 @@
                  
                 <div class="form">
                     <h5>Additional <span>Information</span></h5>
-                    <label class="upload-btn">
-                        <input type="file" multiple />
+                    <label class="upload-btn" id="one">
+                        <input type="file" name="additional_data" onclick="fileFunc()" style="margin-left:200px;" id="inp" multiple />
                         <i class="fa fa-upload"></i> Browse
                     </label>
-                    <span class="fake-input">No file selected</span>
+                    <span style="height: 48px;" class="fake-input"></span>
                 </div>
+                <script>
+                    function fileFunc() {
+                        //console.log(e.target.files[0].name)
+                        //console.log(e)
+                        //var x = e.target.files[0].name
+                        //var d = document.getElementById("one")
+                        //d.innerText = x
+
+                        //document.getElementById('one').change(function() {
+                          //  var i = document.getElementById('one').prev('label').clone();
+                            //var input = document.getElementById('inp')[0].files[0].name;
+                            //document.getElementById('one').prev('label').text(file);
+                          //});
+
+                    }
+                </script>
                 <div class="form">
                     <h5>Minimum Salary</h5>
-                    <input type="text" placeholder="Salary...">
+                    <input type="text" name="min_sal" placeholder="Salary...">
                 </div>
                 <div class="form">
                     <h5>Maximum Salary</h5>
-                    <input type="text" placeholder="Salary...">
+                    <input type="text" name="max_sal" placeholder="Salary...">
                 </div>
 
                 </div>
+                
+        <button type="submit" class="button margin-top-30">Add Job <i class="fa fa-arrow-circle-right"></i></button>
+            </form>
             </div>
 
 
-            <a href="#" class="button margin-top-30">Preview <i class="fa fa-arrow-circle-right"></i></a>
+
+
         </div>
 
 
