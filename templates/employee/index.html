@@ -2,7 +2,6 @@
 <html lang="en">
 
 
-<!-- Mirrored from eyecix.com/html/careerfy/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 17 Jul 2021 16:02:15 GMT -->
 <head>
     {% load static  %}
     <meta charset="utf-8">
@@ -51,13 +50,13 @@
                             </div>
                             <div class="collapse navbar-collapse" id="careerfy-navbar-collapse-1">
                                 <ul class="navbar-nav">
-                                    <li class="active"><a href="index-2.html">Home</a>
+                                    <li class="active"><a href="{% url 'employee_home' %}">Home</a>
                                       
                                     </li>
-                                    <li><a href="#">Jobs</a>
+                                    <li><a href="{% url 'job_list_view' %}">Jobs</a>
                                        
                                     </li>
-                                    <li><a href="#">For Candidates</a>
+                                    <li><a href="{% url 'companies_list' %}">Companies</a>
                                         
                                       
                                     </li>
@@ -74,7 +73,7 @@
                             {% if request.user.is_authenticated %}
                             <ul class="careerfy-user-section">
                                 
-                                <li><a class="careerfy-color careerfy-open-signin-tab" href="#">{{request.user}}</a></li>
+                                <li><a class="careerfy-color careerfy-open-signin-tab" href="{% url 'employee_profile' %}">{{request.user}}</a></li>
                                 <!-- <li><a class="careerfy-color careerfy-open-signup-tab" href="#">Sign in</a></li> -->
                                
 
@@ -112,13 +111,13 @@
                                 <i class="careerfy-icon careerfy-location"></i>
                             </li>
                             <li>
-                                <!-- <div class="careerfy-select-style">
+                                <div class="careerfy-select-style">
                                     <select>
                                         <option>Categories</option>
                                         <option>Categories</option>
                                         <option>Categories</option>
                                     </select>
-                                </div> -->
+                                </div>
                             </li>
                             <li class="careerfy-banner-submit"> <input type="submit" value=""> <i class="careerfy-icon careerfy-search"></i> </li>
                         </ul>

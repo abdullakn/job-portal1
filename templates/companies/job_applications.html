@@ -1,0 +1,91 @@
+{% extends 'companies/dashboard.html' %}
+
+{% block content %}
+
+<div class="dashboard-content">
+
+    <!-- Titlebar -->
+    <div id="titlebar">
+        <div class="row">
+            <div class="col-md-12">
+              
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li>View Applications</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        
+        <!-- Table-->
+        <div class="col-lg-12 col-md-12">
+
+            <!-- <div class="notification notice">
+                Your listings are shown in the table below. Expired listings will be automatically removed after 30 days.
+            </div> -->
+
+            <div class="dashboard-list-box margin-top-30">
+                <div class="dashboard-list-box-content">
+
+                    <!-- Table -->
+
+                    <table class="manage-table responsive-table">
+
+                        <tr>
+                            <th><i class="fa fa-file-develop"></i> Name</th>
+                            <th><i class="fa fa-check-square-o"></i>Job Type</th>
+                            <th><i class="fa fa-calendar"></i> Date Posted</th>
+                            <th><i class="fa fa-calendar"></i> Category</th>
+
+                            <th><i class="fa fa-calendar"></i> Name of the User</th>
+                            
+                            <th><i class="fa fa-user"></i> Salary Range</th>
+                            <th><i class="fa fa-user"></i>Email</th>
+                           </tr>
+                                
+                        <!-- Item #1 -->
+                        {% for app in applications %}
+                        <tr>
+                            <td class="title"><a href="#">{{app.user.name}}</a></td>
+                            <td class="centered">{{app.job.job_type}}</td>
+                            <td>{{app.job.create_at}}</td>
+                            <td>{{app.job.category}}</td>
+                            <td class="centered">{{app.job.salary_min}}-{{app.job.salary_max}}</td>
+                            <td>{{app.user.name}}</td>
+                            
+                            <td class="centered">{{app.user.email}}</td>
+                            <td class="action">
+                          
+                        </tr>
+                        {% endfor %}
+                                
+                        <!-- Item #2 -->
+                      
+
+                        <!-- Item #2 -->
+                      
+
+                    </table>
+
+                </div>
+            </div>
+            
+        </div>
+
+
+        <!-- Copyrights -->
+        <div class="col-md-12">
+            <div class="copyrights">© 2019 WorkScout. All Rights Reserved.</div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

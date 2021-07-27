@@ -39,8 +39,15 @@
 
 					<!-- Submit button -->
 					<input type="submit" name="submit" class="btn btn-danger btn-block" id="login" value="LOGIN">
-					<span>{{error}}</span>
-
+					{% if messages %}
+					{% for message in messages %}
+						{% if message.tags == "success" %}
+							<div class= "alert alert-success">{{ message }}</div>
+						{% elif message.tags == "error" %}
+							<div class= "alert alert-danger">{{ message }}</div>
+						{% endif %}
+						{% endfor %}
+						{% endif %}
 					<!-- Register buttons -->
 					<div class="text-center">
 						<p>Have't Any Account Yet? <a class="clickHere" href="{% url 'companies_registration' %}">Click Here</a></p>

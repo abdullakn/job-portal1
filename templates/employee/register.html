@@ -145,9 +145,10 @@
 						</div>
 						<!-- email input -->
 						<div class="form-group"> 
-							<input type="email" name="email" id="email" class="form-control" value="" required> 
+							<input type="email" name="email" id="email" class="form-control" onkeyup="checkemail()" value="" required> 
 							<label class="form-control-placeholder" for="email">E-mail Address</label>
 							<i class="fa fa-envelope iconSet" aria-hidden="true"></i>
+							<span id="results"></span>
 						</div>
 						<!-- user input -->
 						<!-- <div class="form-group"> 
@@ -163,14 +164,27 @@
 						</div> 
 						<!-- password input -->
 						<div class="form-group"> 
-							<input type="password" name="conpassword" id="conpwd" class="form-control" value="" required> 
+							<input type="password" name="cpassword" id="conpwd" class="form-control" value="" required> 
 							<label class="form-control-placeholder" for="conpwd">Confirm Password</label> 
 							<i class="fa fa-lock iconSet" aria-hidden="true"></i>
+							<span> <i class="fa fa-check text-success" style="display:none;" id="tick"  aria-hidden="true"> password matched</i></span>
+							
+							<span class="ml-1 text-red" id="passerr"></i></span>
 						</div> 
 					</div> 
 					<!-- /. latestForm -->
 					<!-- Submit button -->
 					<input type="submit" name="submit" class="btn btn-danger btn-block mb-4" id="register" value="Register Now">
+
+					{% if messages %}
+					{% for message in messages %}
+						{% if message.tags == "success" %}
+							<div class= "alert alert-success">{{ message }}</div>
+						{% elif message.tags == "error" %}
+							<div class= "alert alert-danger">{{ message }}</div>
+						{% endif %}
+						{% endfor %}
+						{% endif %}
 
 					<!-- Register buttons -->
 					<div class="text-center"> 
@@ -199,6 +213,57 @@
 <!-- footer end here -->
 
 <!-- Js Links -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+	function checkemail(){
+		let un=document.getElementById('email').value;
+		$.ajax({
+			url:"{% url 'check_email' %}",
+			type:"get",
+			data:{email:un},
+			success:function(data){
+				if(data=="available"){
+					$("#results").html("Email is Available").addClass("text-success");
+				}else{
+
+					$("#results").html("This Email already Registered").addClass("text-danger");
+
+				}
+			}
+		})
+		
+	}
+</script>
+
+
+<script>
+	function checkPassword(){
+		console.log("fghjklfghj")
+		let pass=document.getElementById("password").value;
+		let cpass=document.getElementById("conpwd").value;
+		console.log(pass)
+		console.log(cpass)
+		if (pass != cpass){
+			document.getElementById('passerr').innerHTML="password not matched"
+			document.getElementById('tick').style.display="none";
+		}else if (cpass==" "){
+			
+				document.getElementById('tick').style.display="none";
+				document.getElementById('passerr').style.display="none";
+
+		
+
+		}else{
+			document.getElementById('tick').style.display="block"
+			document.getElementById('passerr').innerHTML=""
+
+
+		}
+
+	}
+
+</script>
 <script src=" {% static 'accounts/js/jquery.min.js' %}"></script>
 <script src="{% static 'accounts/js/popper.min.js' %}"></script>
 <script src="{% static 'accounts/js/bootstrap.min.js' %}"></script>

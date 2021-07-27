@@ -1,3 +1,4 @@
+from employee.models import AppliedUsers
 from accounts.models import UserCompanies
 from companies.models import CompanyProfile, CompanySocial, JobDetails
 from django.http.response import HttpResponse
@@ -60,7 +61,7 @@ def company_profile(request):
             company.company_name=name
             company.email=email
             company.phone_number=phone
-            # company.website=website
+            company.website=website
             company.descriptiion=description
             company.country=country
             company.state=state
@@ -141,8 +142,11 @@ def add_jobs(request):
 
 
 def job_listing(request):
-    user=CompanyProfile.objects.get(user=request.user)
-    print(user.id)
+    try:
+        user=CompanyProfile.objects.get(user=request.user)
+    except:
+        user=None    
+    # print(user.id)
     try:
         job=JobDetails.objects.filter(user=user)
     except:
@@ -154,5 +158,23 @@ def job_listing(request):
     return render(request,'companies/job_list.html',context)
 
 
-# def job_view(request):
-#     return render(request,'employee/job-listings.html')    
+def job_applications(request):
+    try:
+        user=UserCompanies.objects.get(username=request.user)
+        applications=AppliedUsers.objects.filter(job__user__user=user)
+    except:
+        user=None
+        applications=None    
+    context={
+        'applications':applications
+    }
+    print(applications)
+    return render(request,'companies/job_applications.html',context)
+
+
+
+
+def delete_job(request,id):
+    job=JobDetails.objects.get(id=id)
+    job.delete()
+    return redirect('view_jobs')

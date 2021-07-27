@@ -1,0 +1,128 @@
+{% extends 'superadmin/index.html' %}
+
+{% block content %}
+
+<div class="dashboard-content">
+
+    <!-- Titlebar -->
+    <div id="titlebar">
+        <div class="row">
+            <div class="col-md-12">
+              
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li>View Users</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        
+        <!-- Table-->
+        <div class="col-lg-12 col-md-12">
+
+            <!-- <div class="notification notice">
+                Your listings are shown in the table below. Expired listings will be automatically removed after 30 days.
+            </div> -->
+
+            <div class="dashboard-list-box margin-top-30">
+                <div class="dashboard-list-box-content">
+
+                    <!-- Table -->
+
+                    <table class="manage-table responsive-table">
+
+                        <tr>
+                            <th><i class="fa fa-user"></i> First Name</th>
+                            <th><i class="fa fa-user"></i>Last Name</th>
+                            <th><i class="fa fa-envelope"></i>Email </th>
+                            <th><i class="fa fa-calendar"></i>Joined Date</th>
+                            <th><i class="fa fa-calendar"></i>Last Login</th>
+                            <th></th>
+                        </tr>
+                                
+                        <!-- Item #1 -->
+                        {% for user in users %}
+                        <tr>
+                            <td class="title"><a href="#">{{user.first_name}}</a></td>
+                            <td class="centered">{{user.last_name}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.date_joined}}</td>
+                            <td class="centered">{{user.last_login}}</td>
+                            <td class="action">
+                                <!-- <a href="#"><i class="fa fa-pencil"></i> Edit</a> -->
+                                <!-- <a href="#"><i class="fa  fa-check "></i> Mark Filled</a> -->
+                               
+                                <button onclick="BlockUser('{{user.id}}','{{user.is_active}}')" style="border-radius: 5px;"><a href="#" id="block" class="delete"><i class="fa fa-remove"></i>{% if user.is_active %} Block {% else %} UnBlock {% endif %}</a></button>
+                               
+                             
+                            </td>
+                        </tr>
+                        {% endfor %}
+                                
+                        <!-- Item #2 -->
+                      
+
+                        <!-- Item #2 -->
+                      
+
+                    </table>
+
+                </div>
+            </div>
+            
+        </div>
+
+
+        <!-- Copyrights -->
+        <div class="col-md-12">
+            <div class="copyrights">© 2019 WorkScout. All Rights Reserved.</div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    function BlockUser(id,active){
+        console.log("done")
+        console.log(active,id)
+        
+            $.ajax({
+                url : "{% url 'block_user' %}",
+                type: "GET",
+                data:{'id':id},
+                success: function(body){
+                    console.log(body)
+                    if (body.data){
+                   
+                        $('#block').html("Block")
+                        location.reload()
+
+                    }else{
+                       
+                        $('#block').html("UnBlock")
+                        location.reload()
+
+                    }     
+               
+                }
+            }); 
+    
+
+        }
+       
+        
+    
+ 
+	
+</script>
+
+
+{% endblock %}

@@ -1000,7 +1000,7 @@ table.manage-table tr:nth-child(2n+1) { background-color: #f9f9f9; }
 table.manage-table tr:nth-child(2n+1) { background-color: #f9f9f9 !important; }
 
 table.manage-table th:first-child { width: 32%; padding-left: 55px; }
-table.manage-table th:first-child i { left: 35px; }
+table.manage-table th:first-child i { left: 20px; }
 table.manage-table.resumes th:first-child { width: auto; }
 
 table.manage-table.resumes td:first-child,

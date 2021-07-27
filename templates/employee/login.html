@@ -62,7 +62,7 @@
 		<div class="row">
 			<div class="col-sm-6 mx-auto">	
 				<form method="post">{% csrf_token %}
-					<h3 class="text-center">LOGIN</h3>
+					<h3 class="text-center">COMPANIES - LOGIN</h3>
 					<div class="latestForm">
 						<!-- user input -->
 						<div class="form-group"> 
@@ -96,6 +96,16 @@
 
 					<!-- Submit button -->
 					<input type="submit" name="submit" class="btn btn-danger btn-block" id="login" value="LOGIN">
+					
+					{% if messages %}
+					{% for message in messages %}
+						{% if message.tags == "success" %}
+							<div class= "alert alert-success">{{ message }}</div>
+						{% elif message.tags == "error" %}
+							<div class= "alert alert-danger">{{ message }}</div>
+						{% endif %}
+						{% endfor %}
+						{% endif %}
 
 					<!-- Register buttons -->
 					<div class="text-center">

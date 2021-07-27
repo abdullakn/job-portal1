@@ -1,0 +1,253 @@
+{% extends 'employee/index.html' %}
+
+{% block content %}
+
+
+
+        <!-- SubHeader -->
+        <div class="careerfy-job-subheader">
+            <span class="careerfy-banner-transparent"></span>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SubHeader -->
+
+        <!-- Main Content -->
+        <div class="careerfy-main-content">
+            
+            <!-- Main Section -->
+            <div class="careerfy-main-section">
+                <div class="container">
+                    <div class="row">
+                        
+                        <!-- Job Detail List -->
+                        <div class="careerfy-column-12 careerfy-typo-wrap">
+                            <figure class="careerfy-jobdetail-list">
+                                <span class="careerfy-jobdetail-listthumb"><img src="/media/{{company.logo}}" alt=""></span>
+                                <figcaption>
+                                    <small class="careerfy-rating-info">4.5</small>
+                                    <div class="careerfy-rating"><small class="careerfy-rating-box width-ninetwo"></small></div>
+                                    <h2>{{company.company_name}}</h2>
+                                    <ul class="careerfy-jobdetail-options">
+                                        <li><i class="fa fa-map-marker"></i>{{company.country}}, {{company.state}}, {{company.district}} <a href="#" class="careerfy-jobdetail-view">View om Map</a></li>
+                                        <li><i class="careerfy-icon careerfy-internet"></i> <a href="#">{{company.website}}</a></li>
+                                        <li><i class="careerfy-icon careerfy-mail"></i> <a href="#">{{company.email}}</a></li>
+                                        <li><i class="careerfy-icon careerfy-technology"></i> Hotline: {{company.phone}}</li>
+                                    </ul>
+                                    <a href="#" class="careerfy-employerdetail-btn">Follow</a>
+                                    <a href="#" class="careerfy-employerdetail-btn"><i class="careerfy-icon careerfy-add"></i> Add a review</a>
+                                    <ul class="careerfy-jobdetail-media careerfy-add-space">
+                                        <li><span>Share:</span></li>
+                                        <li><a href="#" data-original-title="facebook" class="careerfy-icon careerfy-facebook-logo-in-circular-button-outlined-social-symbol"></a></li>
+                                        <li><a href="#" data-original-title="twitter" class="careerfy-icon careerfy-twitter-circular-button"></a></li>
+                                        <li><a href="#" data-original-title="linkedin" class="careerfy-icon careerfy-linkedin"></a></li>
+                                    </ul>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <!-- Job Detail List -->
+
+                        <!-- Job Detail Content -->
+                        <div class="careerfy-column-8 careerfy-typo-wrap">
+                            <div class="careerfy-jobdetail-content careerfy-employerdetail-content">
+                                <div class="careerfy-content-title"><h2>Essentra Components Overview</h2></div>
+                                <div class="careerfy-jobdetail-services">
+                                    <ul class="careerfy-row">
+                                        <li class="careerfy-column-4">
+                                            <i class="careerfy-icon careerfy-group"></i>
+                                            <div class="careerfy-services-text">Company Size <small>10-50</small></div>
+                                        </li>
+                                        <li class="careerfy-column-4">
+                                            <i class="careerfy-icon careerfy-briefcase"></i>
+                                            <div class="careerfy-services-text">Posted Jobs <small>15</small></div>
+                                        </li>
+                                        <li class="careerfy-column-4">
+                                            <i class="careerfy-icon careerfy-view"></i>
+                                            <div class="careerfy-services-text">Viewed <small>124</small></div>
+                                        </li>
+                                        <li class="careerfy-column-4">
+                                            <i class="careerfy-icon careerfy-folder"></i>
+                                            <div class="careerfy-services-text">Categories <small>Arts, Design, and Media</small></div>
+                                        </li>
+                                        <li class="careerfy-column-4">
+                                            <i class="careerfy-icon careerfy-time"></i>
+                                            <div class="careerfy-services-text">Founded <small>2014</small></div>
+                                        </li>
+                                        <li class="careerfy-column-4">
+                                            <i class="careerfy-icon careerfy-credit-card"></i>
+                                            <div class="careerfy-services-text">Revenue <small>$5 billion (USD) per year</small></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="careerfy-content-title"><h2>Company Description</h2></div>
+                                <div class="careerfy-description">
+                                    <p>{{company.descriptiion}}</p>
+                                    <!-- <p>Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy penguin insect additionally wow absolutely crud meretriciously hastily dalmatian a glowered inset one echidna cassowary some parrot and much as goodness some froze the sullen much connected bat wonderfully on instantaneously eel valiantly petted this along across highhandedly much dog out the much alas evasively neutral lazy reset.</p> -->
+                                    <!-- <ul class="careerfy-list-style-icon">
+                                        <li><i class="careerfy-icon careerfy-arrows22"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                                        <li><i class="careerfy-icon careerfy-arrows22"></i> Pellentesque augue dignissim venenatis, turpis vestibulum lacinia dignissim venenatis.</li>
+                                        <li><i class="careerfy-icon careerfy-arrows22"></i> Mus arcu euismod ad hac dui, vivamus platea netus.</li>
+                                        <li><i class="careerfy-icon careerfy-arrows22"></i> Neque per nisl posuere sagittis, id platea dui.</li>
+                                        <li><i class="careerfy-icon careerfy-arrows22"></i> A enim magnis dapibus, nullam odio porta, nisl class.</li>
+                                        <li><i class="careerfy-icon careerfy-arrows22"></i> Turpis leo pellentesque per nam, nostra fringilla id.</li>
+                                    </ul> -->
+                                </div>
+                            </div>
+                            <div class="careerfy-employer-wrap-section">
+                                <div class="careerfy-content-title careerfy-addmore-space"><h2>Office Photos</h2></div>
+                                <div class="careerfy-gallery careerfy-simple-gallery">
+                                    <ul class="careerfy-row grid">
+                                        <li class="grid-item careerfy-column-3"> <a href="extra-images/employer-gallery-2.jpg" class="fancybox" data-fancybox-group="group"><img src="extra-images/employer-gallery-1.jpg" alt=""></a> </li>
+                                        <li class="grid-item careerfy-column-6"> <a href="extra-images/employer-gallery-2.jpg" class="fancybox" data-fancybox-group="group"><img src="extra-images/employer-gallery-2.jpg" alt=""></a> </li>
+                                        <li class="grid-item careerfy-column-3"> <a href="extra-images/employer-gallery-2.jpg" class="fancybox" data-fancybox-group="group"><img src="extra-images/employer-gallery-3.jpg" alt=""></a> </li>
+                                        <li class="grid-item careerfy-column-3"> <a href="extra-images/employer-gallery-2.jpg" class="fancybox" data-fancybox-group="group"><img src="extra-images/employer-gallery-4.jpg" alt=""></a> </li>
+                                        <li class="grid-item careerfy-column-3"> <a href="extra-images/employer-gallery-2.jpg" class="fancybox" data-fancybox-group="group"><img src="extra-images/employer-gallery-5.jpg" alt=""></a> </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- <div class="careerfy-employer-wrap-section careerfy-margin-bottom">
+                                <div class="careerfy-content-title careerfy-addmore-space"><h2>Company Review</h2></div>
+                                <div class="careerfy-company-review">
+                                    <ul class="careerfy-row">
+                                        <li class="careerfy-column-12">
+                                            <figure>
+                                                <a href="#" class="company-review-thumb"><img src="extra-images/company-review-1.jpg" alt=""></a>
+                                                <figcaption>
+                                                    <div class="careerfy-company-review-left">
+                                                        <h6><a href="#">Gloria E. Larsen</a></h6>
+                                                        <div class="careerfy-company-rating"><span class="careerfy-company-rating-box width-eighty"></span></div>
+                                                        <small>4.0</small>
+                                                    </div>
+                                                    <time datetime="2008-02-14 20:00">September 25, 2017</time>
+                                                </figcaption>
+                                            </figure>
+                                            <div class="careerfy-company-review-text">
+                                                <h6><a href="#">“Color sit amet, consectetur adipiscing elit”</a></h6>
+                                                <p>Goodness some froze the sullen much connected bat wonderfully on instantaneously eel valiantly petted this along across highhandedly much neutral lazy reset.</p>
+                                            </div>
+                                        </li>
+                                        <li class="careerfy-column-12">
+                                            <figure>
+                                                <a href="#" class="company-review-thumb"><img src="extra-images/company-review-2.jpg" alt=""></a>
+                                                <figcaption>
+                                                    <div class="careerfy-company-review-left">
+                                                        <h6><a href="#">Gloria E. Larsen</a></h6>
+                                                        <div class="careerfy-company-rating"><span class="careerfy-company-rating-box width-eighty"></span></div>
+                                                        <small>4.0</small>
+                                                    </div>
+                                                    <time datetime="2008-02-14 20:00">September 25, 2017</time>
+                                                </figcaption>
+                                            </figure>
+                                            <div class="careerfy-company-review-text">
+                                                <h6><a href="#">“Color sit amet, consectetur adipiscing elit”</a></h6>
+                                                <p>Goodness some froze the sullen much connected bat wonderfully on instantaneously eel valiantly petted this along across highhandedly much neutral lazy reset.</p>
+                                            </div>
+                                        </li>
+                                        <li class="careerfy-column-12">
+                                            <figure>
+                                                <a href="#" class="company-review-thumb"><img src="extra-images/company-review-3.jpg" alt=""></a>
+                                                <figcaption>
+                                                    <div class="careerfy-company-review-left">
+                                                        <h6><a href="#">Gloria E. Larsen</a></h6>
+                                                        <div class="careerfy-company-rating"><span class="careerfy-company-rating-box width-eighty"></span></div>
+                                                        <small>4.0</small>
+                                                    </div>
+                                                    <time datetime="2008-02-14 20:00">September 25, 2017</time>
+                                                </figcaption>
+                                            </figure>
+                                            <div class="careerfy-company-review-text">
+                                                <h6><a href="#">“Color sit amet, consectetur adipiscing elit”</a></h6>
+                                                <p>Goodness some froze the sullen much connected bat wonderfully on instantaneously eel valiantly petted this along across highhandedly much neutral lazy reset.</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                            <div class="careerfy-section-title"><h2>Active Jobs From {{company.company_name}}</h2></div>
+                            <div class="careerfy-job careerfy-joblisting-classic careerfy-jobdetail-joblisting">
+                                <ul class="careerfy-row">
+                                    {% for job in job %}
+                                    <li class="careerfy-column-12">
+                                        <div class="careerfy-joblisting-classic-wrap">
+                                            <figure><a href="#"><img src="/media/{{job.user.logo}}" alt=""></a></figure>
+                                            <div class="careerfy-joblisting-text">
+                                                <div class="careerfy-list-option">
+                                                    <h2><a href="{% url 'job_details' job.slug %}">{{job.job_title}}</a> <span>Featured</span></h2>
+                                                    <ul>
+                                                        <li><a href="#">{{job.category}}</a></li>
+                                                        <li><i class="careerfy-icon careerfy-maps-and-flags"></i>{{job.location}}</li>
+                                                        <li><i class="careerfy-icon careerfy-filter-tool-black-shape"></i>{{job.industry}}</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="careerfy-job-userlist">
+                                                    <a href="#" class="careerfy-option-btn">{{job.job_type}}</a>
+                                                    <a href="#" class="careerfy-job-like"><i class="fa fa-heart"></i></a>
+                                                </div>
+                                            <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Job Detail Content -->
+                        <!-- Job Detail SideBar -->
+                        <aside class="careerfy-column-4 careerfy-typo-wrap">
+                            <!-- <div class="widget widget_contact_form">
+                                <div class="careerfy-widget-title"><h2>Contact Form</h2></div>
+                                <form>
+                                    <ul>
+                                        <li>
+                                            <label>User Name:</label>
+                                            <input value="Enter Your Name" onblur="if(this.value == '') { this.value ='Enter Your Name'; }" onfocus="if(this.value =='Enter Your Name') { this.value = ''; }" type="text">
+                                            <i class="careerfy-icon careerfy-user"></i>
+                                        </li>
+                                        <li>
+                                            <label>Email Address:</label>
+                                            <input value="Enter Your Email Address" onblur="if(this.value == '') { this.value ='Enter Your Email Address'; }" onfocus="if(this.value =='Enter Your Email Address') { this.value = ''; }" type="text">
+                                            <i class="careerfy-icon careerfy-mail"></i>
+                                        </li>
+                                        <li>
+                                            <label>Phone Number:</label>
+                                            <input value="Enter Your Phone Number" onblur="if(this.value == '') { this.value ='Enter Your Phone Number'; }" onfocus="if(this.value =='Enter Your Phone Number') { this.value = ''; }" type="text">
+                                            <i class="careerfy-icon careerfy-technology"></i>
+                                        </li>
+                                        <li>
+                                            <label>Message:</label>
+                                            <textarea>After using Big Interview, I now feel much more confident about handling real interviews. I really liked the recording & playback functionality, which allowed me to hear my voice and analyze the strength and confidence of my answer.</textarea>
+                                        </li>
+                                        <li> <img src="extra-images/widget-contact-captcha.jpg" alt=""> </li>
+                                        <li>
+                                            <input type="submit" value="Send now">
+                                            <p>You accepts our <a href="#">Terms and Conditions</a></p>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div> -->
+                            <div class="widget jobsearch_widget_map">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d22589232.038285658!2d-103.9763543971716!3d46.28054447273778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1507595834401"></iframe>
+                            </div>
+                            <div class="widget widget_add">
+                                <img src="extra-images/jobdetail-add.jpg" alt="">
+                            </div>
+                        </aside>
+                        <!-- Job Detail SideBar -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- Main Section -->
+
+        </div>
+        
+
+
+
+{% endblock %}

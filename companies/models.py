@@ -45,6 +45,11 @@ class JobDetails(models.Model):
     slug=models.SlugField(max_length=200,null=True,blank=True)
 
 
+# class CompanyGallery(models.Model):
+#     user=models.ForeignKey(CompanyProfile,on_delete=models.CASCADE)
+
+
+
     
 
 

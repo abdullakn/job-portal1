@@ -29,8 +29,8 @@
 
             <div class="dashboard-list-box margin-top-0">
                 <h4>Job Details</h4>
-                <div class="dashboard-list-box-content">
-                    <form action="" method="POST" enctype="multipart/form-data">
+                <div class="dashboard-list-box-content" >
+                    <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
                         {% csrf_token %}
 
                 <div class="submit-page">
@@ -46,13 +46,14 @@
                    
                     <div class="form">
                         <h5>Job Title</h5>
-                        <input class="search-field" name="title" type="text" placeholder="" value=""/>
+                        <input class="search-field " name="title"  required data-rule-required="true" 
+                        data-msg-required="Required field" type="text" placeholder="" value=""/>
                     </div>
 
                     <!-- Job Type -->
                     <div class="form">
                         <h5>Job Type</h5>
-                        <select data-placeholder="Full-Time" name="job_type"  class="chosen-select-no-single">
+                        <select data-placeholder="Full-Time" name="job_type" required  class="chosen-select-no-single">
                             <option value="Full-Time">Full-Time</option>
                             <option value="Part-Time">Part-Time</option>
                             <option value="Internship">Internship</option>
@@ -64,27 +65,27 @@
                     <!-- Choose Category -->
                     <div class="form">
                         <h5>Category <span></span></h5>
-                        <input class="search-field" type="text" name="category" placeholder="Job Category" name="category"  value=""/>
+                        <input class="search-field" type="text" name="category" required placeholder="Job Category" name="category"  value=""/>
                     </div>
 
 
                     <!-- Location -->
                     <div class="form">
                         <h5>Location <span></span></h5>
-                        <input class="search-field" type="text" name="location" placeholder="e.g. Ernakulam" value=""/>
+                        <input class="search-field" type="text" name="location" required  placeholder="e.g. Ernakulam" value=""/>
                        
                     </div>
 
                     <div class="form">
                         <h5>Qualification <span></span></h5>
-                        <input class="search-field" type="text" name="qualification" placeholder="Qualification" value=""/>
+                        <input class="search-field" type="text" data-role="" required name="qualification" placeholder="Qualification" value=""/>
                         
                     </div>
 
                     
                     <div class="form">
                         <h5>Experience</h5>
-                        <input type="text" name="experience" placeholder="Experience...">
+                        <input type="text" name="experience" required placeholder="Experience...">
                     </div>
 
 
@@ -97,7 +98,7 @@
                     <!-- Description -->
                     <div class="form" style="width: 100%;">
                         <h5>Description</h5>
-                        <textarea class="WYSIWYG" name="desc" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+                        <textarea class="WYSIWYG" name="desc" required cols="40" rows="3" id="summary" spellcheck="true"></textarea>
                     </div>
 
                     <!-- Application email/url -->
@@ -108,16 +109,16 @@
                     <div class="form">
                         <h5>Required Skills <span></span></h5>
                       
-                        <input class="search-field" name="skills" type="text" placeholder="HTML,CSS" value=""/>
+                        <input class="search-field" name="skills" required type="text" placeholder="HTML,CSS" value=""/>
                    </div>
 
                     <div class="form">
                         <h5>Industry</h5>
-                        <input type="text" name="industry" placeholder="Industry...">
+                        <input type="text" name="industry" required placeholder="Industry...">
                     </div>
                     <div class="form">
                         <h5>Closing Date <span>(optional)</span></h5>
-                        <input data-role="date" name="close_date" style="   padding: 14px 18px;
+                        <input data-role="date" required name="close_date" style="   padding: 14px 18px;
                         outline: none;
                         font-size: 14px;
                         color: #909090;
@@ -136,7 +137,7 @@
                 <div class="form">
                     <h5>Additional <span>Information</span></h5>
                     <label class="upload-btn" id="one">
-                        <input type="file" name="additional_data" onclick="fileFunc()" style="margin-left:200px;" id="inp" multiple />
+                        <input type="file" name="additional_data" required onclick="fileFunc()" style="margin-left:200px;" id="inp" multiple />
                         <i class="fa fa-upload"></i> Browse
                     </label>
                     <span style="height: 48px;" class="fake-input"></span>
@@ -159,11 +160,11 @@
                 </script>
                 <div class="form">
                     <h5>Minimum Salary</h5>
-                    <input type="text" name="min_sal" placeholder="Salary...">
+                    <input type="text" name="min_sal" required   oninput="this.value = this.value.replace(/\D/g,'');" placeholder="Salary...">
                 </div>
                 <div class="form">
                     <h5>Maximum Salary</h5>
-                    <input type="text" name="max_sal" placeholder="Salary...">
+                    <input type="text" name="max_sal" required   oninput="this.value = this.value.replace(/\D/g,'');" placeholder="Salary...">
                 </div>
 
                 </div>

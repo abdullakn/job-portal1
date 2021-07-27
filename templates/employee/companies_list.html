@@ -1,0 +1,224 @@
+{% extends 'employee/index.html' %}
+
+{% block content %}
+
+<div class="careerfy-subheader careerfy-subheader-without-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="careerfy-page-title">
+                    <h1>Companies</h1>
+                    <p>Thousands of prestigious employers for you, search for a recruiter right now.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="careerfy-breadcrumb">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Pages</a></li>
+            <li>Candidates</li>
+        </ul>
+    </div>
+</div>
+
+
+
+        <!-- Main Content -->
+        <div class="careerfy-main-content">
+            
+            <!-- Main Section -->
+            <div class="careerfy-main-section careerfy-top-full">
+                <div class="container">
+                    <div class="row">
+
+                        
+                        <div class="careerfy-column-12">
+                            <div class="careerfy-typo-wrap">
+                                <!-- FilterAble -->
+                                <div class="careerfy-filterable">
+                                    
+                                    <ul>
+                                        <li>
+                                          
+                                        </li>
+                                        <form action="form-group" class="form-group">
+                                            <input type="text" class="form-control" id="searchField" style="width: 300px;" placeholder="search..." name="search" >
+                                        </form>
+                                    </ul>
+                                </div>
+                                <!-- FilterAble -->
+                                <div class="app-table">
+                            
+                                <div class="careerfy-employer careerfy-employer-list">
+                                    <ul class="careerfy-row">
+                                        {% for comp in company %}
+                                        <li class="careerfy-column-12 ">
+                                            <div class="careerfy-table-layer">
+                                                <div class="careerfy-table-row">
+                                                    <div class="careerfy-table-cell"> <figure><a href="#"><img src="/media/{{comp.logo}}" alt=""></a></figure> </div>
+                                                    <div class="careerfy-table-cell">
+                                                        <small>Banking</small>
+                                                        <h2><a href="{% url 'companies_details' comp.id %}">{{comp.company_name}}</a></h2>
+                                                        <span><i class="fa fa-map-marker"></i>{{comp.country}}  ,  {{comp.state}}</span>
+                                                    </div>
+                                                    <div class="careerfy-table-cell">
+                                                        <ul class="careerfy-employer-thumblist">
+                                                            <li><a href="#"><img src="extra-images/employer-list-thumb-1.jpg" alt=""></a></li>
+                                                            <li><a href="#"><img src="extra-images/employer-list-thumb-2.jpg" alt=""></a></li>
+                                                            <li><a href="#"><img src="extra-images/employer-list-thumb-3.jpg" alt=""></a></li>
+                                                            <li><a href="#"><img src="extra-images/employer-list-thumb-4.jpg" alt=""></a></li>
+                                                        </ul>
+                                                        <a href="#" class="careerfy-employer-thumblist-size">{{comp.email}}</a>
+                                                    </div>
+                                                    <div class="careerfy-table-cell"> <a href="#" class="careerfy-employer-list-btn">10 Vacancies</a> </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                                <!-- Pagination -->
+
+                                <div class="table-output">
+
+
+                                <div class="careerfy-employer careerfy-employer-list">
+                                    <ul class="careerfy-row list-body">
+                                       
+                                       
+                                    </ul>
+                                </div>
+                               </div>
+                         
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Main Section -->
+
+        </div>
+        <!-- Main Content -->
+       
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+            const searchField=document.querySelector("#searchField")
+            const tableOutput=document.querySelector(".table-output")
+            const AppTable=document.querySelector(".app-table")
+            const listBody=document.querySelector(".list-body")
+
+            tableOutput.style.display='none'
+
+            searchField.addEventListener("keyup",(e)=>{
+                const searchvalue=e.target.value;
+                console.log(searchvalue)
+                if(searchvalue.trim().length>0){
+                    listBody.innerHTML=""
+                    console.log(searchvalue);
+                    $.ajax({
+                        url : "{% url 'search_company' %}",
+                        type: "GET",
+                        data:{'search':searchvalue},
+                        success: function(body){
+                            console.log(body)
+
+                            AppTable.style.display='none'
+                            tableOutput.style.display='block'
+
+                            if(body.length===0){
+                                tableOutput.innerHTML=`<h1> No Result Found </h1>`
+                            }else{
+
+                                body.forEach((item)=>{
+                                    
+
+                                    listBody.innerHTML+=`
+                                    <li class="careerfy-column-12 ">
+                                        <div class="careerfy-table-layer">
+                                            <div class="careerfy-table-row">
+                                                <div class="careerfy-table-cell"> <figure><a href="#"><img src="/media/${item.logo}" alt=""></a></figure> </div>
+                                                <div class="careerfy-table-cell">
+                                                    <small>Banking</small>
+                                                    <h2><a href="">${item.company_name}</a></h2>
+                                                    <span><i class="fa fa-map-marker"></i>${item.country}  ,  ${item.state}</span>
+                                                </div>
+                                                <div class="careerfy-table-cell">
+                                                    <ul class="careerfy-employer-thumblist">
+                                                        <li><a href="#"><img src="extra-images/employer-list-thumb-1.jpg" alt=""></a></li>
+                                                        <li><a href="#"><img src="extra-images/employer-list-thumb-2.jpg" alt=""></a></li>
+                                                        <li><a href="#"><img src="extra-images/employer-list-thumb-3.jpg" alt=""></a></li>
+                                                        <li><a href="#"><img src="extra-images/employer-list-thumb-4.jpg" alt=""></a></li>
+                                                    </ul>
+                                                    <a href="#" class="careerfy-employer-thumblist-size">${item.email}</a>
+                                                </div>
+                                                <div class="careerfy-table-cell"> <a href="#" class="careerfy-employer-list-btn">10 Vacancies</a> </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                
+                                
+                                    `;
+
+                                })
+
+                             
+
+                            }
+
+                         
+                          // $('#apply').html("Applied")
+                           //$('#apply').css("cursor", "not-allowed");
+                           //$("#apply").attr("disabled", true);
+                           // Total()
+                            //on()
+                            //alert('success')
+                           // console.log(body.quantity)
+                           // console.log(body.total,'total')
+                                            
+                            //if(body.quantity == 0){
+                            //    window.location.reload()
+                            //    }
+                        }
+                    }); 
+                    
+                }else{
+                    tableOutput.style.display='none'
+                    AppTable.style.display='block'
+                }
+            })
+            const requestOptions = {
+                method: "POST",
+             
+                body: JSON.stringify({
+                  search:searchvalue
+                }),
+              }
+            fetch("search_company/", requestOptions)
+            .then((response) =>  response.json())
+            .then((data) => {
+           console.log(data)
+            })
+            .catch((err) => console.log(err));
+        </script>
+
+ 
+<script>
+    function applyJob(id){
+        console.log("done")
+        console.log(id)
+       
+
+    }
+	
+</script>
+        
+   
+
+
+
+{% endblock %}

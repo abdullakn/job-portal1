@@ -94,8 +94,11 @@
 
 
 			<ul class="responsive float-right">
-				<!-- <li><a href="dashboard.html"><i class="fa fa-cog"></i> Dashboard</a></li> -->
-				<li><a href="index-2.html"><i class="fa fa-lock"></i> Log Out</a></li>
+				<li><a href="">{{request.user.company_name}}</a></li>
+				{% if request.user.is_authenticated %}
+				<li><a href="{% url 'companies_logout' %}"><i class="fa fa-lock"></i> Log Out</a></li>
+				{% else %}
+				{% endif%}
 			</ul>
 
 		</nav>
@@ -127,13 +130,16 @@
 		<div class="dashboard-nav-inner">
 
 			<ul data-submenu-title="Start">
-				<li class="active"><a href="dashboard.html">Dashboard</a></li>
+				<li class="active"><a href="{% url 'companies_home' %}">Dashboard</a></li>
 				<!-- <li><a href="dashboard-messages.html">Messages <span class="nav-tag">2</span></a></li> -->
 				<li><a href="{% url 'add_jobs' %}">Add Job </a></li>
 				<li><a href="{% url 'view_jobs' %}">View Job </a></li>
+				<li><a href="{% url 'job_applications' %}">View Applicants</a></li>
 			</ul>
 
-			<ul data-submenu-title="Management">
+			
+
+			<!-- <ul data-submenu-title="Management">
 				<li><a>For Employers</a>
 					<ul>
 						<li><a href="dashboard-manage-jobs.html">Manage Jobs <span class="nav-tag">5</span></a></li>
@@ -150,12 +156,15 @@
 						<li><a href="dashboard-add-resume.html">Add Resume</a></li>
 					</ul>
 				</li>	
-			</ul>	
-
+			</ul>	 -->
+			{% if request.user.is_authenticated %}
 			<ul data-submenu-title="Account">
 				<li><a href="{% url 'company_profile' %}">My Profile</a></li>
-				<li><a href="index-2.html">Logout</a></li>
+				<li><a href="{% url 'companies_logout' %}">Logout</a></li>
 			</ul>
+			{% else %}
+
+			{% endif %}
 			
 		</div>
 	</div>
