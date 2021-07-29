@@ -191,31 +191,10 @@
                     AppTable.style.display='block'
                 }
             })
-            const requestOptions = {
-                method: "POST",
-             
-                body: JSON.stringify({
-                  search:searchvalue
-                }),
-              }
-            fetch("search_company/", requestOptions)
-            .then((response) =>  response.json())
-            .then((data) => {
-           console.log(data)
-            })
-            .catch((err) => console.log(err));
+           
         </script>
 
- 
-<script>
-    function applyJob(id){
-        console.log("done")
-        console.log(id)
-       
 
-    }
-	
-</script>
         
    
 

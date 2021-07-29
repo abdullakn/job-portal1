@@ -1,4 +1,4 @@
-from employee.models import AppliedUsers
+from employee.models import AppliedUsers, EmployeeProfile
 from accounts.models import UserCompanies
 from companies.models import CompanyProfile, CompanySocial, JobDetails
 from django.http.response import HttpResponse
@@ -178,3 +178,20 @@ def delete_job(request,id):
     job=JobDetails.objects.get(id=id)
     job.delete()
     return redirect('view_jobs')
+
+
+
+def applicant_details(request,id):
+    job=AppliedUsers.objects.get(id=id)
+    print("ddddddddddddd",job.user,job)
+    applicant=EmployeeProfile.objects.get(id=job.user.id)
+    jobs=AppliedUsers.objects.filter(user=job.user)
+    for job in jobs:
+        print(job.user)
+    print(jobs)
+    print(applicant.name)
+    context={
+        'applicant':applicant,
+        'jobs':jobs
+    }
+    return render(request,'companies/applicants_details.html',context)    

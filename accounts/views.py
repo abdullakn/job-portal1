@@ -1,3 +1,4 @@
+from companies.models import JobDetails
 from django.contrib import auth
 from django.http.response import JsonResponse
 from accounts.models import UserCompanies
@@ -7,6 +8,8 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 import uuid
 from django.contrib import messages
+
+from django.db.models import Q
 
 # Create your views here.
 
@@ -95,6 +98,20 @@ def login_employees(request):
 
 
 def employee_home(request):
+    # if request.method=='POST':
+    #     data=request.POST
+        
+    #     main=data['main']
+    #     place=data['place']
+    #     category=data['category']
+    #     job=JobDetails.objects.filter( Q(job_title__istartswith=main) | Q(user__company_name__istartswith=main) & Q(location__istartswith=place) & Q(category__istartswith=place) ) 
+    #     print(job.count())
+        
+    #     context={'job_list':job}
+    #     print(job)
+    #     print(main,place,category)
+    #     # return redirect('job_list_view')
+    #     return render(request,'employee/new-list.html',context)
     return render(request,'employee/index.html')
 
 

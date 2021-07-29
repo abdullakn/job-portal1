@@ -13,6 +13,11 @@ class EmployeeProfile(models.Model):
     age=models.IntegerField(null=True,blank=True)
     place=models.CharField(max_length=200,null=True,blank=True)
     education=models.CharField(max_length=200,null=True,blank=True)
+    experience=models.CharField(max_length=200,null=True,blank=True)
+    gender=models.CharField(max_length=200,null=True,blank=True)
+    description=models.CharField(max_length=400,null=True,blank=True)
+    specialization=models.CharField(max_length=200,null=True,blank=True)
+    dob=models.DateField(null=True,blank=True)
 
 
 class AppliedUsers(models.Model):

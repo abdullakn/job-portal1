@@ -132,22 +132,63 @@
                                         </div>
                                     </li> -->
                                     <li class="careerfy-column-6">
-                                        <label>Age</label>
-                                        <input value="{{employee.age}}" name="age" type="text" required>
+                                        <label>Experience</label>
+                                        <input value="{{employee.experience}}" name="experience"  type="text" required>
                                     </li>
+                                    <li class="careerfy-column-6">
+                                        <label>Specialization</label>
+                                        <input  name="specialization" value="{{employee.specialization}}" type="text" required>
+                                    </li>
+                                   
                                     <li class="careerfy-column-6">
                                         <label>Place</label>
                                         <input value="{{employee.place}}" name="place" type="text">
                                     </li>
                                     <li class="careerfy-column-6">
-                                        <label>Education level</label>
-                                        <input value="{{employee.education}}" name="education" type="text">
+                                        <label>Education Level *</label>
+                                        <div class="careerfy-profile-select">
+                                            <select name="education">
+                                                {% if employee.education %}
+                                                <option value="">{{employee.education}}</option>
+                                                {% else %}
+                                                <option value="">------</option>
+                                                {% endif %}
+                                                <option value="PG">PG</option>
+                                                <option value="UG">UG</option>
+                                                <option value="Plus 2">Plus 2</option>
+                                                <option value="SSLC">SSLC</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li class="careerfy-column-6">
+                                        <label>Gender *</label>
+                                        <div class="careerfy-profile-select">
+                                            <select name="gender" >
+                                                {% if employee.gender %}
+                                                <option value="">{{employee.gender}}</option>
+                                                {% else %}
+                                                <option value="">------</option>
+                                                {% endif %}
+                                                <option  value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Others">Others</option>
+                                               
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li class="careerfy-column-6">
+                                        <label>Age</label>
+                                        <input value="{{employee.age}}" name="age" type="text" required>
+                                    </li>
+                                    <li class="careerfy-column-6">
+                                        <label>DOB</label>
+                                        <input value="{{employee.dob}}" name="dob" type="date" required style="height: 42px;width: 370px;">
                                     </li>
                                    
-                                    <!-- <li class="careerfy-column-12">
+                                    <li class="careerfy-column-12">
                                         <label>Description *</label>
-                                        <textarea>Nulla bibendum commodo rhoncus. Sed mattis magna nunc, ac varius quam pharetra vitae. Praesent vitae ipsum eu magna pretium aliquam. Curabitur interdum quis velit non tincidunt. Donec pretium gravida erat, a faucibus velit egestas eget. Nulla bibendum commodo rhoncus. Sed mattis magna nunc, ac varius quam itae ipsum eu magna pretium aliquam. Curabitur interdum quis velit non tincidunt. Donec pretium gravida erat, a faucibus velit egestas eget.</textarea>
-                                    </li> -->
+                                        <textarea  name="description">{{employee.description}}</textarea>
+                                    </li>
                                 </ul>
                             </div>
                             <!-- <div class="careerfy-employer-box-section">

@@ -1,0 +1,27 @@
+{% for jobs in job_list %}
+<a href="{% url 'job_details' jobs.slug %}">
+<li class="careerfy-column-12">
+    <!-- <h1>{{jobs.slug}}</h1> -->
+    
+    <div class="careerfy-joblisting-classic-wrap">
+        <figure><a href="#"><img src="/media/{{jobs.user.logo}}" alt=""></a></figure>
+        <div class="careerfy-joblisting-text">
+            <div class="careerfy-list-option">
+                <h2><a href="{% url 'job_details' jobs.slug %}">{{jobs.job_title}}</a> <span>Featured</span></h2>
+                <ul>
+                    <li><a href="{% url 'job_details' jobs.slug %}">{{jobs.user.company_name}}</a></li>
+                    <li><i class="careerfy-icon careerfy-maps-and-flags"></i> {{jobs.location}}</li>
+                    <li><i class="careerfy-icon careerfy-filter-tool-black-shape"></i> {{jobs.category}} <b>{{jobs.industry}}</b></li>
+                </ul>
+            </div>
+            <div class="careerfy-job-userlist">
+                <a href="#" class="careerfy-option-btn">{{jobs.job_type}}</a>
+                <a href="#" class="careerfy-job-like"><i class="fa fa-heart"></i></a>
+            </div>
+        <div class="clearfix"></div>
+        </div>
+    </div>
+
+</li>
+</a>
+{% endfor %}
