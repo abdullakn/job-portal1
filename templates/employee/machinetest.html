@@ -1,0 +1,46 @@
+{% extends 'employee/employee_profile.html' %}
+
+
+{% block basic %}
+
+
+<div class="careerfy-column-9">
+    <div class="careerfy-typo-wrap">
+        <div class="careerfy-employer-box-section">
+            <div class="careerfy-profile-title">
+                <h2>Machine Test</h2>
+            </div>
+            
+            <div class="careerfy-cv-manager-list">
+                <ul class="careerfy-row">
+                    <li class="careerfy-column-12">
+                        <div class="careerfy-cv-manager-wrap">
+                            {% for machine in machine %}
+                        
+                            <div class="careerfy-cv-manager-text">
+                                <div class="careerfy-cv-manager-left">
+                                    <h2><a href="#"></a></h2>
+                                    <ul>
+                                        <li><i class="fa fa-map-marker"></i> {{machine.job.user.company_name}}</li>
+                                        <li><i class="careerfy-icon careerfy-envelope"></i> <a href="#">{{machine.job.job_title}}</a></li>
+                                        <li><i class="careerfy-icon careerfy-files"></i> {{machine.machinetest}}</li>
+                                    </ul>
+                                </div>
+                                <a href="#" class="careerfy-cv-manager-link"><i class="careerfy-icon careerfy-rubbish"></i></a>
+                                <a href="{% url 'download_machinetest' machine.id%}" class="careerfy-cv-manager-link"><i class="careerfy-icon careerfy-download-arrow"></i></a>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                    </li>
+                   
+                </ul>
+            </div>
+            <!-- Pagination -->
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

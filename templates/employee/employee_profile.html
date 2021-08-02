@@ -1,10 +1,11 @@
 {% extends 'employee/index.html' %}
+<div class="careerfy-main-content">
+
 
 {% block content %}
 {% load static %}
 <link href="{% static 'employees/css/cropper.min.css' %}" rel="stylesheet">
 
-<div class="careerfy-main-content">
             
     <!-- Main Section -->
     <div class="careerfy-main-section careerfy-dashboard-fulltwo">
@@ -15,7 +16,7 @@
                     <div class="careerfy-typo-wrap">
                         <div class="careerfy-employer-dashboard-nav">
                             <figure>
-                                <a href="#" class="employer-dashboard-thumb"><img src="extra-images/candidate-dashboard-navthumb.jpg" alt=""></a>
+                                <a href="#" class="employer-dashboard-thumb"><img src="extra-images/candidate-dashboard-navthumb.jpg" id="image" alt=""></a>
                                 <figcaption>
                                     <div class="careerfy-fileUpload">
                                         <span><i class="careerfy-icon careerfy-add"></i> Upload Photo</span>
@@ -28,7 +29,7 @@
 
 
                                  
-         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+         <div class="modal fade" id="modal"   role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -64,23 +65,26 @@
 
 
 
-                                    <h2>Nora Tsunoda</h2>
+                                    <h2>{{request.user}}</h2>
                                     <span class="careerfy-dashboard-subtitle">UI/UX Designer</span>
                                 </figcaption>
                             </figure>
                             <ul>
-                                <li class="active"><a href="candidate-dashboard-profile-seting.html"><i class="careerfy-icon careerfy-user"></i> My Profile</a></li>
-                                <li><a href="candidate-dashboard-resume.html"><i class="careerfy-icon careerfy-resume"></i> My Resume</a></li>
-                                <li><a href="candidate-dashboard-saved-jobs.html"><i class="careerfy-icon careerfy-heart"></i> Saved jobs</a></li>
-                                <li><a href="candidate-dashboard-applied-jobs.html"><i class="careerfy-icon careerfy-briefcase-1"></i> Applied jobs</a></li>
-                                <li><a href="candidate-dashboard-job-alert.html"><i class="careerfy-icon careerfy-alarm"></i> Job Alerts</a></li>
-                                <li><a href="candidate-dashboard-cv-manager.html"><i class="careerfy-icon careerfy-id-card"></i> CV Manager</a></li>
+                                <li class="active"><a href="{% url 'employee_profile' %}"><i class="careerfy-icon careerfy-user"></i> My Profile</a></li>
+                                <li><a href="{% url 'make_cv' %}"><i class="careerfy-icon careerfy-resume"></i> My Resume</a></li>
+                                <li><a href="{% url 'view_cv' %}"><i class="careerfy-icon careerfy-resume"></i> View Resume </a></li>
+                                <li><a href="{% url 'view_favourite' %}"><i class="careerfy-icon careerfy-heart"></i> Saved jobs</a></li>
+                                <li><a href="{% url 'employee_appliedjobs' %}"><i class="careerfy-icon careerfy-briefcase-1"></i> Applied jobs</a></li>
+                                <li><a href=""><i class="careerfy-icon careerfy-alarm"></i> Job Alerts</a></li>
+                                <li><a href="{% url 'machine_test' %}"><i class="careerfy-icon careerfy-id-card"></i>Machine Test</a></li>
                                 <li><a href="candidate-dashboard-changed-password.html"><i class="careerfy-icon careerfy-multimedia"></i> Change Password</a></li>
                                 <li><a href="index-2.html"><i class="careerfy-icon careerfy-logout"></i> Logout</a></li>
                             </ul>
                         </div>
                     </div>
                 </aside>
+
+                {% block basic %}
                 <div class="careerfy-column-9">
                     <div class="careerfy-typo-wrap">
                         <form class="careerfy-employer-dasboard" accept="" method="POST">{% csrf_token %}
@@ -89,7 +93,7 @@
                                 <ul class="careerfy-row careerfy-employer-profile-form">
                                     <li class="careerfy-column-6">
                                         <label>Your Name *</label>
-                                        <input value="{{employee.name}}" name="name" type="text">
+                                        <input value="{{employee.name}}" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)"  name="name" type="text">
                                     </li>
                                     <li class="careerfy-column-6">
                                         <label>Email *</label>
@@ -120,7 +124,7 @@
                                     </li> -->
                                     <li class="careerfy-column-6">
                                         <label>Phone *</label>
-                                        <input value="{{employee.phone}}" name="phone" type="text">
+                                        <input value="{{employee.phone}}"  oninput="this.value = this.value.replace(/\D/g,'');" name="phone" type="text">
                                     </li>
                                     <!-- <li class="careerfy-column-6">
                                         <label>Category *</label>
@@ -133,7 +137,7 @@
                                     </li> -->
                                     <li class="careerfy-column-6">
                                         <label>Experience</label>
-                                        <input value="{{employee.experience}}" name="experience"  type="text" required>
+                                        <input value="{{employee.experience}}"  oninput="this.value = this.value.replace(/\D/g,'');" name="experience"  type="text" required>
                                     </li>
                                     <li class="careerfy-column-6">
                                         <label>Specialization</label>
@@ -178,7 +182,7 @@
                                     </li>
                                     <li class="careerfy-column-6">
                                         <label>Age</label>
-                                        <input value="{{employee.age}}" name="age" type="text" required>
+                                        <input value="{{employee.age}}"  oninput="this.value = this.value.replace(/\D/g,'');" name="age" type="text" required>
                                     </li>
                                     <li class="careerfy-column-6">
                                         <label>DOB</label>
@@ -310,6 +314,8 @@
                     </div>
                 </div>
 
+                {% endblock %}
+
             </div>
         </div>
     </div>
@@ -354,7 +360,7 @@
     bs_modal.on('shown.bs.modal', function() {
         cropper = new Cropper(image, {
             aspectRatio: 1,
-            viewMode: 3,
+            viewMode: 2,
             preview: '.preview'
         });
     }).on('hidden.bs.modal', function() {
@@ -363,6 +369,7 @@
     });
 
     $("#crop").click(function() {
+        console.log("in crop")
         canvas = cropper.getCroppedCanvas({
             width: 160,
             height: 160,
@@ -371,23 +378,26 @@
         canvas.toBlob(function(blob) {
             url = URL.createObjectURL(blob);
             var reader = new FileReader();
+            console.log("readerrrrrr",reader)
             reader.readAsDataURL(blob);
             reader.onloadend = function() {
                 var base64data = reader.result;
                 console.log(base64data);
-                document.getElementById('photo').src=url;
+                
+                console.log("data after")
               
                 
 
                 $.ajax({
-                    type: "post",
+                    type: "get",
                     dataType: "json",
-                    url: "imageupload",
+                    url: "{% url 'propic_save' %}",
                    
                     data: {image: base64data},
                     
                   
                 });
+                document.getElementById('image').src=base64data;
             };
         });
     });
@@ -397,3 +407,5 @@
 
 
 {% endblock %}
+
+</div>

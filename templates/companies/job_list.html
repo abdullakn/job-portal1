@@ -50,12 +50,13 @@
                         <!-- Item #1 -->
                         {% for job in jobs %}
                         <tr>
-                            <td class="title"><a href="#">{{job.job_title}} <span class="pending">({{job.category}})</span></a></td>
+                           <td class="title"><a href="{% url 'job_applicant_view' job.id %}">{{job.job_title}} <span class="pending">({{job.category}})</span></a></td>
                             <td class="centered">{{job.job_type}}</td>
                             <td>{{job.create_at}}</td>
                             <td>{{job.closing_date}}</td>
                             <td class="centered">{{job.salary_min}}-{{job.salary_max}}</td>
                             <td class="action">
+                                
                                 <a href="#"><i class="fa fa-pencil"></i> Edit</a>
                                 <!-- <a href="#"><i class="fa  fa-check "></i> Mark Filled</a> -->
                                 <a  class="delete" onclick="return confirm ('are you sure Do you want to delete') ? window.location.href='{% url 'delete_job' job.id %}' : ''  " ><i class="fa fa-remove"></i>Delete</a>
@@ -85,5 +86,7 @@
     </div>
 
 </div>
+
+
 
 {% endblock %}

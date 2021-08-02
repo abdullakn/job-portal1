@@ -39,7 +39,7 @@
                     <table class="manage-table responsive-table">
 
                         <tr>
-                            <th><i class="fa fa-file-develop"></i> Name</th>
+                            <th><i class="fa fa-file-develop"></i> Job</th>
                             <th><i class="fa fa-check-square-o"></i>Job Type</th>
                             <th><i class="fa fa-calendar"></i> Date Posted</th>
                             <th><i class="fa fa-calendar"></i> Category</th>
@@ -53,7 +53,7 @@
                         <!-- Item #1 -->
                         {% for app in applications %}
                         <tr>
-                            <td class="title"><a href="#">{{app.user.name}}</a></td>
+                            <td class="title"><a href="#">{{app.job.job_title}}</a></td>
                             <td class="centered">{{app.job.job_type}}</td>
                             <td>{{app.job.create_at}}</td>
                             <td>{{app.job.category}}</td>

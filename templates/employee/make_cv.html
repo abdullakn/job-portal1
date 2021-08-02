@@ -1,0 +1,551 @@
+{% extends 'employee/employee_profile.html' %}
+
+{% block basic %}
+
+<style>
+    * {
+        box-sizing: border-box;
+      }
+      
+      body {
+      
+        font-size: 14px;
+        background: #eee;
+
+      }
+      
+      .file-input {
+        display: inline-block;
+        text-align: left;
+        background: #fff;
+        padding: 16px;
+        width: 450px;
+        position: relative;
+        border-radius: 3px;
+      }
+      
+      .file-input > [type='file'] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 10;
+        cursor: pointer;
+      }
+      
+      .file-input > .button {
+        display: inline-block;
+        cursor: pointer;
+        background: #eee;
+        padding: 8px 16px;
+        border-radius: 2px;
+        margin-right: 8px;
+      }
+      
+      .file-input:hover > .button {
+        background: dodgerblue;
+        color: white;
+      }
+      
+      .file-input > .label {
+        color: #333;
+        white-space: nowrap;
+        opacity: .3;
+      }
+      
+      .file-input.-chosen > .label {
+        opacity: 1;
+      }
+</style>
+
+<h4 style="text-align: center;">Upload CV</h4>
+<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+<div>
+<div class='file-input'  style="margin-left: 15px;">
+ 
+    <input type='file' name="mycv">
+    <span class='button'>Choose</span>
+    <span class='label' data-js-label>No file selected</label>
+  </div>
+
+
+
+  
+
+</div>
+
+<br>
+
+<button style="margin-left:15px" type="submit" class="btn btn-info">Upload CV</button>
+</form>
+  <br>
+  <br>
+
+
+
+  <h4 style="text-align: center;"> or Create CV</h4>
+
+
+
+
+
+<div>
+
+  <div class="careerfy-column-9">
+    <div class="careerfy-typo-wrap">
+        <form class="careerfy-candidate-dasboard">
+            <div class="careerfy-employer-box-section">
+                <div class="careerfy-profile-title"><h2>My Resume</h2></div>
+                <div class="careerfy-candidate-section">
+                    <div class="careerfy-candidate-title"> <h2><i class="careerfy-icon careerfy-resume-1"></i> Cover Letter</h2> </div>
+                    <div class="careerfy-candidate-dashboard-editor"><img src="extra-images/candidate-dashboard-editor.jpg" alt=""></div>
+                    
+                    <div class="careerfy-candidate-resume-wrap">    
+                        <div class="careerfy-candidate-title"> <h2>
+                            <i class="careerfy-icon careerfy-mortarboard"></i> Education 
+                            <a href="javascript:void(0)" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add education</a>
+                        </h2> </div>
+
+                        <div class="careerfy-add-popup">
+                            <ul class="careerfy-row careerfy-employer-profile-form">
+                                <li class="careerfy-column-12">
+                                    <label>Title *</label>
+                                    <input value="Masters in Fine Arts" onblur="if(this.value == '') { this.value ='Masters in Fine Arts'; }" onfocus="if(this.value =='Masters in Fine Arts') { this.value = ''; }" type="text">
+                                </li>
+                                <li class="careerfy-column-6">
+                                    <label>From Date *</label>
+                                    <div class="careerfy-profile-select">
+                                        <select>
+                                            <option>10-05-2012</option>
+                                            <option>10-05-2012</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-6">
+                                    <label>To Date *</label>
+                                    <div class="careerfy-profile-select">
+                                        <select>
+                                            <option>10-05-2014</option>
+                                            <option>10-05-2014</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <label>Institute *</label>
+                                    <input value="Walters University" onblur="if(this.value == '') { this.value ='Walters University'; }" onfocus="if(this.value =='Walters University') { this.value = ''; }" type="text">
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <label>Description *</label>
+                                    <img src="extra-images/candidate-add-popup-textarea.png" alt="">
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <input type="submit" value="Add education">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="careerfy-resume-education">
+                            <ul class="careerfy-row">
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-resume-education-wrap">
+                                        <small>2002 - 2004</small>
+                                        <h2><a href="#">Masters in Fine Arts</a></h2>
+                                        <span>Walters University</span>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-resume-education-wrap">
+                                        <small>2012 - 2015</small>
+                                        <h2><a href="#">Tommers College</a></h2>
+                                        <span>Bachlors in Fine Arts</span>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-resume-education-wrap">
+                                        <small>2014 - 2015</small>
+                                        <h2><a href="#">Diploma in Fine Arts</a></h2>
+                                        <span>Imperieal Institute of Art Direction</span>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="careerfy-candidate-resume-wrap">    
+                        <div class="careerfy-candidate-title"> <h2>
+                            <i class="careerfy-icon careerfy-social-media"></i> Experience 
+                            <a href="javascript:void(0)" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add experince</a>
+                        </h2> </div>
+
+                        <div class="careerfy-add-popup">
+                            <ul class="careerfy-row careerfy-employer-profile-form">
+                                <li class="careerfy-column-12">
+                                    <label>Title *</label>
+                                    <input value="Masters in Fine Arts" onblur="if(this.value == '') { this.value ='Masters in Fine Arts'; }" onfocus="if(this.value =='Masters in Fine Arts') { this.value = ''; }" type="text">
+                                </li>
+                                <li class="careerfy-column-5">
+                                    <label>From Date *</label>
+                                    <div class="careerfy-profile-select">
+                                        <select>
+                                            <option>10-05-2012</option>
+                                            <option>10-05-2012</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-5">
+                                    <label>To Date *</label>
+                                    <div class="careerfy-profile-select">
+                                        <select>
+                                            <option>10-05-2014</option>
+                                            <option>10-05-2014</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-2">
+                                    <div class="careerfy-checkbox">
+                                        <input id="r8" name="rr" type="checkbox">
+                                        <label for="r8"><span></span>Present</label>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <label>Company *</label>
+                                    <input value="Walters University" onblur="if(this.value == '') { this.value ='Walters University'; }" onfocus="if(this.value =='Walters University') { this.value = ''; }" type="text">
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <label>Description *</label>
+                                    <img src="extra-images/candidate-add-popup-textarea.png" alt="">
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <input type="submit" value="Add experince">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="careerfy-resume-education">
+                            <ul class="careerfy-row">
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-resume-education-wrap">
+                                        <small>2010 - 2012</small>
+                                        <h2><a href="#">Development Manager</a></h2>
+                                        <span>Atract Solutions</span>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-resume-education-wrap">
+                                        <small>2006 - 2008</small>
+                                        <h2><a href="#">Senior PHP/Drupal developer</a></h2>
+                                        <span>Minor Solutions</span>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-resume-education-wrap">
+                                        <small>2002 - 2004</small>
+                                        <h2><a href="#">Self Employed Professional</a></h2>
+                                        <span> Abstraxct Max</span>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="careerfy-candidate-resume-wrap">    
+                        <div class="careerfy-candidate-title"> <h2>
+                            <i class="careerfy-icon careerfy-briefcase"></i> Portfolio 
+                            <a href="#" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add Portfolio</a>
+                        </h2> </div>
+
+                        <div class="careerfy-company-gallery">
+                            <ul class="careerfy-row">
+                                <li class="careerfy-column-3">
+                                    <figure>
+                                        <a href="#"><img src="extra-images/employer-company-photo-1.png" alt=""></a>
+                                        <figcaption>
+                                            <span>Peca8 World</span>
+                                            <div class="careerfy-company-links">
+                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                                <li class="careerfy-column-3">
+                                    <figure>
+                                        <a href="#"><img src="extra-images/employer-company-photo-2.png" alt=""></a>
+                                        <figcaption>
+                                            <span>City Light</span>
+                                            <div class="careerfy-company-links">
+                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                                <li class="careerfy-column-3">
+                                    <figure>
+                                        <a href="#"><img src="extra-images/employer-company-photo-3.png" alt=""></a>
+                                        <figcaption>
+                                            <span>Spass Life</span>
+                                            <div class="careerfy-company-links">
+                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                                <li class="careerfy-column-3">
+                                    <figure>
+                                        <a href="#"><img src="extra-images/employer-company-photo-4.png" alt=""></a>
+                                        <figcaption>
+                                            <span>Cass Rasioaror</span>
+                                            <div class="careerfy-company-links">
+                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                                <li class="careerfy-column-3">
+                                    <figure>
+                                        <a href="#"><img src="extra-images/employer-company-photo-5.png" alt=""></a>
+                                        <figcaption>
+                                            <span>Miki Uni</span>
+                                            <div class="careerfy-company-links">
+                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                                <li class="careerfy-column-3">
+                                    <figure>
+                                        <a href="#"><img src="extra-images/employer-company-photo-6.png" alt=""></a>
+                                        <figcaption>
+                                            <span>Manhattoon</span>
+                                            <div class="careerfy-company-links">
+                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                                <li class="careerfy-column-3">
+                                    <figure>
+                                        <a href="#"><img src="extra-images/employer-company-photo-7.png" alt=""></a>
+                                        <figcaption>
+                                            <span>Aocan Active</span>
+                                            <div class="careerfy-company-links">
+                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="careerfy-candidate-resume-wrap">    
+                        <div class="careerfy-candidate-title"> <h2>
+                            <i class="careerfy-icon careerfy-design-skills"></i> Skills 
+                            <a href="javascript:void(0)" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add Skills</a>
+                        </h2> </div>
+
+                        <div class="careerfy-add-popup">
+                            <ul class="careerfy-row careerfy-employer-profile-form">
+                                <li class="careerfy-column-12">
+                                    <label>Skill Heading *</label>
+                                    <input value="Web Development" onblur="if(this.value == '') { this.value ='Web Development'; }" onfocus="if(this.value =='Web Development') { this.value = ''; }" type="text">
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <label>Percentage *</label>
+                                    <input value="75%" onblur="if(this.value == '') { this.value ='75%'; }" onfocus="if(this.value =='75%') { this.value = ''; }" type="text">
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <input type="submit" value="Add Skills">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="careerfy-add-skills">
+                            <ul class="careerfy-row">
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-add-skills-wrap">
+                                        <span>74</span>
+                                        <h2><a href="#">Social Media Marketing</a></h2>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-add-skills-wrap">
+                                        <span>67</span>
+                                        <h2><a href="#">Web Development</a></h2>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-add-skills-wrap">
+                                        <span>25</span>
+                                        <h2><a href="#">Search Engine Optimization</a></h2>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-add-skills-wrap">
+                                        <span>20</span>
+                                        <h2><a href="#">User Experience Design</a></h2>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="careerfy-candidate-resume-wrap">    
+                        <div class="careerfy-candidate-title"> <h2>
+                            <i class="careerfy-icon careerfy-trophy"></i> Honors & Awards 
+                            <a href="#" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add Award</a>
+                        </h2> </div>
+
+                        <div class="careerfy-add-popup">
+                            <ul class="careerfy-row careerfy-employer-profile-form">
+                                <li class="careerfy-column-12">
+                                    <label>Award Title *</label>
+                                    <input value="Distinguished Service Award" onblur="if(this.value == '') { this.value ='Distinguished Service Award'; }" onfocus="if(this.value =='Distinguished Service Award') { this.value = ''; }" type="text">
+                                </li>
+                                <li class="careerfy-column-6">
+                                    <label>Year *</label>
+                                    <div class="careerfy-profile-select">
+                                        <select>
+                                            <option>2012</option>
+                                            <option>2012</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-6">
+                                    <label>Company *</label>
+                                    <input value="Gldtech" onblur="if(this.value == '') { this.value ='Gldtech'; }" onfocus="if(this.value =='Gldtech') { this.value = ''; }" type="text">
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <label>Description *</label>
+                                    <img src="extra-images/candidate-add-popup-textarea.png" alt="">
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <input type="submit" value="Add Award">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="careerfy-resume-education careerfy-resume-awards">
+                            <ul class="careerfy-row">
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-resume-education-wrap">
+                                        <small>1970</small>
+                                        <h2><a href="#">Distinguished Service Award</a></h2>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-resume-education-wrap">
+                                        <small>1979</small>
+                                        <h2><a href="#">Robin Milner Young Researcher Award</a></h2>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-resume-education-wrap">
+                                        <small>1985</small>
+                                        <h2><a href="#">Doctoral Dissertation Award</a></h2>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                                <li class="careerfy-column-12">
+                                    <div class="careerfy-resume-education-wrap">
+                                        <small>1990</small>
+                                        <h2><a href="#">Programming Languages Achievement</a></h2>
+                                    </div>
+                                    <div class="careerfy-resume-education-btn">
+                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
+                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <input type="submit" class="careerfy-employer-profile-submit" value="Update Resume">
+        </form>
+    </div>
+</div>
+
+</div>
+
+
+
+  
+  <script>
+    // Also see: https://www.quirksmode.org/dom/inputfile.html
+
+var inputs = document.querySelectorAll('.file-input')
+
+for (var i = 0, len = inputs.length; i < len; i++) {
+customInput(inputs[i])
+}
+
+function customInput (el) {
+const fileInput = el.querySelector('[type="file"]')
+const label = el.querySelector('[data-js-label]')
+
+fileInput.onchange =
+fileInput.onmouseout = function () {
+if (!fileInput.value) return
+
+var value = fileInput.value.replace(/^.*[\\\/]/, '')
+el.className += ' -chosen'
+label.innerText = value
+}
+}
+</script>
+
+
+{% endblock %}

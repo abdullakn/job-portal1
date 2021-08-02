@@ -1,0 +1,60 @@
+{% extends 'employee/employee_profile.html' %}
+
+
+{% block basic %}
+
+
+
+<div class="careerfy-column-9">
+    <div class="careerfy-typo-wrap">
+        <div class="careerfy-employer-box-section">
+            <div class="careerfy-profile-title">
+                <h2>Saved Jobs</h2>
+                <form class="careerfy-employer-search">
+                    <input placeholder="Search jobs" type="text">
+                    <input value="" type="submit">
+                    <i class="careerfy-icon careerfy-search"></i>
+                </form>
+            </div>
+            <div class="careerfy-candidate-savedjobs">
+                <div class="careerfy-candidate-savedjobs-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Company</th>
+                                <th>Date Saved</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for favourite in favourite %}
+                            <tr>
+                                <td>
+                                    <a href="#" class="careerfy-savedjobs-thumb"><img src="{{favourite.job.user.logo.url}}" alt=""></a>
+                                    <h2><a href="#">{{favourite.job.job_title}}</a></h2>
+                                </td>
+                                <td><span>{{favourite.job.user.company_name}}</span></td>
+                                <td>Sep 30, 2021</td>
+                                <td>
+                                    <a href="#" class="careerfy-savedjobs-links"><i class="careerfy-icon careerfy-rubbish"></i></a>
+                                    <a href="{% url 'job_details' favourite.job.slug %}" class="careerfy-savedjobs-links"><i class="careerfy-icon careerfy-view"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+       
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+

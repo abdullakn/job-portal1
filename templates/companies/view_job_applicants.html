@@ -57,16 +57,15 @@
                             <td class="centered">{{app.job.job_type}}</td>
                             <td>{{app.job.create_at}}</td>
                             <td>{{app.job.category}}</td>
-                           <td > <a style="color: blue;" href="{% url 'applicant_details' app.id %}">{{app.user.name}}</a></td>
                             <td class="centered">{{app.job.salary_min}}-{{app.job.salary_max}}</td>
-                          
-                            
+                            <td><a href="{% url 'manage_applications' app.id %}">{{app.user.name}}</a></td>
                             
                             <td class="centered">{{app.user.email}}</td>
                             <td class="action">
                           
                         </tr>
                         {% endfor %}
+                  
                                 
                         <!-- Item #2 -->
                       
@@ -78,7 +77,7 @@
 
                 </div>
             </div>
-            
+            <a href="{% url 'add_jobs' %}" class="button margin-top-30">Add New Job</a>
         </div>
 
 
@@ -89,5 +88,7 @@
     </div>
 
 </div>
+
+
 
 {% endblock %}

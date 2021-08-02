@@ -1,9 +1,11 @@
-from employee.models import AppliedUsers, EmployeeProfile
+from employee.models import AppliedUsers, EmployeeCV, EmployeeProfile, MachineTestfiles
 from accounts.models import UserCompanies
 from companies.models import CompanyProfile, CompanySocial, JobDetails
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.text import slugify
+from django.http import HttpResponse, HttpResponseNotFound
+
 
 # Create your views here.
 
@@ -195,3 +197,55 @@ def applicant_details(request,id):
         'jobs':jobs
     }
     return render(request,'companies/applicants_details.html',context)    
+
+
+
+def view_resume(request,id):
+    user=EmployeeProfile.objects.get(id=id)
+    try:
+        cv=EmployeeCV.objects.get(user=user)
+        mycv=cv.cv
+    except:
+        mycv=None
+
+
+    if mycv:    
+        response = HttpResponse(mycv, content_type='application/pdf')
+        #response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"' #user will be prompted with the browser’s open/save file
+        response['Content-Disposition'] = 'inline; filename="mycv"' #user will be prompted display the PDF in the browser
+        return response
+    else:
+        return HttpResponseNotFound('This user has no cv')        
+
+
+
+def job_applicant_view(request,id):
+    job=JobDetails.objects.get(id=id)
+    applications=AppliedUsers.objects.filter(job=job)
+    print("apppppp",applications)
+    context={
+        'applications':applications
+    }
+
+    return render(request,'companies/view_job_applicants.html',context)
+
+
+
+def manage_applications(request,id):
+    app=AppliedUsers.objects.get(id=id)
+    user=app.user
+    job=app.job
+    if request.method=='POST':
+        machinetest=request.FILES['machinetest']
+        machine=MachineTestfiles(machinetest=machinetest,user=user,job=job)
+        machine.save()
+        return redirect('manage_applications' , id=app.id)
+    
+    
+    
+    context={'applicant':app}
+    return render(request,'companies/manage_application.html',context)    
+
+
+
+

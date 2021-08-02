@@ -26,7 +26,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="edit-profile-photo">
-                <img {% if profile.logo %} src="/media/{{profile.logo}}" {% else %} src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=300"{% endif %} alt="">
+                <img {% if profile.logo %} src="{{profile.logo.url}}" {% else %} src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=300"{% endif %} alt="">
                 <div class="change-photo-btn">
                     <div class="photoUpload">
                         <span><i class="fa fa-upload"></i> Upload Logo</span>

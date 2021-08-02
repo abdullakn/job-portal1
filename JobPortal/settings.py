@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'accounts',
     'companies',
     'employee',
-    'superadmin'
+    'superadmin',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -129,6 +130,38 @@ USE_L10N = True
 USE_TZ = True
 
 
+
+
+
+AWS_ACCESS_KEY_ID = 'AKIATI5UOAYSCJVXYJOV'
+
+AWS_SECRET_ACCESS_KEY='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'
+
+AWS_STORAGE_BUCKET_NAME='careerfy-bucket'
+
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+DEFAULT_FILE_STORAGE = 'JobPortal.storage_backends.MediaStorage'
+
+AWS_DEFAULT_ACL = 'public-read'
+# AWS_DEFAULT_ACL = None
+# AWS_LOCATION = 'static'
+
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -137,9 +170,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 'data' is my media folder
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 'data' is my media folder
 
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL='accounts.UserCompanies'
 

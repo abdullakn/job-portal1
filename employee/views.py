@@ -1,13 +1,22 @@
+from django.http import response
+from superadmin.models import Question
 from django.db.models.aggregates import Count, Max
 from django.http import request
-from django.http.response import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.http.response import Http404, HttpResponse, JsonResponse
+from django.shortcuts import redirect, render
 from companies.models import *
 from .models import *
 import json
 from django.core.serializers import serialize
 from django.db.models import Q
 from django.template.loader import render_to_string
+
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse, HttpResponseNotFound
+from django.db.models import Count,Min,Max,Avg
+from django.core.files.base import ContentFile
+import base64
+
 
 
 
@@ -18,23 +27,62 @@ from django.template.loader import render_to_string
 
 
 def job_list_view(request):
+
+    if request.method=='POST':
+        pass
     
     jobs=JobDetails.objects.all()
-    # p=AppliedUsers.objects.all().aggregate(Max(Count('job')))
-    # p = JobDetails.objects.all().annotate(Count('AppliedUsers__job', distinct=True))
-    # q = AppliedUsers.objects.filter(AppliedUsers.objects.values('job').distinct())
-    # print("ddddddddddd",p)
-    # app=AppliedUsers.objects.aggregate(Max('job'))
+    print(jobs)
+    p=AppliedUsers.objects.all().aggregate(Count('job'))
+   
+    print("ddddddddddd",p)
+    
+    # p = JobDetails.objects.all().annotate(Count('job',distinct=True))
+    app=AppliedUsers.objects.aggregate(Count('user'))
+    print("aaaa",app)
     application=AppliedUsers.objects.all()
-    print("ddfdfdfdf",application.count())
+    print("ddfdfdfdf",application)
     print(application.count())
-    for app in application:
-        
-        for job in jobs:
-            if job == app.job:
-                print(app)
+    count_application =AppliedUsers.objects.all().annotate(Count('job',distinct=True))
+    print("count",count_application)
+
+    count = AppliedUsers.objects.values('job').distinct()
+    print(count)
+
+    count_new=AppliedUsers.objects.all().values('job').annotate(count=Count('job', distinct=True)).order_by()
+    print("count new",count_new)
+
+
+    annotate=JobDetails.objects.annotate(Count('appliedusers__job'))
+
+    print("annotate",annotate)
+
+    co=AppliedUsers.objects.all().annotate(Count('job__job_title')).distinct()
+    print("cooooo",co)
+
+    filt=AppliedUsers.objects.filter().distinct('job')
+    print("filtrrr",filt)
+
+    #get the application of each job
+
+
+    obj=AppliedUsers.objects.values('job','job__id').annotate(the_count=Count('job'))
+    
+
+    print("aasdfghjkl",obj)
+
+    #get the hotest job in the site based on most apllications
+
+    max_applicants=obj.order_by('job')[0]
+    print("max applicant",max_applicants)
+    employee=EmployeeProfile.objects.get(user=request.user)
+    favourite=FavouriteJob.objects.filter(user=employee)
+    
     context={
-        'job_list':jobs
+        'job_list':jobs,
+        'app_count':obj,
+        'max_applicants':max_applicants,
+        'favourite':favourite
     }
     return render(request,'employee/job-listings.html',context)    
 
@@ -51,11 +99,17 @@ def job_detail_view(request,slug):
         user=None
         applied=None
 
+    try:
+        favourite=FavouriteJob.objects.get(job=job)  
+    except:
+        favourite=None      
+
     context={
         'user':user,
         'applied':applied,
         'jobs':job,
-        'tag_list':tag_list
+        'tag_list':tag_list,
+        'favourite':favourite
     }
     return render(request,'employee/job_details.html',context)   
 
@@ -127,10 +181,15 @@ def applyJob(request):
 
 
 def company_list(request):
-    try:
-        company=CompanyProfile.objects.all() 
-    except:
-        company=None
+    # try:
+    company=CompanyProfile.objects.all() 
+    for comp in company:
+        print(comp.logo,comp.company_name)
+
+    print("ccccssssssssssssssssssssssssssssssssssssssssssssssssss",company)
+    # except:
+    #     company=None
+    #     print(company)
     context={
         'company':company
     }
@@ -189,17 +248,164 @@ def filter_data(request):
     category=request.GET.getlist('category[]')
     print(location,jobtype,category)
     allJobs=JobDetails.objects.all().order_by('-id')
-    if len(location)>0:
-        allJobs=JobDetails.objects.filter(Q(location__in=location))
+    if len(location)>0 or len(jobtype)>0 or len(category)>0:
+        allJobs=JobDetails.objects.filter(Q(location__in=location)|Q(job_type__in=jobtype)|Q(category__in=category))
         
-    if len(jobtype)>0:
-        allJobs=JobDetails.objects.filter(Q(job_type__in=jobtype))
+    # if len(jobtype)>0:
+    #     allJobs=JobDetails.objects.filter(Q(job_type__in=jobtype))
         
-    if len(category)>0:
-        allJobs=JobDetails.objects.filter(Q(category__in=category))
+    # if len(category)>0:
+    #     allJobs=JobDetails.objects.filter(Q(category__in=category))
         
     data=render_to_string('employee/filter-list.html',{'job_list':allJobs})
     return JsonResponse({'data':data})    
+
+
+def view_pdf(request,id):
+    fs=FileSystemStorage()
+    print("fffffffffff",fs)
+    mypdf=JobDetails.objects.get(id=id)
+    print("fffffffffff",mypdf)
+    filename1='job_additional/sslc_2hqnCa0.pdf'
+    filename=mypdf.additional_files
+    print("fffffffffff",filename)
+    print("fffffffffff",filename1)
+    # if fs.exists(filename):
+        # with fs.open(filename) as pdf:
+    if filename:    
+        response = HttpResponse(filename, content_type='application/pdf')
+        #response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"' #user will be prompted with the browser’s open/save file
+        response['Content-Disposition'] = 'inline; filename="filename"' #user will be prompted display the PDF in the browser
+        return response
+    else:
+        return HttpResponseNotFound('The requested pdf was not found in our server.')
+
+
+
+def cv_management(request):
+    if request.method == 'POST':
+        data=request.FILES
+        newcv=data['mycv']
+        user=EmployeeProfile.objects.get(user=request.user)
+
+        if EmployeeCV.objects.filter(user=user).exists():
+            cvobj=EmployeeCV.objects.get(user=user)
+            cvobj.cv=newcv
+            cvobj.save()
+            return redirect('make_cv')
+        else:
+            cvobj=EmployeeCV(user=user,cv=newcv)   
+            cvobj.save() 
+            return redirect('make_cv')
+    return render(request,'employee/make_cv.html')   
+
+
+
+def view_cv(request):
+    user=EmployeeProfile.objects.get(user=request.user)
+    try:
+        cv=EmployeeCV.objects.get(user=user) 
+        mycv=cv.cv  
+    except:
+        mycv=None    
+    
+    if mycv:    
+        response = HttpResponse(mycv, content_type='application/pdf')
+        #response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"' #user will be prompted with the browser’s open/save file
+        response['Content-Disposition'] = 'inline; filename="mycv"' #user will be prompted display the PDF in the browser
+        return response
+    else:
+        return HttpResponseNotFound('This user has no cv')   
+
+
+
+
+def employee_badge(request):
+    question=Question.objects.all()
+    context={'question':question}
+    return render(request,'employee/employee_badge.html',context)    
+
+
+
+def employee_applied_list(request):
+    user=EmployeeProfile.objects.get(user=request.user)
+    jobs=AppliedUsers.objects.filter(user=user)
+    context={'jobs':jobs}
+    return render(request,'employee/employee_appliedjobs.html',context)     
+
+
+
+def favourite_jobs(request,id):
+    job=JobDetails.objects.get(id=id)
+    user=EmployeeProfile.objects.get(user=request.user)
+    favourite=FavouriteJob(user=user,job=job)
+    favourite.save()
+    return redirect('job_detail_view', id=job.slug)
+
+def view_favourite(request):
+    user=EmployeeProfile.objects.get(user=request.user)
+    favourite=FavouriteJob.objects.filter(user=user) 
+    context={
+        'favourite':favourite
+    } 
+    return render(request,'employee/favourite_jobs.html',context)
+
+
+def view_machinetest(request):
+    user=EmployeeProfile.objects.get(user=request.user)
+    machine=MachineTestfiles.objects.filter(user=user)
+    print(machine)
+    context={
+        'machine':machine
+    }
+    return render(request,'employee/machinetest.html',context) 
+
+
+def download_machinetest(request,id):
+    file=MachineTestfiles.objects.get(id=id)
+    mypdf=file.machinetest
+    # if mypdf:
+    #     with open(mypdf,'rb') as fh:
+    #         response=HttpResponse(fh.read(),content_type="application/pdf")
+    #         response['Content-Disposition'] = 'inline; filename="mycv"'
+    #         return response
+
+    # raise Http404        
+
+    if mypdf:    
+        response = HttpResponse(mypdf, content_type='application/pdf')
+        #response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"' #user will be prompted with the browser’s open/save file
+        response['Content-Disposition'] = 'inline; filename="mypdf"' #user will be prompted display the PDF in the browser
+        return response
+    else:
+        return HttpResponseNotFound('This user has no cv')  
+
+
+
+def propic_save(request):
+    print("submitted")
+    # if request.method == "GET":
+    #     image=request.GET['image']
+        
+      
+    #     format, img4 = image.split(';base64,')
+    #     ext = format.split('/')[-1]
+    #     img_data4 = ContentFile(base64.b64decode(img4), name="pro_pic" + '4.' + ext)
+    #     print("final imageddddddddddddddddddddddddddddddddddddddddddddddddd",img_data4)
+    #     user=EmployeeProfile.objects.get(user=request.user)
+    #     propic=employeePro(user=user)
+    #     propic.save()
+       
+        # return JsonResponse({'data':"success"})         
+
+
+
+
+
+
+
+
+
 
 
      

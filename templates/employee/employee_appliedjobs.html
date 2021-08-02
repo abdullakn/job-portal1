@@ -1,0 +1,55 @@
+{% extends 'employee/employee_profile.html' %}
+
+
+{% block basic %}
+
+<div class="careerfy-column-9">
+    <div class="careerfy-typo-wrap">
+        <div class="careerfy-employer-box-section">
+            <div class="careerfy-profile-title">
+                <h2>Applied Jobs</h2>
+                <form class="careerfy-employer-search">
+                    <input placeholder="Search jobs" type="text">
+                    <input value="" type="submit">
+                    <i class="careerfy-icon careerfy-search"></i>
+                </form>
+            </div>
+            <div class="careerfy-applied-jobs">
+                <ul class="careerfy-row">
+
+
+
+                    {% for job in jobs %}
+                    <li class="careerfy-column-12">
+                        <div class="careerfy-applied-jobs-wrap">
+                            <a href="#" class="careerfy-applied-jobs-thumb"><img src="{{job.job.user.logo.url}}" alt=""></a>
+                            <div class="careerfy-applied-jobs-text">
+                                <div class="careerfy-applied-jobs-left">
+                                    <span>{{job.job.user.company_name}}</span>
+                                    <h2><a href="#">{{job.job.job_title}}</a></h2>
+                                    <ul>
+                                        <li><i class="fa fa-map-marker"></i> {{job.job.location}}</li>
+                                        <li><i class="careerfy-icon careerfy-filter-tool-black-shape"></i> <a href="#">{{job.job.category}}</a></li>
+                                        <li><i class="careerfy-icon careerfy-calendar"></i>{{job.job.create_at}}</li>
+                                    </ul>
+                                </div>
+                                <a href="" class="careerfy-savedjobs-links"><i class="careerfy-icon careerfy-rubbish"></i></a>
+                                <a href="{% url 'job_details' job.job.slug %}" class="careerfy-savedjobs-links"><i class="careerfy-icon careerfy-view"></i></a>
+                            </div>
+                        </div>
+                    </li>
+
+                    {% endfor %}
+              
+           
+                </ul>
+            </div>
+            <!-- Pagination -->
+       
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

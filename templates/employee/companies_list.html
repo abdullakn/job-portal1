@@ -57,9 +57,10 @@
                                         <li class="careerfy-column-12 ">
                                             <div class="careerfy-table-layer">
                                                 <div class="careerfy-table-row">
-                                                    <div class="careerfy-table-cell"> <figure><a href="#"><img src="/media/{{comp.logo}}" alt=""></a></figure> </div>
+                                                    <div class="careerfy-table-cell"> <figure><a href="#">{% if comp.logo %}<img src="{{comp.logo.url}}" alt="">{% else %} <img src="" alt="">{% endif %}</a></figure> </div>
                                                     <div class="careerfy-table-cell">
                                                         <small>Banking</small>
+                                                        
                                                         <h2><a href="{% url 'companies_details' comp.id %}">{{comp.company_name}}</a></h2>
                                                         <span><i class="fa fa-map-marker"></i>{{comp.country}}  ,  {{comp.state}}</span>
                                                     </div>

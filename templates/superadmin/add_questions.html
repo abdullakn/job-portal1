@@ -1,0 +1,88 @@
+{% extends 'superadmin/index.html' %}
+
+
+{% block content %}
+
+<div id="titlebar">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Add Job</h2>
+            <!-- Breadcrumbs -->
+            <nav id="breadcrumbs">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Dashboard</a></li>
+                    <li>Add Job</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    
+    <!-- Table-->
+    <div class="col-lg-12 col-md-12" style="margin-left: 270px;">
+
+        <div class="dashboard-list-box margin-top-0">
+            <h1 style="text-align: center;">Add Questions</h1>
+            <div class="dashboard-list-box-content" >
+                <form action="" method="POST" >
+                    {% csrf_token %}
+
+            <div class="submit-page">
+
+              
+
+               
+                <div class="form">
+                    <h5>Add Questions</h5>
+                    <input class="search-field " name="question" type="text" placeholder="Add your question" value=""/><br>
+                    
+                    <p>Option1</p>
+                    <input class="search-field " name="option1" type="text" placeholder="option1" value=""/>
+                    <p>Option2</p>
+                    <input class="search-field " name="option2" type="text" placeholder="option2" value=""/>
+                    <p>Option3</p>
+                    <input class="search-field " name="option3" type="text" placeholder="option3" value=""/>
+                    <p>Option4</p>
+                    <input class="search-field " name="option4" type="text" placeholder="option3" value=""/>
+
+                    <div class="form">
+                        <h5>Choose Answer</h5>
+                        <select data-placeholder="Full-Time" name="answer" required  class="chosen-select-no-single">
+                            <option value="option1">option1</option>
+                            <option value="option2">option2</option>
+                            <option value="option3">option3</option>
+                            <option value="option4">option4</option>
+                   
+                        </select>
+                    </div>
+                    <button type="submit" class="button margin-top-30">Add Quseions <i class="fa fa-arrow-circle-right"></i></button>
+                </div>
+
+            </div>
+
+                </form>
+
+               
+
+           
+
+
+
+    </div>
+
+
+    <!-- Copyrights -->
+    <div class="col-md-12">
+        <div class="copyrights">© 2019 WorkScout. All Rights Reserved.</div>
+    </div>
+</div>
+
+</div>
+
+
+
+
+{% endblock %}

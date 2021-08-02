@@ -1,5 +1,7 @@
 {% extends 'employee/index.html' %}
 
+<div class="careerfy-main-content">
+
 {% block content %}
         <!-- SubHeader -->
         <div class="careerfy-subheader">
@@ -18,7 +20,7 @@
         <!-- SubHeader -->
 
         <!-- Main Content -->
-        <div class="careerfy-main-content">
+        
             
             <!-- Main Section -->
             <div class="careerfy-main-section careerfy-subheader-form-full">
@@ -28,24 +30,21 @@
                         <div class="col-md-12 careerfy-typo-wrap">
                             <!-- Sub Header Form -->
                             <div class="careerfy-subheader-form">
-                                <form class="careerfy-banner-search">
-                                    <ul>
+                                <form class="careerfy-banner-search" action="{% url 'search_jobs' %}" method="GET">
+                                    <ul >
                                         <li>
-                                            <input value="Job Title, Keywords, or Company" onblur="if(this.value == '') { this.value ='Job Title, Keywords, or Company'; }" onfocus="if(this.value =='Job Title, Keywords, or Company') { this.value = ''; }" type="text">
+                                            <input placeholder="Job Title, Keywords, or Company" name="main" type="text">
                                         </li>
                                         <li>
-                                            <input value="City, State or ZIP" onblur="if(this.value == '') { this.value ='City, State or ZIP'; }" onfocus="if(this.value =='City, State or ZIP') { this.value = ''; }" type="text">
+                                            <input placeholder="City, State or ZIP" name="place" type="text">
                                             <i class="careerfy-icon careerfy-location"></i>
                                         </li>
+            
                                         <li>
-                                            <div class="careerfy-select-style">
-                                                <select>
-                                                    <option>Categories</option>
-                                                    <option>Categories</option>
-                                                    <option>Categories</option>
-                                                </select>
-                                            </div>
+                                            <input placeholder="Category" name="category" type="text">
+                                            <i class="careerfy-icon careerfy-location"></i>
                                         </li>
+                                       
                                         <li class="careerfy-banner-submit"> <input type="submit" value=""> <i class="careerfy-icon careerfy-search"></i> </li>
                                     </ul>
                                 </form>
@@ -121,7 +120,7 @@
                                             
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" id="r15" name="rr" />
+                                                    <input type="checkbox"  class="filter-checkbox" data-filter="jobtype" value="Temporary" id="r15" name="rr" />
                                                     <label for="r15"><span></span>Temporary</label>
                                           
                                                 </li>
@@ -207,19 +206,54 @@
                                             <!-- <h1>{{jobs.slug}}</h1> -->
                                             
                                             <div class="careerfy-joblisting-classic-wrap">
-                                                <figure><a href="#"><img src="/media/{{jobs.user.logo}}" alt=""></a></figure>
+                                                <figure><a href="#"><img src="{{jobs.user.logo.url}}" alt=""></a></figure>
                                                 <div class="careerfy-joblisting-text">
                                                     <div class="careerfy-list-option">
+
+                                                        {% if max_applicants.job == jobs.id %}
+                                                      
+                                                        <h2><a href="{% url 'job_details' jobs.slug %}">{{jobs.job_title}}</a> <span style="background-color: rgb(207, 100, 100);">Hotjob</span></h2>
+                                                        
+                                                        {% else %}
                                                         <h2><a href="{% url 'job_details' jobs.slug %}">{{jobs.job_title}}</a> <span>Featured</span></h2>
+                                                         {% endif %}
                                                         <ul>
                                                             <li><a href="{% url 'job_details' jobs.slug %}">{{jobs.user.company_name}}</a></li>
                                                             <li><i class="careerfy-icon careerfy-maps-and-flags"></i> {{jobs.location}}</li>
                                                             <li><i class="careerfy-icon careerfy-filter-tool-black-shape"></i> {{jobs.category}} <b>{{jobs.industry}}</b></li>
+                                                            {% for job in app_count %}
+
+                                                            {% if job.job == jobs.id %}
+                                                            
+                                                            <a href="#" class="careerfy-option-btn" style="border-radius: 5px;background-color:rgb(100, 71, 99)">{{job.the_count}} Applications</a>
+                                                          
+    
+                                                            {% endif %}
+                                                           
+    
+                                                            {% endfor %}
+                                                          
                                                         </ul>
                                                     </div>
                                                     <div class="careerfy-job-userlist">
                                                         <a href="#" class="careerfy-option-btn">{{jobs.job_type}}</a>
-                                                        <a href="#" class="careerfy-job-like"><i class="fa fa-heart"></i></a>
+                                                        <a href="" class="careerfy-job-like"><i class="fa fa-heart"></i></a>
+
+
+                                                        <!-- {% for fav in favourite %}
+                                                        {% if fav.job.id != jobs.id  %}
+                                                        
+
+
+                                                        {% endif %}
+
+                                                        {% endfor %} -->
+                                                      
+
+
+                                                        
+
+                                                    
                                                     </div>
                                                 <div class="clearfix"></div>
                                                 </div>
@@ -229,6 +263,7 @@
                                     </a>
                                         {% endfor %}
                                         </div>
+
                                       
                                 <!-- Pagination -->
                                 <!-- <div class="careerfy-pagination-blog">
@@ -249,7 +284,7 @@
             </div>
             <!-- Main Section -->
 
-        </div>
+       
         <!-- Main Content -->
         
         <!-- Footer -->
@@ -293,4 +328,6 @@
         </script>
 
         {% endblock %}
+
+    </div>
        

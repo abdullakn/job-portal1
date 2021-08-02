@@ -28,24 +28,21 @@
                         <div class="col-md-12 careerfy-typo-wrap">
                             <!-- Sub Header Form -->
                             <div class="careerfy-subheader-form">
-                                <form class="careerfy-banner-search">
-                                    <ul>
+                                <form class="careerfy-banner-search" action="{% url 'search_jobs' %}" method="GET">
+                                    <ul >
                                         <li>
-                                            <input value="Job Title, Keywords, or Company" onblur="if(this.value == '') { this.value ='Job Title, Keywords, or Company'; }" onfocus="if(this.value =='Job Title, Keywords, or Company') { this.value = ''; }" type="text">
+                                            <input placeholder="Job Title, Keywords, or Company" name="main" type="text">
                                         </li>
                                         <li>
-                                            <input value="City, State or ZIP" onblur="if(this.value == '') { this.value ='City, State or ZIP'; }" onfocus="if(this.value =='City, State or ZIP') { this.value = ''; }" type="text">
+                                            <input placeholder="City, State or ZIP" name="place" type="text">
                                             <i class="careerfy-icon careerfy-location"></i>
                                         </li>
+            
                                         <li>
-                                            <div class="careerfy-select-style">
-                                                <select>
-                                                    <option>Categories</option>
-                                                    <option>Categories</option>
-                                                    <option>Categories</option>
-                                                </select>
-                                            </div>
+                                            <input placeholder="Category" name="category" type="text">
+                                            <i class="careerfy-icon careerfy-location"></i>
                                         </li>
+                                       
                                         <li class="careerfy-banner-submit"> <input type="submit" value=""> <i class="careerfy-icon careerfy-search"></i> </li>
                                     </ul>
                                 </form>
