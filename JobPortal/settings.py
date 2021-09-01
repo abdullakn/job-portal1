@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from typing import cast
+from decouple import config
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,7 +51,8 @@ INSTALLED_APPS = [
     'froala_editor',
     'cvapp',
     'channels',
-    'chat'
+    'chat',
+   
 ]
 
 MIDDLEWARE = [
@@ -143,10 +147,10 @@ USE_TZ = False
 
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'abdudebanjazz@gmail.com'
-EMAIL_HOST_PASSWORD = 'Abdulla@123'
+EMAIL_HOST =config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT',cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD =config('EMAIL_HOST_PASSWORD')
 
 
 
