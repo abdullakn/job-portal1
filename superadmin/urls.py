@@ -14,5 +14,6 @@ urlpatterns = [
   path('table/',views.tables,name='table'),
   path('add_category/',views.add_category,name='add_category'),
   path('add_questions/<int:id>/',views.add_questions,name='add_questions'),
+  path('logout/',views.logout,name='logout')
 
 ]

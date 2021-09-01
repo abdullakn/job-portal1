@@ -1,5 +1,12 @@
 {% extends 'employee/employee_profile.html' %}
 
+{% block propic %}
+
+
+{% endblock %}
+
+
+
 
 {% block basic %}
 
@@ -21,14 +28,23 @@
                                 <div class="careerfy-cv-manager-left">
                                     <h2><a href="#"></a></h2>
                                     <ul>
-                                        <li><i class="fa fa-map-marker"></i> {{machine.job.user.company_name}}</li>
-                                        <li><i class="careerfy-icon careerfy-envelope"></i> <a href="#">{{machine.job.job_title}}</a></li>
-                                        <li><i class="careerfy-icon careerfy-files"></i> {{machine.machinetest}}</li>
+                                     <li><a href="{% url 'companies_details' machine.job.user.id %}"> </i> <b>{{machine.job.user.company_name}}</b></a></li>  
+                                       <li style="fondt-size: 15px;"> <a href="{% url 'job_details' machine.job.slug %}">{{machine.job.job_title}}</a></li>
+                                        <!-- <li style="fodnt-size: 10px;"><i class="careerfy-icon careerfy-files"></i> {{machine.machinetest}}</li> -->
+                                       <li style="fondt-size: 15px;"> <a href="{% url 'job_details' machine.job.slug %}">{{machine.created_at}}</a></li>
+                                          
                                     </ul>
                                 </div>
-                                <a href="#" class="careerfy-cv-manager-link"><i class="careerfy-icon careerfy-rubbish"></i></a>
-                                <a href="{% url 'download_machinetest' machine.id%}" class="careerfy-cv-manager-link"><i class="careerfy-icon careerfy-download-arrow"></i></a>
+                   
+                               <div style="display: flex;align-items: flex-end">
+                                <a  onclick="return confirm ('are you sure Do you want to delete') ? window.location.href='{% url 'delete_machinetest' machine.id %}' : ''  " class="careerfy-cv-manager-link"><i class="careerfy-icon careerfy-rubbish"></i></a>
+                                <a href="{% url 'download_machinetest' machine.id%}" class="careerfy-cv-manager-link"><b style="font-size: 18px;"><i class="careerfy-icon careerfy-download-arrow"></i></b></a>
+                                <a href="{% url 'reply_machine_test' machine.id %}" class="careerfy-cv-manager-link"><i class="careerfy-icon careerfy-arrow"><b>SubmitTest</b> </i></a></button>
+                                <!-- <a  class="delete" onclick="return confirm ('are you sure Do you want to delete') ? window.location.href='' : ''  " ><i class="fa fa-remove"></i>Delete</a> -->
                             </div>
+                        </div>
+                            <br>
+                           
 
                             {% endfor %}
                         </div>
@@ -44,3 +60,4 @@
 
 
 {% endblock %}
+

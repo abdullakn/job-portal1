@@ -1,0 +1,141 @@
+{% extends 'companies/dashboard.html' %}
+
+{% block headers %}
+
+
+
+{% endblock %}
+
+{% block content %}
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<div id="titlebar" class="single">
+	<div class="container">
+
+		<div class="sixteen columns">
+			<h2>Subscription Plan</h2>
+			<nav id="breadcrumbs">
+				<ul>
+					<li>You are here:</li>
+					<li><a href="#">Home</a></li>
+					<li>Subscription</li>
+				</ul>
+			</nav>
+		</div>
+
+	</div>
+</div>
+
+
+
+<!-- Pricing Tables
+================================================== -->
+
+<!-- Container / Start -->
+<div class="container">
+
+	<a href="{% url 'companies_home' %}" style="margin-right: 500px;"><button>Home</button></a>
+
+	<div class="sixteen columns">
+		<div class="notification notice margin-bottom-30">
+			<p>Below are three type of subscription plan in our site.</p>
+		</div>
+	</div>
+
+
+<!-- Container / Start -->
+<div class="container">
+
+	<!-- Plan #1 -->
+    <div class="plan color-2 one-third column">
+		<div class="plan-price">
+			<h3>Standard</h3>
+			<span class="plan-currency">₹</span>
+			<span class="value">499</span>
+		</div>
+		<div class="plan-features">
+			<ul>
+				
+				<li>This Plan Includes 10 Jobs</li>
+				<li>Highlighted Job Post</li>
+				<li>Posted For 30 Days</li>
+			</ul>
+            <form action="{% url 'checkout_session' %}" method="POST" id="payment-form">
+                {% csrf_token %}
+               
+             
+                <br>
+                <button class="btn btn-success"><i class="fa fa-shopping-cart"></i> Subscibe</button>
+                <!-- <a class="button" href="#"><i class="fa fa-shopping-cart"></i> Subscibe</a>
+                <button class="btn btn-success">Add Prime</button> -->
+            </form>
+		
+		</div>
+	</div>
+
+	<!-- Plan #2 -->	
+	<div class="plan color-2 one-third column">
+		<div class="plan-price">
+			<h3>Golden</h3>
+			<span class="plan-currency">₹</span>
+			<span class="value">799</span>
+		</div>
+		<div class="plan-features">
+			<ul>
+				
+				<li>This Plan Includes 20 Jobs</li>
+				<li>Highlighted Job Post</li>
+				<li>Posted For 60 Days</li>
+			</ul>
+            <form action="{% url 'checkout_session_golden' %}" method="POST" id="payment-form">
+                {% csrf_token %}
+               
+             
+                <br>
+                <button class="btn btn-success"><i class="fa fa-shopping-cart"></i> Subscibe</button>
+                <!-- <a class="button" href="#"><i class="fa fa-shopping-cart"></i> Subscibe</a>
+                <button class="btn btn-success">Add Prime</button> -->
+            </form>
+		</div>
+	</div>
+			
+	<!-- Plan #3 -->
+    <div class="plan color-2 one-third column">
+		<div class="plan-price">
+			<h3>Premium</h3>
+			<span class="plan-currency">₹</span>
+			<span class="value">999</span>
+		</div>
+		<div class="plan-features">
+			<ul>
+			
+				<li>This Plan Adding 30 Jobs</li>
+				<li>Highlighted Job Post</li>
+				<li>Posted For 90 Days</li>
+			</ul>
+            <form action="{% url 'checkout_session_premium' %}" method="POST" id="payment-form">
+                {% csrf_token %}
+               
+             
+                <br>
+                <button class="btn btn-success" ><i class="fa fa-shopping-cart"></i> Subscibe</button>
+         
+            </form>
+		</div>
+	</div>
+
+</div>
+<!-- Container / End -->
+
+<br>
+<br>
+
+
+</div>
+<!-- Container / End -->
+
+
+
+
+{% endblock %}

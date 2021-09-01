@@ -44,7 +44,7 @@
                                           
                                         </li>
                                         <form action="form-group" class="form-group">
-                                            <input type="text" class="form-control" id="searchField" style="width: 300px;" placeholder="search..." name="search" >
+                                            <input type="text" class="form-control" id="searchField" style="width: 300px;" placeholder="Search company..." name="search" >
                                         </form>
                                     </ul>
                                 </div>
@@ -59,7 +59,7 @@
                                                 <div class="careerfy-table-row">
                                                     <div class="careerfy-table-cell"> <figure><a href="#">{% if comp.logo %}<img src="{{comp.logo.url}}" alt="">{% else %} <img src="" alt="">{% endif %}</a></figure> </div>
                                                     <div class="careerfy-table-cell">
-                                                        <small>Banking</small>
+                                                        <small>{{comp.website}}</small>
                                                         
                                                         <h2><a href="{% url 'companies_details' comp.id %}">{{comp.company_name}}</a></h2>
                                                         <span><i class="fa fa-map-marker"></i>{{comp.country}}  ,  {{comp.state}}</span>
@@ -73,7 +73,11 @@
                                                         </ul>
                                                         <a href="#" class="careerfy-employer-thumblist-size">{{comp.email}}</a>
                                                     </div>
-                                                    <div class="careerfy-table-cell"> <a href="#" class="careerfy-employer-list-btn">10 Vacancies</a> </div>
+                                                    {% if comp.website %}
+                                                    <div class="careerfy-table-cell"> <a href="" class="careerfy-employer-list-btn">{{comp.website}}</a> </div>
+                                                    {% else %}
+
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </li>
@@ -84,7 +88,7 @@
                             </div>
                                 <!-- Pagination -->
 
-                                <div class="table-output">
+                                <div class="table-output" style="min-height: 800px;">
 
 
                                 <div class="careerfy-employer careerfy-employer-list">

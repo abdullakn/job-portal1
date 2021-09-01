@@ -3,6 +3,70 @@
 
 {% block content %}
 
+<style>
+    /* This css is for normalizing styles. You can skip this. */
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  
+  
+  
+  .new {
+    padding: 50px;
+  }
+  
+  .form-group {
+    display: block;
+    margin-bottom: 15px;
+  }
+  
+  .form-group input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+  }
+  
+  .form-group label {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .form-group label:before {
+    content:'';
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 2px solid #0079bf;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .form-group input:checked + label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 9px;
+    width: 6px;
+    height: 14px;
+    border: solid #0079bf;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+</style>
+
 
 <div class="dashboard-content">
 
@@ -16,7 +80,7 @@
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Dashboard</a></li>
-                        <li>Manage Applications</li>
+                        <li>Send Machine Test</li>
                     </ul>
                 </nav>
             </div>
@@ -65,11 +129,16 @@
                 
                 <!-- Name / Avatar -->
                 <div class="info">
-                    <img src="images/resumes-list-avatar-01.png" alt="">
+                    {% if propic %}
+                    <img src="{{propic.pro_pic.url}}" alt="">
+                    {% else %}
+                    <img src="https://careerfy-bucket.s3.ap-south-1.amazonaws.com/media/pro_pics/9-Best-Online-Avatars-and-How-to-Make-Your-Own-for-Free-image1-5.png" alt="">
+                    {% endif %}
                     <span>{{applicant.user.name}}</span>
                     <ul>
-                        <li><a href="#"><i class="fa fa-file-text"></i> Download CV</a></li>
+                        <li><a href="{% url 'view_resume' applicant.user.id %}"><i class="fa fa-file-text"></i> View CV</a></li>
                         <li><a href="#"><i class="fa fa-envelope"></i> Contact</a></li>
+                       
                     </ul>
                 </div>
                 
@@ -82,7 +151,7 @@
                 <div class="clearfix"></div>
 
             </div>
-
+          
             <!--  Hidden Tabs -->
             <div class="app-tabs">
 
@@ -91,39 +160,61 @@
                 <!-- First Tab -->
                <br>
                 
-                <h4 >Send Machine Test </h4>
+                <h4 >Job : {{applicant.job.job_title}} </h4>
+                <hr>
+
+                
+
+
+                
                 <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
                 <div>
                 <div class='file-input'  style="margin-left: 15px;">
                  
-                    <input type='file' name="machinetest">
-                   
-                   
-                  </div>
+                    <input type='file' required name="machinetest" id='file' onchange="return fileValidation()">
+                   <br>
+                   <br>
+                   <p>Type of submission method you neeeded from user ?</p>
+                   <br>
+                    <div class="form-group">
+                        <input type="checkbox" name="github" id="html">
+                        <label for="html">Github link</label>
+                      </div>
+                      <div class="form-group">
+                        <input type="checkbox" name="compressed" id="css">
+                        <label for="css">Compressed files</label>
+                      </div>
+                      <div class="form-group">
+                        <input type="checkbox" name="host" id="javascript">
+                        <label for="javascript">Hosted links</label>
+                      </div>
 
-               
-
-                  </div>
-
-                  <button type="submit" class="button margin-top-15">Send Machine Test></button>
+                  <button type="submit" class="button margin-top-15">Send Machine Test</button>
+                  
                   </form>
+
+                  <script>
+                    function fileValidation() {
+                        var fileInput = 
+                            document.getElementById('file');
+                          
+                        var filePath = fileInput.value;
+                      
+                        // Allowing file type
+                        var allowedExtensions = 
+            /(\.doc|\.docx|\.odt|\.pdf|\.tex|\.txt|\.rtf|\.wps|\.wks|\.wpd)$/i;
+                          
+                        if (!allowedExtensions.exec(filePath)) {
+                            alert('Invalid file type');
+                            fileInput.value = '';
+                            return false;
+                        } 
+                    }
+                </script>
                  
                 
                 <!-- Third Tab -->
-                <div class="app-tab-content"  id="three-1">
-                    <i>Full Name:</i>
-                    <span>{{applicant.user.name}}</span>
-
-                    <i>Email:</i>
-                    <span><a href="mailto:john.doe@example.com">{{applicant.user.email}}</a></span>
-
-                    <i>Description:</i>
-                    {% if applicant.user.description %}
-                    <span>{{applicant.user.description}} </span>
-                    {% else %}
-                    {% endif %}
-                    
-                </div>
+               
 
             </div>
 
@@ -144,10 +235,59 @@
             </div> -->
         </div>
 
+       
+
 
      
 
    
+</div>
+
+<div class="dashboard-list-box margin-top-30">
+    <div class="dashboard-list-box-content">
+
+        <!-- Table -->
+
+        <table class="manage-table responsive-table">
+
+            <tr>
+                <th><i class="fa fa-github"></i>Github Link </th>
+                <th><i class="fa fa-link"></i>Hosted Link</th>
+                <th><i class="fa fa-file"></i> Zip file</th>
+                <th> </th>
+               
+            </tr>
+                    
+            <!-- Item #1 -->
+            {% for reply in reply %}
+            <tr>
+               <td class="title">{{reply.github}}</td>
+                <td class="centered">{{reply.host}}</td>
+                <td>{{reply.compressed}}</td>
+                {% if reply.compressed %}
+                <td class="action">
+                   
+                    
+                    <a href="https://careerfy-bucket.s3.ap-south-1.amazonaws.com/media/{{reply.compressed}}"><i class="fa fa-download"></i>Download Zip</a>
+                
+                  
+                </td>
+                {% else %}
+
+                {% endif %}
+           
+            </tr>
+            {% endfor %}
+                    
+            <!-- Item #2 -->
+          
+
+            <!-- Item #2 -->
+          
+
+        </table>
+
+    </div>
 </div>
 
 

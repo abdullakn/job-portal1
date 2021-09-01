@@ -1,0 +1,128 @@
+{% extends 'employee/employee_profile.html' %}
+
+{% block propic %}
+
+
+{% endblock %}
+
+{% block basic %}
+
+
+<script>
+    function fileValidation() {
+        var fileInput = 
+            document.getElementById('file');
+          
+        var filePath = fileInput.value;
+      
+        // Allowing file type
+        var allowedExtensions = 
+/(\.zip|\.rar)$/i;
+          
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Invalid file type. choose ZIP files');
+            fileInput.value = '';
+            return false;
+        } else{
+            document.getElementById("careerfy-uploadfile").value=filePath
+        }
+    }
+</script>
+
+
+<div class="careerfy-column-9">
+    <div class="careerfy-typo-wrap">
+        
+            <div class="careerfy-employer-box-section">
+                <div class="careerfy-profile-title"><h2>Reply Machine Test</h2></div>
+
+                <form action="" id="machine-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                <div class="careerfy-upload-cv">
+                    
+                    {% if needed.compressed %}
+                    <input class="careerfy-disabled-input" id="careerfy-uploadfile" placeholder="" disabled="disabled"  />
+                        <div class="careerfy-cvupload-file">
+                        <span><i class="careerfy-icon careerfy-arrows-2"></i>Upload File</span>
+                        <input  type="file" id='file' accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" required  name="compressed" onchange="return fileValidation()" class="careerfy-upload-btn" />
+                    </div>
+                    <p>Suitable files are compressed files. eg: .zip</p>
+                    <br>
+                    <br>    
+                    <br>
+                    <!-- <button style="margin-left:15px;padding:7px 15px"  type="submit" class="btn btn-info p-5">Upload CV</button> -->
+                     {% endif %}
+                </div>
+                <ul class="careerfy-row careerfy-employer-profile-form">
+                    {% if needed.github %}
+                    <li class="careerfy-column-6">
+                        <label>Github Link *</label>
+                        <input  name="github" type="text"  id="name" onblur="githubCheck()">
+                        <p id="name-alert" style="color:red;"></p>
+                        <div class="validate"></div>
+                       
+                    </li>
+                    {% endif %}
+                    {% if needed.host %}
+                    <li class="careerfy-column-6">
+                        <label>Hosted Link *</label>
+                        <input  name="host" type="text" id="email" onkeyup="checkEmail()" min="3">
+                        <p id="email-alert" style="color:red;"></p>
+                        <div class="validate"></div>
+                    </li>
+                    {% endif %}
+                  
+                  
+               
+                  
+                </ul>
+
+                
+            <input type="submit" class="careerfy-employer-profile-submit" value="Send Files">
+        </form>
+            </div>
+
+            <span style="color: red;" id="err"></span>
+           
+          
+    </div>
+</div>
+
+<script>
+    let git=true
+    function githubCheck(){
+    let github=document.getElementById("name").value;
+    console.log(github)
+    let error=document.getElementById("name-alert")
+ if (github.indexOf('github') > -1)
+  {
+    error.innerHTML=""
+ 
+   }
+else{
+   
+
+    error.innerHTML="Enter Valid Github link"
+    git=false
+  
+ 
+}
+
+    }
+
+ 
+ 
+    const reply_form=document.getElementById("machine-form")
+    const error=document.getElementById("err")
+
+    reply_form.addEventListener('submit',(e)=>{
+        if (! git){
+            
+        e.preventDefault()
+        error.innerHTML="please Make Github Link Valid"
+
+        }
+    })
+</script>
+
+
+{% endblock %}

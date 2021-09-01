@@ -7,26 +7,35 @@
 {% endblock %}
 
 {% block content %}
+<button style="margin-right: 0;"><a href="{% url 'companies_home' %}">Back Home</a></button>
 
 
 <div id="titlebar" class="resume">
 	<div class="container">
 		<div class="ten columns">
 			<div class="resume-titlebar">
-				<img src="images/resumes-list-avatar-01.png" alt="">
+				{% if propic %}
+				<img src="{{propic.pro_pic.url}}" alt="">
+				{% else %}
+				<img src="https://careerfy-bucket.s3.ap-south-1.amazonaws.com/media/pro_pics/9-Best-Online-Avatars-and-How-to-Make-Your-Own-for-Free-image1-5.png" alt="">
+				{% endif %}
 				<div class="resumes-list-content">
 					<h4>{{applicant.name}} <span>{{applicant.specialization}}</span></h4>
 					<span class="icons"><i class="fa fa-map-marker"></i>{{applicant.place}}</span>
 					<span class="icons"><i class="fa fa-money"></i> $100 / hour</span>
 					<span class="icons"><a href="#"><i class="fa fa-link"></i> Website</a></span>
 					<span class="icons"><a href="mailto:john.doe@example.com"><i class="fa fa-envelope"></i> {{applicant.email}}</a></span>
+					
+
 					<div class="skills">
 						<span>JavaScript</span>
 						<span>PHP</span>
 						<span>WordPress</span>
 						<span>Python</span>
 					</div>
-					<div class="clearfix"></div>
+					<div class="clearfix">
+					
+					</div>
 
 				</div>
 			</div>
@@ -35,9 +44,13 @@
 		<div class="six columns">
 			<div class="two-buttons">
 
-				<a href="#small-dialog" class="popup-with-zoom-anim button"><i class="fa fa-envelope"></i> Send Message</a>
+				<a href="#small-dialog" class="popup-with-zoom-anim button"><i class="fa fa-envelope"></i>Send Message</a>
 
-				<div id="small-dialog" class="zoom-anim-dialog mfp-hide apply-popup">
+				<!-- <a href="{% url 'view_resume' applicant.id %}" class="button dark"><i class="fa fa-star"></i> View Resume</a> -->
+				
+				
+
+				<!-- <div id="small-dialog" class="zoom-anim-dialog mfp-hide apply-popup">
 					<div class="small-dialog-headline">
 						<h2>Send Message to Johnddd Doe</h2>
 					</div>
@@ -50,22 +63,33 @@
 
 							<button class="send">Send Applicationddd</button>
 						</form>
-					</div>
+					</div> -->
 					
-				</div>
+				<!-- </div> -->
 				<a href="{% url 'view_resume' applicant.id %}" class="button dark"><i class="fa fa-star"></i> View Resume</a>
-
+			
+			
+				
+              
 
 			</div>
+	
 		</div>
 
 	</div>
+
 </div>
+
+
 
 
 <!-- Content
 ================================================== -->
 <div class="container" style="display: flex;">
+
+
+
+
 	<!-- Recent Jobs -->
 	<div class="eight columns">
 	<div class="padding-right">
@@ -91,6 +115,46 @@
 		</ul>
 
 	</div>
+
+	<div class="careerfy-typo-wrap">
+        <h2>{{applicant.name}} Badges</h2>
+        <div class="careerfy-employer-box-section">
+           
+            <div class="categories-list">
+                
+                <ul class="careerfy-row">
+                    
+                    <li class="careerfy-column-3">
+
+
+						{% for badge in badge %}
+                        
+
+                       <div style="display: flex;">
+						   {% if badge.badge == 'Gold' %}
+						<img src="https://careerfy-bucket.s3.ap-south-1.amazonaws.com/media/badge/gold.jpg" width="30" height="30" alt="gold" style="width: 80px;" >
+                          {% else %}
+						  <img src="https://careerfy-bucket.s3.ap-south-1.amazonaws.com/media/badge/silver.jpg"  style="width: 80px;" alt="silver">
+                          {% endif %}
+						<h4 style="padding-top: 20px;padding-left:30px">{{badge.category.category}}</h4>
+					   </div>
+
+					   {% endfor %}
+                       
+  
+                     
+                        
+                        <h6>{{badge.category.category}}</h6>
+                    </li>
+                 
+                </ul>
+            </div>
+            
+       
+        </div>
+    </div>
+	
+
 	</div>
 
 
@@ -105,12 +169,12 @@
                 {% for job in jobs %}
                 
                 <!-- Listing -->
-                <a href="job-page-alt.html" class="listing full-time">
+                <a href="" class="listing full-time">
                     <div class="listing-logo">
-                        <img src="/media/{{job.job.user.logo}}" alt="">
+                        <img src="{{job.job.user.logo.url}}" alt="">
                     </div>
                     <div class="listing-title">
-                        <h4>{{job.job.job_title}} <span class="listing-type">{{job.job.job_type}}</span></h4>
+                        <h4>{{job.job.job_title}} ({{job.job.user.company_name}}) <span class="listing-type">{{job.job.job_type}}</span></h4>
                         <ul class="listing-icons">
                             <li><i class="ln ln-icon-Management"></i> {{job.job.category}}</li>
                             <li><i class="ln ln-icon-Map2"></i> {{job.job.location}}</li>

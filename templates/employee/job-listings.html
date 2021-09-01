@@ -2,7 +2,10 @@
 
 <div class="careerfy-main-content">
 
-{% block content %}
+
+
+       {% block content %}
+      
         <!-- SubHeader -->
         <div class="careerfy-subheader">
             <span class="careerfy-banner-transparent"></span>
@@ -28,28 +31,12 @@
                     <div class="row">
 
                         <div class="col-md-12 careerfy-typo-wrap">
-                            <!-- Sub Header Form -->
-                            <div class="careerfy-subheader-form">
-                                <form class="careerfy-banner-search" action="{% url 'search_jobs' %}" method="GET">
-                                    <ul >
-                                        <li>
-                                            <input placeholder="Job Title, Keywords, or Company" name="main" type="text">
-                                        </li>
-                                        <li>
-                                            <input placeholder="City, State or ZIP" name="place" type="text">
-                                            <i class="careerfy-icon careerfy-location"></i>
-                                        </li>
-            
-                                        <li>
-                                            <input placeholder="Category" name="category" type="text">
-                                            <i class="careerfy-icon careerfy-location"></i>
-                                        </li>
-                                       
-                                        <li class="careerfy-banner-submit"> <input type="submit" value=""> <i class="careerfy-icon careerfy-search"></i> </li>
-                                    </ul>
-                                </form>
-                            </div>
-                            <!-- Sub Header Form -->
+                           
+
+                            {% block search %}
+                            
+                            {% endblock %}
+                           
                         </div>
 
                     </div>
@@ -173,26 +160,7 @@
                         </aside>
                         <div class="careerfy-column-9 careerfy-typo-wrap">
                             <div class="careerfy-typo-wrap">
-                                <!-- FilterAble -->
-                                <!-- <div class="careerfy-filterable">
-                                    <h2>Showing 0-12 of 37 results</h2>
-                                    <ul>
-                                        <li>
-                                            <i class="careerfy-icon careerfy-sort"></i>
-                                            <div class="careerfy-filterable-select">
-                                                <select>
-                                                    <option>Sort</option>
-                                                    <option>Sort</option>
-                                                    <option>Sort</option>
-                                                </select>
-                                            </div>
-                                        </li>
-                                        <li><a href="#"><i class="careerfy-icon careerfy-squares"></i> Grid</a></li>
-                                        <li><a href="#"><i class="careerfy-icon careerfy-list"></i> List</a></li>
-                                    </ul>
-                                </div> -->
-                                <!-- FilterAble -->
-                                <!-- JobGrid -->
+                               
                                 <div class="careerfy-job careerfy-joblisting-classic">
                                     <ul class="careerfy-row">
                                         <div class="filterProducts">
@@ -237,7 +205,17 @@
                                                     </div>
                                                     <div class="careerfy-job-userlist">
                                                         <a href="#" class="careerfy-option-btn">{{jobs.job_type}}</a>
-                                                        <a href="" class="careerfy-job-like"><i class="fa fa-heart"></i></a>
+                                                        <!-- <a href="" class="careerfy-job-like">Apply</a> -->
+                                                        <!-- {% for appl in applied %}
+                                                        {% if  jobs.id == appl.job.id %}
+                                                    
+                                                        <a href="#" class="btn btn-info">Apply Now</a>
+                                                      
+                                                        {% endif %}
+                                                        {% endfor %} -->
+
+
+                                                       
 
 
                                                         <!-- {% for fav in favourite %}
@@ -282,6 +260,8 @@
                     </div>
                 </div>
             </div>
+            </div>
+         
             <!-- Main Section -->
 
        
@@ -326,8 +306,15 @@
                 });
             });
         </script>
+    </div>
+     
+     
+    
+        
+    
 
         {% endblock %}
 
-    </div>
+   
+
        

@@ -20,23 +20,62 @@
             </div>
         </div>
     </div>
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == "success" %}
+        <div class= "alert alert-success" style="border:1px solid white;text-align:center;margin-bottom:5px;padding:15px 0px;border-radius:8px;background-color:#cfe6d2"> <b style="color: black;">{{message}}</a></b> </div>
+
+
+        {% elif message.tags == "error" %}
+        <div class= "alert alert-success" style="border:1px solid white;text-align:center;margin-bottom:5px;padding:15px 0px;border-radius:8px;background-color:rgb(228, 149, 149)"> <b style="color: black;">{{message}}</a></b> </div>
+
+            <!-- <div class= "alert alert-danger">{{ message }}</div> -->
+        {% endif %}
+        {% endfor %}
+        {% endif %}
    
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" id="comp-pro" enctype="multipart/form-data">
         {% csrf_token %}
     <div class="row">
         <div class="col-lg-12">
             <div class="edit-profile-photo">
-                <img {% if profile.logo %} src="{{profile.logo.url}}" {% else %} src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=300"{% endif %} alt="">
+                <img id="preview" {% if profile.logo %} src="{{profile.logo.url}}" {% else %} src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=300"{% endif %} alt="">
                 <div class="change-photo-btn">
                     <div class="photoUpload">
                         <span><i class="fa fa-upload"></i> Upload Logo</span>
-                        <input type="file"  value="{{profile.logo}}" class="upload" name="logo" />
+                        <input type="file" id="cmp-logo" onchange="return fileValidationLogo()"  value="{{profile.logo.url}}"  class="upload" name="logo" />
                     </div>
                 </div>
             </div>
         </div>
         
     </div>
+
+    <script>
+        function fileValidationLogo() {
+            var fileInput = 
+                document.getElementById('cmp-logo');
+              
+            var filePath = fileInput.value;
+          
+            // Allowing file type
+            var allowedExtensions = 
+    /(\.png|\.jpeg|\.jpg)$/i;
+              
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Invalid file type. choose .png , .jpeg , .jpg');
+                fileInput.value = '';
+                return false;
+            } else{
+                const [file] = fileInput.files
+                if (file) {
+                  preview.src = URL.createObjectURL(file)
+                }
+                
+            }
+        }
+    </script>
+  
 
   
     <div class="row">
@@ -55,21 +94,21 @@
                     <!-- Email -->
                     <div class="form">
                         <label>Company Name</label>
-                        <input value="{{profile.company_name}}" name="cname" type="text">
+                        <input  {% if profile %} value="{{profile.company_name}}"{% else %} value="{{request.user.company_name}}" {% endif %} id="cname" name="cname" type="text">
                     </div>
                  
 
                     <!-- Title -->
                     <div class="form">
                         <label>Email</label>
-                        <input value="{{profile.email}}" name="cemail" type="email">
+                        <input  {% if profile %} value="{{profile.email}}" {% else %} value="{{request.user.email}}" {% endif %} id="email" name="cemail" type="email">
                     </div>
 
                     <!-- Job Type -->
                     <div class="form">
                         
                         <label>Phone</label>
-                        <input value="{{profile.phone_number}}" name="cphone" type="text">
+                        <input value="{{profile.phone_number}}" id="phone" name="cphone" type="text">
                     </div>
 
 
@@ -77,7 +116,7 @@
                     <div class="form">
                 
                         <label><i class="fa fa-twitter"></i> Website</label>
-                        <input placeholder="https://www.example.com.com/"  name="cwebsite" type="text">
+                        <input value="{{profile.website}}" id="website"  name="cwebsite" type="text">
                     </div>
 
 
@@ -113,25 +152,25 @@
                     <!-- Company Name -->
                     <div class="form">
                         <h5>Country</h5>
-                        <input type="text" value="{{profile.country}}" name="country" placeholder="country">
+                        <input type="text" value="{{profile.country}}" id="country " name="country" placeholder="country">
                     </div>
 
                     <!-- Website -->
                     <div class="form">
                         <h5>State<span></span></h5>
-                        <input type="text" value="{{profile.state}}" name="state" placeholder="state">
+                        <input type="text" value="{{profile.state}}" id="state" name="state" placeholder="state">
                     </div>
 
                     <!-- Teagline -->
                     <div class="form">
                         <h5>District <span></span></h5>
-                        <input type="text" value="{{profile.district}}" name="district" placeholder="district">
+                        <input type="text" value="{{profile.district}}" id="district" name="district" placeholder="district">
                     </div>
 
                     <!-- Video -->
                     <div class="form">
                         <h5>Post-Code <span></span></h5>
-                        <input type="text" name="postcode" value="{{profile.postcode}}" placeholder="pin-code">
+                        <input type="text" name="postcode" id="post" value="{{profile.postcode}}" placeholder="pin-code">
                     </div>
 
                   
@@ -157,25 +196,25 @@
                     <div class="form">
                       
                         <label><i class="fa fa-twitter"></i> Twitter</label>
-                        <input name="twitter"  value="{{website.twitter}}" placeholder="https://www.twitter.com/" type="text">
+                        <input name="twitter" {% if website.twitter %} value="{{website.twitter}}"{% else %} value="http://" {% endif %}placeholder="https://www.twitter.com/" type="text">
                     </div>
 
                     <!-- Website -->
                     <div class="form">
                         <label><i class="fa fa-facebook-square"></i> Facebook</label>
-                        <input name="facebook" value="{{website.facebook}}" placeholder="https://www.facebook.com/" type="text">
+                        <input name="facebook" {% if website.facebook %} value="{{website.facebook}}"{% else %} value="http://" {% endif %} placeholder="https://www.facebook.com/" type="text">
                     </div>
 
                     <!-- Teagline -->
                     <div class="form">
                         <label><i class="fa fa-google-plus"></i> Google+</label>
-                        <input name="google" value="{{website.google}}" placeholder="https://www.google.com/" type="text">
+                        <input name="google"  {% if website.google %} value="{{website.google}}"{% else %} value="http://" {% endif %}  placeholder="https://www.google.com/" type="text">
                     </div>
 
                     <!-- Video -->
                     <div class="form">
                         <i class="fa fa-linkedin" aria-hidden="true"></i>
-                        <input name="linkedin" value="{{website.linkedin}}" placeholder="https://www.linkedin.com/" type="text">
+                        <input name="linkedin" {% if website.linkedin %} value="{{website.linkedin}}"{% else %} value="http://" {% endif %} placeholder="https://www.linkedin.com/" type="text">
                     </div>
 
                   
@@ -185,10 +224,159 @@
 
                 </div>
             </div>
+            <br>
+            <p id="error" style="color: red;"></p>
             <button type="submit" class="button margin-top-30">Save Changes <i class="fa fa-arrow-circle-right"></i></button>
             <!-- <a href="#" class="button margin-top-30"></a> -->
         </div>
+       
     </form>
+    <br>
+    <br>
+
+
+
+        
+<script>
+    const logo=document.getElementById("cmp-logo")
+    const cname=document.getElementById("cname")
+    const email=document.getElementById("email")
+    const phone=document.getElementById("phone")
+    const website=document.getElementById("website")
+    const summary=document.getElementById("summary")
+    const country=document.getElementById("country")
+    const state=document.getElementById("state")
+   
+    const district=document.getElementById("district")
+    const post=document.getElementById("post")
+
+    const form=document.getElementById("comp-pro")
+    const error=document.getElementById("error")
+   
+    
+
+    form.addEventListener('submit',(e)=>{
+        console.log(logo)
+        console.log("ddd",logo.name)
+        if ( cname.value === ''  || email.value === '' || phone.value === ''  || website.value === ''  || summary.value === ''  || country.value === ''  || state.value === ''  || district.value === '' || post.value === ''){
+            
+        e.preventDefault()
+        error.innerHTML="Please fill the Compulsory Fields"
+
+        }
+    })
+</script>
+
+
+    <form action="{% url 'add_gallery' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+          
+        <div class="form">
+            <h5>Add <span>Company Gallery</span></h5>
+            <label class="upload-btn" id="one">
+                <input type="file" name="gallery" required style="margin-left:200px;" id="file" onchange="return fileValidation()" multiple />
+                <i class="fa fa-upload"></i> Browse
+            </label>
+            <span style="height: 48px;" id="fake" class="fake-input"></span>
+        </div>
+        <button type="submit" class="button margin-top-30">Upload <i class="fa fa-arrow-circle-right"></i></button>
+    </form>
+
+
+
+
+
+    
+  <script>
+    function fileValidation() {
+        var fileInput = 
+            document.getElementById('file');
+          
+        var filePath = fileInput.value;
+      
+        // Allowing file type
+        var allowedExtensions = 
+/(\.jpg|\.jpeg|\.png|\.jfif)$/i;
+          
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Invalid file type');
+            fileInput.value = '';
+            return false;
+        } else{
+            document.getElementById("fake").innerText=filePath
+        }
+    }
+</script>
+
+
+
+    <form action="{% url 'add_extra_company' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+  
+    <div class="row">
+        
+        <!-- Table-->
+        <div class="col-lg-12 col-md-12">
+            <!-- <form action="" method="POST">{% csrf_token %} -->
+
+            <div class="dashboard-list-box margin-top-0">
+                <h4>Company Extra Details</h4>
+                <div class="dashboard-list-box-content">
+
+                <div class="submit-page">
+                   
+
+                    <!-- Email -->
+                    <div class="form">
+                        <label>Company size</label>
+                        <input value="{{extra.company_size}}" name="size" type="text">
+                    </div>
+                 
+
+                    <!-- Title -->
+                    <div class="form">
+                        <label>Categorie or Industry</label>
+                        <input value="{{extra.categorie}}" name="category" type="text">
+                    </div>
+
+                    <!-- Job Type -->
+                    <div class="form">
+                        
+                        <label>Founded</label>
+                        <input value="{{extra.founded}}" name="founded" type="text">
+                    </div>
+
+
+                    <!-- Choose Category -->
+                    <div class="form">
+                
+                        <label> Revenue</label>
+                        <input value="{{extra.revenue}}"  name="revenue" type="text">
+                    </div>
+
+
+                    <!-- Location -->
+                   
+
+
+
+                    <!-- Tags -->
+     
+                  
+
+                </div>
+            </div>
+            <button type="submit" class="button margin-top-30">Save Changes <i class="fa fa-arrow-circle-right"></i></button>
+            <!-- <a href="#" class="button margin-top-30"></a> -->
+        </div>
+
+</form>
+
+
+
+
 
 
         <!-- Copyrights -->

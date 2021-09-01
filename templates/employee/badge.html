@@ -1,0 +1,82 @@
+{% extends 'employee/employee_profile.html' %}
+
+{% block propic %}
+
+
+{% endblock %}
+
+
+{% block basic %}
+
+            
+<div class="careerfy-column-9">
+    <div class="careerfy-typo-wrap">
+        <h2>Careerfy Badge Test</h2>
+        <div class="careerfy-employer-box-section">
+           
+            <div class="categories-list">
+                
+                <ul class="careerfy-row">
+                    <li class="careerfy-column-3">
+                        <i class="fab fa-html5"></i>
+                        
+                        <a href="{% url 'employee_badge' 16 %}">HTML</a>
+                        <span></span>
+                    </li>
+                    <li class="careerfy-column-3">
+                        
+                        <i class="fab fa-css3-alt"></i>
+                        <a href="{% url 'employee_badge' 15 %}">CSS</a>
+                       
+                    </li>
+                    <li class="careerfy-column-3">
+                        <i class="fab fa-js-square"></i>
+                        <a href="{% url 'employee_badge' 17 %}">Java Script</a>
+                      
+                    </li>
+                    <li class="careerfy-column-3">
+                        <i class="fab fa-python"></i>
+                        <a href="{% url 'employee_badge' 14 %}">Python</a>
+                    
+                    </li>
+                   
+                </ul>
+            </div>
+            
+       
+        </div>
+    </div>
+
+    <div class="careerfy-typo-wrap">
+        <h2>Your Badges</h2>
+        <div class="careerfy-employer-box-section">
+           
+            <div class="categories-list">
+                
+                <ul class="careerfy-row">
+                    {% for badge in badges %}
+                    <li class="careerfy-column-3">
+                        
+
+                        {% if badge.badge == 'Gold' %}
+                       
+                        <img src="/media/badge/gold.jpg" alt="gold">
+                        {% else %}
+                        <img src="/media/badge/silver.jpg" alt="silver">
+                        {% endif %}
+                        <h6>{{badge.category.category}}</h6>
+                    </li>
+                   {% endfor %}
+                </ul>
+            </div>
+            
+       
+        </div>
+    </div>
+</div>
+
+
+ 
+
+
+{% endblock %}

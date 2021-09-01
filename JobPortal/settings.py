@@ -12,8 +12,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,7 +44,11 @@ INSTALLED_APPS = [
     'companies',
     'employee',
     'superadmin',
-    'storages'
+    'storages',
+    'froala_editor',
+    'cvapp',
+    'channels',
+    'chat'
 ]
 
 MIDDLEWARE = [
@@ -72,7 +79,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'JobPortal.wsgi.application'
+# WSGI_APPLICATION = 'JobPortal.wsgi.application'
+ASGI_APPLICATION = 'JobPortal.asgi.application'
 
 
 # Database
@@ -127,28 +135,42 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
+
+
+
+#email
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'abdudebanjazz@gmail.com'
+EMAIL_HOST_PASSWORD = 'Abdulla@123'
 
 
 
 
 
-AWS_ACCESS_KEY_ID = 'AKIATI5UOAYSCJVXYJOV'
+# AWS_ACCESS_KEY_ID = 'AKIATI5UOAYSCJVXYJOV'
 
-AWS_SECRET_ACCESS_KEY='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'
+# AWS_SECRET_ACCESS_KEY='ArVVB/ml6zoSjta0c1TdB5PEB5OmkGQucmJ8ScG3'
 
-AWS_STORAGE_BUCKET_NAME='careerfy-bucket'
+# AWS_STORAGE_BUCKET_NAME='careerfy-bucket'
 
 
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
 
-DEFAULT_FILE_STORAGE = 'JobPortal.storage_backends.MediaStorage'
+# DEFAULT_FILE_STORAGE = 'JobPortal.storage_backends.MediaStorage'
 
-AWS_DEFAULT_ACL = 'public-read'
+# AWS_DEFAULT_ACL = 'public-read'
+
+
+
 # AWS_DEFAULT_ACL = None
 # AWS_LOCATION = 'static'
 
@@ -170,12 +192,23 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 'data' is my media folder
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 'data' is my media folder
 
-# MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL='accounts.UserCompanies'
 
 AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        # 'CONFIG': {
+        #     'hosts': [('127.0.0.1', 6379)],
+        # }
+    }
+}
+

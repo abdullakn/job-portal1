@@ -29,21 +29,40 @@
                             <span class="careerfy-jobdetail-listthumb"><img src="{{jobs.user.logo.url}} " alt=""></span>
                             <figcaption>
                                 <h2>{{jobs.job_title}}</h2>
-                                <span><small class="careerfy-jobdetail-type">{{jobs.job_type}}</small> {{jobs.user.company_name}} <small class="careerfy-jobdetail-postinfo">Posted now</small></span>
+                                <span><small class="careerfy-jobdetail-type">{{jobs.job_type}}</small><a href="{% url 'companies_details' jobs.user.id %}">{{jobs.user.company_name}}</a>  <small class="careerfy-jobdetail-postinfo"></small></span>
                                 <ul class="careerfy-jobdetail-options">
-                                    <li><i class="fa fa-map-marker"></i> {{jobs.location}}<a href="#" class="careerfy-jobdetail-view">View on Map</a></li>
+                                    <li><i class="fa fa-map-marker"></i> {{jobs.location}}<button style="color: white;" onclick="mapLoc()" class="careerfy-jobdetail-view"> View on Map</button></li>
+                                     <script>
+                                        function mapLoc(){
+                                            if (navigator.geolocation) {
+                                                navigator.geolocation.getCurrentPosition(showPosition);
+                                              } else {
+                                             
+                                             }
+                                             function showPosition(position) {
+                                         
+
+                                                window.open(`https://www.google.com/maps/dir/?api=1&origin=${position.coords.latitude},${position.coords.longitude}&destination={{location.lat}},{{location.long}}`)
+                                                x.innerHTML = "Latitude: " + position.coords.latitude + 
+                                                "<br>Longitude: " + position.coords.longitude;
+                                              }
+                                            
+                                        }
+
+                                     </script>
+                                   
                                     <li><i class="careerfy-icon careerfy-calendar"></i> Post Date : {{jobs.create_at}}</li>
-                                    <li><i class="careerfy-icon careerfy-calendar"></i> Apply Before: {{jobs.closing_date}}</li>
+                                    <li id="close-date" ><i class="careerfy-icon careerfy-calendar"></i>Apply Before:{{jobs.closing_date|date:"M d,Y"}}  </li>
                                     <!-- <li><i class="careerfy-icon careerfy-summary"></i> Applications 4</li>
                                     <li><a href="#"><i class="careerfy-icon careerfy-view"></i> Views 3806</a></li> -->
                                 </ul>
                                 <a href="{% url 'view_pdf' jobs.id %}" class="careerfy-jobdetail-btn active"><i class="careerfy-icon careerfy-add-list"></i>View Broucher</a>
                                 <a href="#" class="careerfy-jobdetail-btn"><i class="careerfy-icon careerfy-envelope"></i>{{jobs.user.email}}</a>
                                 <ul class="careerfy-jobdetail-media">
-                                    <li><span>Share:</span></li>
-                                    <li><a href="#" data-original-title="facebook" class="careerfy-icon careerfy-facebook-logo-in-circular-button-outlined-social-symbol"></a></li>
-                                    <li><a href="#" data-original-title="twitter" class="careerfy-icon careerfy-twitter-circular-button"></a></li>
-                                    <li><a href="#" data-original-title="linkedin" class="careerfy-icon careerfy-linkedin"></a></li>
+                                    <li><span></span></li>
+                                    <li><a href="https://abdullakn.online/" data-original-title="facebook" class="careerfy-icon careerfy-facebook-logo-in-circular-button-outlined-social-symbol"></a></li>
+                                    <li><a href="https://abdullakn.online/" data-original-title="twitter" class="careerfy-icon careerfy-twitter-circular-button"></a></li>
+                                    <li><a href="https://abdullakn.online/" data-original-title="linkedin" class="careerfy-icon careerfy-linkedin"></a></li>
                                 </ul>
                             </figcaption>
                         </figure>
@@ -233,25 +252,63 @@
                         <div class="widget widget_apply_job">
                             <div class="widget_apply_job_wrap">
                                 {% if favourite %}
-                                <a href=""  id="apply" class="btn btn-info" style="padding-left:50px;padding-right:50px;padding-top:5px;padding-bottom:5px">In Favourite</a>
+                                <a href=""  id="appliii" class="btn btn-info" style="padding-left:50px;padding-right:50px;padding-top:5px;padding-bottom:5px">In Favourite</a>
                                 {% else %}
-                                <a href="{% url 'favourite_jobs' jobs.id %}"  id="apply" class="btn btn-info" style="padding-left:50px;padding-right:50px;padding-top:5px;padding-bottom:5px">Add to Favourite</a>
+                                <a href="{% url 'favourite_jobs' jobs.id %}"  id="appliii" class="btn btn-info" style="padding-left:50px;padding-right:50px;padding-top:5px;padding-bottom:5px">Add to Favourite</a>
                                 {% endif %}
+                                <br>
                                 <br>
                                 <br>
                               
                                 {% if user is None %}
                                 
-                                <a href="{% url 'employee_profile' %}"  id="apply" class="careerfy-applyjob-btn">Must create Profile, Before Applying</a>
+                                <a {% if not request.user.is_authenticated %} href="{% url 'login_employee' %}"  {% else %}href="{% url 'employee_profile' %}" {% endif %}   class="careerfy-applyjob-btn">Must create Profile, Before Applying</a>
+                                
+                                {% elif cv is None %}
+                                <a  href="{% url 'make_cv' %}"  id="" class="careerfy-applyjob-btn">Upload CV Before Applying</a>
+                                
+
                                 {% else %}
                                 {% if applied %}
                                 <!-- <button><a href="" class="careerfy-applyjob-btn"  id="">Applied</a></button> -->
                                  <a href="#" id="apply" class="careerfy-applyjob-btn">Applied</a>
                                   {% else %}
                                 <a href="#" id="apply" class="careerfy-applyjob-btn" onclick="applyJob('{{jobs.id}}')">Apply for the job</a>
+                                <a href="#" id="after-apply" style="display: none;" class="careerfy-applyjob-btn" >Applied</a>
                                 {% endif %}
                                 {% endif %}
-                                <span>Application ends in 4d 5h 3m</span>
+                                <div class="remaining-date" id="remaining-date" style="color: blue;"> </div>
+
+                                <script>
+                                    const close_date=document.getElementById("close-date")
+                                    const remainin=document.getElementById("remaining-date")
+
+                                    console.log("dddd",remainin)
+                                    console.log("dddd",close_date.textContent)
+                                    const eventDate=Date.parse(close_date.textContent)
+                                    console.log(eventDate)
+                                    
+                                    setInterval(()=>{
+                                        const now=new Date().getTime()
+                                    console.log(now)
+                                    const diff=eventDate-now
+                                    console.log(diff)
+                                    const days=Math.floor(eventDate/(1000*60*60*24)-(now/(1000*60*60*24)))
+                                    const hours=Math.floor(eventDate/(1000*60*60)-(now/(1000*60*60)))
+                                    const minute=Math.floor(eventDate/(1000*60)-(now/(1000*60)))
+                                    console.log(days)
+                                    console.log(hours)
+                                    console.log(minute)
+                                    if (diff>0){
+                                        remainin.innerHTML=days + " Days left" 
+                                    }else{
+                                        remainin.innerHTML="Job Expired"
+                                    }
+
+                                    },1000)
+                                  
+                                </script>
+                               
                                 <!-- <div class="careerfy-applywith-title"><small>OR apply with</small></div>
                                 <p>Know someone who would be perfect for  this role this role? Be a pal, let them know.</p> -->
                                 <!-- <ul>
@@ -280,7 +337,7 @@
                         <!-- <div class="widget widget_add">
                             <img src="extra-images/jobdetail-add.jpg" alt="">
                         </div> -->
-                        <div class="widget widget_view_jobs">
+                        <!-- <div class="widget widget_view_jobs">
                             <div class="careerfy-widget-title"><h2>More Jobs from {{jobs.user.company_name}}</h2></div>
                             <ul>
                                 <li>
@@ -300,7 +357,7 @@
                                 </li>
                             </ul>
                             <a href="{% url 'job_list_view' %}" class="widget_view_jobs_btn">View all jobs <i class="careerfy-icon careerfy-arrows32"></i></a>
-                        </div>
+                        </div> -->
                     </div>
                 </aside>
                 <!-- Job Detail SideBar -->
@@ -325,9 +382,12 @@
             data:{'id':id},
             success: function(body){
                 console.log(body)
-             
-               $('#apply').html("Applied")
-               $('#apply').css("cursor", "not-allowed");
+                //$('#after-apply').style.disp
+               // $('#apply').css("display","none")
+                var apply=document.getElementById("apply").style.display='none'
+                $("#after-apply").css("display", "block");
+              
+              // $('#apply').css("cursor", "not-allowed");
                //$("#apply").attr("disabled", true);
                // Total()
                 //on()

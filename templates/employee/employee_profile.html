@@ -15,18 +15,78 @@
                 <aside class="careerfy-column-3">
                     <div class="careerfy-typo-wrap">
                         <div class="careerfy-employer-dashboard-nav">
+                            
                             <figure>
-                                <a href="#" class="employer-dashboard-thumb"><img src="extra-images/candidate-dashboard-navthumb.jpg" id="image" alt=""></a>
+                                {% block propic %}
+                                {% if propic %}
+                                <a href="#" class="employer-dashboard-thumb"><img src="{{propic.pro_pic.url}}" id="image" alt=""></a>
+                                {% else %}
+                                
+                                <a href="#" class="employer-dashboard-thumb"><img src="https://careerfy-bucket.s3.ap-south-1.amazonaws.com/media/pro_pics/9-Best-Online-Avatars-and-How-to-Make-Your-Own-for-Free-image1-5.png" id="image" alt=""></a>
+                                {% endif %}
                                 <figcaption>
+                                    
+                                    <form action="{% url 'propic_save' %}" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
                                     <div class="careerfy-fileUpload">
-                                        <span><i class="careerfy-icon careerfy-add"></i> Upload Photo</span>
-                                        <input type="file" class="careerfy-upload image" name="image" />
+                                        <span id="upload-photo"><i class="careerfy-icon careerfy-add"></i> Upload Photo</span>
+                                        <input type="file" class="careerfy-upload image" name="image" id="pro_image" onchange="return fileValidation()" />
+                                      <br>
+                                     
+                                        <button type="submit" id="add-button" style="cursor: pointer;
+                                        border: 1px solid #3498db;
+                                        background-color: transparent;
+                                        height: 40px;
+                                        width: 120px;
+                                        color: #3498db;
+                                        font-size: 15px;
+                                        display:none;
+                                        border-radius:30px;">Add Photo</button>
                                     </div>
+                                </form>
+
+                         
+                                    <style>
+                                        #add-button:hover{
+                                            background-color:#3498db ;
+                                            color: white;
+                                        }
+                                    </style>
+
+
+                                    <script>
+                                        function fileValidation() {
+                                            var fileInput = 
+                                                document.getElementById('pro_image');
+                                              
+                                            var filePath = fileInput.value;
+                                          
+                                            // Allowing file type
+                                            var allowedExtensions = 
+                                    /(\.png|\.jpeg|\.jpg)$/i;
+                                              
+                                            if (!allowedExtensions.exec(filePath)) {
+                                                alert('Invalid file type. choose .png , .jpeg , .jpg');
+                                                fileInput.value = '';
+                                                return false;
+                                            } else{
+                                                const [file] = fileInput.files
+                                                if (file) {
+                                                  image.src = URL.createObjectURL(file)
+                                                }
+                                                document.getElementById("upload-photo").style.display='none'
+                                                document.getElementById("add-button").style.display='block'
+                                            }
+                                        }
+                                    </script>
+                               
+
+                                    {% endblock %}
 
 
                                  <!-- modal -->
 
-
+<!-- 
 
                                  
          <div class="modal fade" id="modal"   role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -42,7 +102,7 @@
                         <div class="img-container">
                             <div class="row">
                                 <div class="col-md-8">  
-                                    <!--  default image where we will set the src via jquery-->
+                                    
                                     <img id="image">
                                 </div>
                                 <div class="col-md-4">
@@ -57,7 +117,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
 
@@ -75,29 +135,44 @@
                                 <li><a href="{% url 'view_cv' %}"><i class="careerfy-icon careerfy-resume"></i> View Resume </a></li>
                                 <li><a href="{% url 'view_favourite' %}"><i class="careerfy-icon careerfy-heart"></i> Saved jobs</a></li>
                                 <li><a href="{% url 'employee_appliedjobs' %}"><i class="careerfy-icon careerfy-briefcase-1"></i> Applied jobs</a></li>
-                                <li><a href=""><i class="careerfy-icon careerfy-alarm"></i> Job Alerts</a></li>
+                                <!-- <li><a href=""><i class="careerfy-icon careerfy-alarm"></i> Job Alerts</a></li> -->
                                 <li><a href="{% url 'machine_test' %}"><i class="careerfy-icon careerfy-id-card"></i>Machine Test</a></li>
-                                <li><a href="candidate-dashboard-changed-password.html"><i class="careerfy-icon careerfy-multimedia"></i> Change Password</a></li>
-                                <li><a href="index-2.html"><i class="careerfy-icon careerfy-logout"></i> Logout</a></li>
+                                <li><a href="{% url 'badges' %}"><i class="careerfy-icon careerfy-id-card"></i>careerfy badges</a></li>
+                                <li><a href="{% url 'messages_page' %}"><i class="careerfy-icon careerfy-multimedia"></i>Message</a></li>
+                                <li><a href="{% url 'employee_logout' %}"><i class="careerfy-icon careerfy-logout"></i> Logout</a></li>
                             </ul>
                         </div>
                     </div>
                 </aside>
 
                 {% block basic %}
+                {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == "success" %}
+                        <div class= "alert alert-success">{{ message }}</div>
+                    {% elif message.tags == "error" %}
+                        <div class= "alert alert-danger">{{ message }}</div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
                 <div class="careerfy-column-9">
                     <div class="careerfy-typo-wrap">
-                        <form class="careerfy-employer-dasboard" accept="" method="POST">{% csrf_token %}
+                        <form class="careerfy-employer-dasboard" id="pro-form" accept="" method="POST">{% csrf_token %}
                             <div class="careerfy-employer-box-section">
                                 <div class="careerfy-profile-title"><h2>Basic Information</h2></div>
                                 <ul class="careerfy-row careerfy-employer-profile-form">
                                     <li class="careerfy-column-6">
                                         <label>Your Name *</label>
-                                        <input value="{{employee.name}}" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)"  name="name" type="text">
+                                        <input {% if employee %}value="{{employee.name}}"{% else %} value="{{request.user.first_name}} {{request.user.last_name}}" {% endif %} name="name" type="text"  id="name" onkeyup="nameChek()">
+                                        <p id="name-alert" style="color:red;"></p>
+                                        <div class="validate"></div>
+                                       
                                     </li>
                                     <li class="careerfy-column-6">
                                         <label>Email *</label>
-                                        <input value="{{employee.email}}" name="email" type="text">
+                                        <input {% if employee %} value="{{employee.email}}" {% else %} value="{{request.user.email}}" {% endif %} name="email" type="text" id="email" onkeyup="checkEmail()" min="3">
+                                        <p id="email-alert" style="color:red;"></p>
+                                        <div class="validate"></div>
                                     </li>
                                     <!-- <li class="careerfy-column-6">
                                         <label>Date of Birth:</label>
@@ -124,7 +199,11 @@
                                     </li> -->
                                     <li class="careerfy-column-6">
                                         <label>Phone *</label>
-                                        <input value="{{employee.phone}}"  oninput="this.value = this.value.replace(/\D/g,'');" name="phone" type="text">
+                                        <input value="{{employee.phone}}"   name="phone" type="text" id="mobile"
+                                        oninput="this.value = this.value.replace(/\D/g,'');" onkeyup="checkNumber()" onblur="checkNumber()"
+                                        maxlength="10" >
+                                        <p id="mobile-alert" style="color:red;"></p>
+                                        <div class="validate"></div>
                                     </li>
                                     <!-- <li class="careerfy-column-6">
                                         <label>Category *</label>
@@ -137,28 +216,34 @@
                                     </li> -->
                                     <li class="careerfy-column-6">
                                         <label>Experience</label>
-                                        <input value="{{employee.experience}}"  oninput="this.value = this.value.replace(/\D/g,'');" name="experience"  type="text" required>
+                                        <input value="{{employee.experience}}"  name="experience"  type="text"  id="experience"
+                                        oninput="this.value = this.value.replace(/\D/g,'');" onkeyup="checkExp()" onblur="checkExp()">
+                                        <p id="experience-alert" style="color:red;"></p>
+                                        <div class="validate"></div>
                                     </li>
                                     <li class="careerfy-column-6">
                                         <label>Specialization</label>
-                                        <input  name="specialization" value="{{employee.specialization}}" type="text" required>
+                                        <input  name="specialization" value="{{employee.specialization}}" id="special" type="text" >
                                     </li>
                                    
                                     <li class="careerfy-column-6">
                                         <label>Place</label>
-                                        <input value="{{employee.place}}" name="place" type="text">
+                                        <input value="{{employee.place}}" name="place" type="text" id="place" onkeyup="checkPlace()"
+                                        onblur="checkPlace()">
+                                        <p id="place-alert" style="color:red;"></p>
+                                        <div class="validate"></div>
                                     </li>
                                     <li class="careerfy-column-6">
                                         <label>Education Level *</label>
                                         <div class="careerfy-profile-select">
-                                            <select name="education">
+                                            <select name="education" id="education" >
                                                 {% if employee.education %}
-                                                <option value="">{{employee.education}}</option>
+                                                <option value="{{employee.education}}" selected>{{employee.education}}</option>
                                                 {% else %}
                                                 <option value="">------</option>
                                                 {% endif %}
-                                                <option value="PG">PG</option>
-                                                <option value="UG">UG</option>
+                                                <option value="PG" >PG</option>
+                                                <option value="UG" >UG</option>
                                                 <option value="Plus 2">Plus 2</option>
                                                 <option value="SSLC">SSLC</option>
                                             </select>
@@ -167,9 +252,9 @@
                                     <li class="careerfy-column-6">
                                         <label>Gender *</label>
                                         <div class="careerfy-profile-select">
-                                            <select name="gender" >
+                                            <select name="gender" id="gender" >
                                                 {% if employee.gender %}
-                                                <option value="">{{employee.gender}}</option>
+                                                <option value="{{employee.gender}}" selected>{{employee.gender}}</option>
                                                 {% else %}
                                                 <option value="">------</option>
                                                 {% endif %}
@@ -182,16 +267,24 @@
                                     </li>
                                     <li class="careerfy-column-6">
                                         <label>Age</label>
-                                        <input value="{{employee.age}}"  oninput="this.value = this.value.replace(/\D/g,'');" name="age" type="text" required>
+                                        <input value="{{employee.age}}" name="age" type="text" id="age"
+                                        oninput="this.value = this.value.replace(/\D/g,'');" onkeyup="checkAge()" onblur="checkAge()">
+                                        <p id="age-alert" style="color:red;"></p>
+                                        <div class="validate"></div>
                                     </li>
                                     <li class="careerfy-column-6">
                                         <label>DOB</label>
-                                        <input value="{{employee.dob}}" name="dob" type="date" required style="height: 42px;width: 370px;">
+                                        <input value="{{employee.dob}}" name="dob" id="dob" type="date"  style="height: 42px;width: 370px;">
                                     </li>
+
+                                   
                                    
                                     <li class="careerfy-column-12">
                                         <label>Description *</label>
-                                        <textarea  name="description">{{employee.description}}</textarea>
+                                        <textarea name="description" id="description" onkeyup="checkDesc()"
+                                        onblur="checkDesc()">{{employee.description}}</textarea>
+                                        <p id="desc-alert" style="color:red;"></p>
+                                        <div class="validate"></div>
                                     </li>
                                 </ul>
                             </div>
@@ -309,23 +402,202 @@
                                     </li>
                                 </ul>
                             </div> -->
-                            <input type="submit" class="careerfy-employer-profile-submit" value="Save Setting">
+                          
+                            <input type="submit" class="careerfy-employer-profile-submit" value="Save Profile">
+                         
                         </form>
+              
                     </div>
+                    <div id="error" style="color: red;"></div>
                 </div>
+              
 
                 {% endblock %}
 
             </div>
         </div>
     </div>
+    <script>
+        const name=document.getElementById("name")
+        const email=document.getElementById("email")
+        const mobile=document.getElementById("mobile")
+        const experience=document.getElementById("experience")
+        const special=document.getElementById("special")
+        const place=document.getElementById("place")
+        const education=document.getElementById("education")
+        const gender=document.getElementById("gender")
+       
+        const age=document.getElementById("age")
+        const dob=document.getElementById("dob")
+        const description=document.getElementById("description")
+        const form=document.getElementById("pro-form")
+        const error=document.getElementById("error")
+      
+        
+
+        form.addEventListener('submit',(e)=>{
+            console.log(name.value)
+            console.log(email.value)
+            console.log(experience.value)
+            console.log(special.value)
+            console.log(place.value)
+            console.log(education.value)
+            console.log(gender.value)
+            console.log(dob.value)
+            console.log(description.value)
+            if (name.value === '' || email.value === ''  || mobile.value === '' || experience.value === ''  || special.value === ''  || place.value === ''  || education.value === ''  || gender.value === ''  || dob.value === '' || description.value === ''){
+                
+            e.preventDefault()
+            error.innerHTML="Please fill the form"
+
+            }
+        })
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="{% static 'employees/script/cropper.min.js' %}"></script>
 
+    <script>
+
+        const validated = {
+            name: false,
+            email: false,
+            mobile: false,
+            experience:false,
+            place: false,
+            age:false,
+            description:false
+        }
+
+        function nameChek() {
+            var nameAlert = document.getElementById('name-alert');
+            var name = document.getElementById("name").value;
+            var namePattern = /^[a-zA-Z]+ +[a-zA-Z]*$/;
+            var expression2 = /^[a-zA-Z]*$/;
+        
+            if (name == "" || name == null) {
+                validated.name = false;
+                nameAlert.innerHTML = "Required"
+        
+            } else if (name.match(namePattern) || name.match(expression2)) {
+                nameAlert.innerHTML = "";
+                validated.name = true;
+            }
+            else {
+                nameAlert.innerHTML = " Enter Charecters only";
+                validated.name = false;
+            }
+        
+        }
+
+
+        function checkEmail() {
+            var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var emailCheck = document.getElementById('email').value;
+            var emailAlert = document.getElementById('email-alert');
+            if (emailCheck == "" || emailCheck == null) {
+                emailAlert.innerHTML = "Required";
+                validated.email = false;
+            } else if (emailCheck.match(pattern)) {
+                emailAlert.innerHTML = "";
+                validated.email = true;
+            } else {
+                emailAlert.innerHTML = "Invalid Email Address";
+                validated.email = false;
+            }
+        }
+
+
+        function checkNumber() {
+            var mobileNumber = document.getElementById('mobile').value;
+            var mobileAlert = document.getElementById('mobile-alert');
+            if (mobileNumber == "" || mobileNumber == null) {
+                validated.mobile = false;
+                mobileAlert.innerHTML = "Required";
+            }
+            else if (mobileNumber.length == 10) {
+                mobileAlert.innerHTML = "";
+                validated.mobile = true;
+            } else if (mobileNumber.length < 10) {
+                mobileAlert.innerHTML = "Enter Minimum 10 Number";
+                validated.mobile = false;
+            } else if (mobileNumber.length > 10) {
+                mobileAlert.innerHTML = "Entered out of 10 Numbers";
+                validated.mobile = false;
+            }
+            else {
+                validated.mobile = true;
+            }
+        }
+
+
+        function checkExp() {
+            var experience = document.getElementById('experience').value;
+            var expalert = document.getElementById('experience-alert');
+            if (experience == "" || experience == null) {
+                validated.mobile = false;
+                expalert.innerHTML = "Required";
+            }
+            if (experience > 1){
+                validated.mobile = true;
+                expalert.innerHTML = "";
+
+            }
+
+        }
+
+        function checkPlace() {
+            var place = document.getElementById("place").value;
+            if (place.length <= 0) {
+                document.getElementById("place-alert").innerHTML = "Enter Your Place"
+                validated.place = false;
+            }
+        
+            else {
+                document.getElementById("place-alert").innerHTML = "";
+                validated.place = true;
+            }
+        }
+           
+        
+
+        
+
+        function checkAge() {
+            var age = document.getElementById('age').value;
+            var agealert = document.getElementById('age-alert');
+            if (age == "" || age == null) {
+                validated.mobile = false;
+                agealert.innerHTML = "Required";
+            }
+            if (age > 1){
+                validated.mobile = true;
+                agealert.innerHTML = "";
+
+            }
+
+        }
+
+
+        function checkDesc() {
+            var desc = document.getElementById("description").value;
+            if (desc.length <= 0) {
+                document.getElementById("desc-alert").innerHTML = "Enter Your Description"
+                validated.description = false;
+            }
+        
+            else {
+                document.getElementById("desc-alert").innerHTML = "";
+                validated.description = true;
+            }
+        }
+
+        
+    </script>
+
     
-<script>
+<!-- <script>
 
     var bs_modal = $('#modal');
     var image = document.getElementById('image');
@@ -402,7 +674,7 @@
         });
     });
 
-</script>
+</script> -->
 
 
 

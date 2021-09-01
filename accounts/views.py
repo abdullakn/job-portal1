@@ -1,4 +1,5 @@
-from companies.models import JobDetails
+from employee.models import AppliedUsers
+from companies.models import CompanyProfile, JobDetails, Subscription
 from django.contrib import auth
 from django.http.response import JsonResponse
 from accounts.models import UserCompanies
@@ -10,6 +11,7 @@ import uuid
 from django.contrib import messages
 
 from django.db.models import Q
+from datetime import date
 
 # Create your views here.
 
@@ -98,21 +100,27 @@ def login_employees(request):
 
 
 def employee_home(request):
-    # if request.method=='POST':
-    #     data=request.POST
-        
-    #     main=data['main']
-    #     place=data['place']
-    #     category=data['category']
-    #     job=JobDetails.objects.filter( Q(job_title__istartswith=main) | Q(user__company_name__istartswith=main) & Q(location__istartswith=place) & Q(category__istartswith=place) ) 
-    #     print(job.count())
-        
-    #     context={'job_list':job}
-    #     print(job)
-    #     print(main,place,category)
-    #     # return redirect('job_list_view')
-    #     return render(request,'employee/new-list.html',context)
-    return render(request,'employee/index.html')
+    try:
+        job=JobDetails.objects.filter().order_by('-closing_date')[:6]
+    except:
+        job=None    
+    try:
+        job_count=JobDetails.objects.all().count()  
+    except:
+        job_count=None      
+    try:
+        user_count=UserCompanies.objects.filter(company_name=None).count()    
+    except:
+        user_count=None
+    print(user_count)        
+    print(job)
+    context={
+        'jobs':job,
+        'job_count':job_count,
+        'user_count':user_count
+    }
+  
+    return render(request,'employee/index.html',context)
 
 
 
@@ -147,7 +155,52 @@ def login_companies(request):
 
 
 def companies_home(request):
-    return render(request,'companies/dashboard.html')
+   
+    today = date.today()
+    try:
+        company=CompanyProfile.objects.get(user=request.user)
+    except:
+        company=None
+
+    try:
+        job=JobDetails.objects.filter(user=company).count()
+        
+        
+    except:
+        job=None  
+      
+    try:
+        active_job=JobDetails.objects.filter(user=company,closing_date__gte=today).count()
+    except:
+        active_job=None    
+
+    try:
+        appliant_count=AppliedUsers.objects.filter(job__user=company).count()   
+    
+    except:
+        appliant_count=None    
+
+    try:
+        subscription=Subscription.objects.get(user=company)  
+        print(subscription.subscription_type)
+     
+    except:
+        subscription=None    
+
+
+
+
+    context={
+        'job_count':job,
+        'active_job':active_job,
+        'appliant_count':appliant_count,
+        'subscription':subscription
+
+    }    
+    
+
+    
+    return render(request,'companies/dashboard.html',context)
 
 
 

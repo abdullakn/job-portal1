@@ -28,24 +28,27 @@
                         <!-- Job Detail List -->
                         <div class="careerfy-column-12 careerfy-typo-wrap">
                             <figure class="careerfy-jobdetail-list">
-                                <span class="careerfy-jobdetail-listthumb"><img src="/media/{{company.logo}}" alt=""></span>
+                                <span class="careerfy-jobdetail-listthumb"><img src="{{company.logo.url}}" alt=""></span>
                                 <figcaption>
-                                    <small class="careerfy-rating-info">4.5</small>
-                                    <div class="careerfy-rating"><small class="careerfy-rating-box width-ninetwo"></small></div>
-                                    <h2>{{company.company_name}}</h2>
+                                    <!-- <small class="careerfy-rating-info">4.5</small> -->
+                                    <!-- <div class="careerfy-rating"><small class="careerfy-rating-box width-ninetwo"></small></div> -->
+                                    <a href=""><h2>{{company.company_name}}</h2></a>
                                     <ul class="careerfy-jobdetail-options">
-                                        <li><i class="fa fa-map-marker"></i>{{company.country}}, {{company.state}}, {{company.district}} <a href="#" class="careerfy-jobdetail-view">View om Map</a></li>
+                                        <li><i class="fa fa-map-marker"></i>{{company.country}}, {{company.state}}, {{company.district}} </li>
                                         <li><i class="careerfy-icon careerfy-internet"></i> <a href="#">{{company.website}}</a></li>
                                         <li><i class="careerfy-icon careerfy-mail"></i> <a href="#">{{company.email}}</a></li>
-                                        <li><i class="careerfy-icon careerfy-technology"></i> Hotline: {{company.phone}}</li>
+                                        <li><i class="careerfy-icon careerfy-technology"></i> Hotline: {{company.phone_number}}</li>
                                     </ul>
-                                    <a href="#" class="careerfy-employerdetail-btn">Follow</a>
-                                    <a href="#" class="careerfy-employerdetail-btn"><i class="careerfy-icon careerfy-add"></i> Add a review</a>
+                                    <!-- <a href="#" class="careerfy-employerdetail-btn">Follow</a>
+                                    <a href="#" class="careerfy-employerdetail-btn"><i class="careerfy-icon careerfy-add"></i> Add a review</a> -->
                                     <ul class="careerfy-jobdetail-media careerfy-add-space">
-                                        <li><span>Share:</span></li>
-                                        <li><a href="#" data-original-title="facebook" class="careerfy-icon careerfy-facebook-logo-in-circular-button-outlined-social-symbol"></a></li>
-                                        <li><a href="#" data-original-title="twitter" class="careerfy-icon careerfy-twitter-circular-button"></a></li>
-                                        <li><a href="#" data-original-title="linkedin" class="careerfy-icon careerfy-linkedin"></a></li>
+                                        <li><span></span></li>
+                                        {% if social %}
+                                        <li><a href="https://abdullakn.online/" data-original-title="facebook" class="careerfy-icon careerfy-facebook-logo-in-circular-button-outlined-social-symbol"></a></li>
+                                        <li><a href="https://abdullakn.online/" data-original-title="twitter" class="careerfy-icon careerfy-twitter-circular-button"></a></li>
+                                        <li><a href="https://abdullakn.online/" data-original-title="linkedin" class="careerfy-icon careerfy-linkedin"></a></li>
+                                        {% else %}
+                                        {% endif %}
                                     </ul>
                                 </figcaption>
                             </figure>
@@ -55,58 +58,57 @@
                         <!-- Job Detail Content -->
                         <div class="careerfy-column-8 careerfy-typo-wrap">
                             <div class="careerfy-jobdetail-content careerfy-employerdetail-content">
-                                <div class="careerfy-content-title"><h2>Essentra Components Overview</h2></div>
+                                <div class="careerfy-content-title"><h2>{{company.company_name}} Overview</h2></div>
                                 <div class="careerfy-jobdetail-services">
                                     <ul class="careerfy-row">
                                         <li class="careerfy-column-4">
                                             <i class="careerfy-icon careerfy-group"></i>
-                                            <div class="careerfy-services-text">Company Size <small>10-50</small></div>
+                                            <div class="careerfy-services-text">Company Size <small>{{extra.company_size}}</small></div>
                                         </li>
-                                        <li class="careerfy-column-4">
+                                        <!-- <li class="careerfy-column-4">
                                             <i class="careerfy-icon careerfy-briefcase"></i>
                                             <div class="careerfy-services-text">Posted Jobs <small>15</small></div>
                                         </li>
                                         <li class="careerfy-column-4">
                                             <i class="careerfy-icon careerfy-view"></i>
                                             <div class="careerfy-services-text">Viewed <small>124</small></div>
-                                        </li>
+                                        </li> -->
                                         <li class="careerfy-column-4">
                                             <i class="careerfy-icon careerfy-folder"></i>
-                                            <div class="careerfy-services-text">Categories <small>Arts, Design, and Media</small></div>
+                                            <div class="careerfy-services-text">Categories <small>{{extra.categorie}}</small></div>
                                         </li>
                                         <li class="careerfy-column-4">
                                             <i class="careerfy-icon careerfy-time"></i>
-                                            <div class="careerfy-services-text">Founded <small>2014</small></div>
+                                            <div class="careerfy-services-text">Founded <small>{{extra.founded}}</small></div>
                                         </li>
                                         <li class="careerfy-column-4">
                                             <i class="careerfy-icon careerfy-credit-card"></i>
-                                            <div class="careerfy-services-text">Revenue <small>$5 billion (USD) per year</small></div>
+                                            <div class="careerfy-services-text">Revenue <small>${{extra.revenue}}</small></div>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="careerfy-content-title"><h2>Company Description</h2></div>
-                                <div class="careerfy-description">
-                                    <p>{{company.descriptiion}}</p>
-                                    <!-- <p>Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy penguin insect additionally wow absolutely crud meretriciously hastily dalmatian a glowered inset one echidna cassowary some parrot and much as goodness some froze the sullen much connected bat wonderfully on instantaneously eel valiantly petted this along across highhandedly much dog out the much alas evasively neutral lazy reset.</p> -->
-                                    <!-- <ul class="careerfy-list-style-icon">
-                                        <li><i class="careerfy-icon careerfy-arrows22"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                                        <li><i class="careerfy-icon careerfy-arrows22"></i> Pellentesque augue dignissim venenatis, turpis vestibulum lacinia dignissim venenatis.</li>
-                                        <li><i class="careerfy-icon careerfy-arrows22"></i> Mus arcu euismod ad hac dui, vivamus platea netus.</li>
-                                        <li><i class="careerfy-icon careerfy-arrows22"></i> Neque per nisl posuere sagittis, id platea dui.</li>
-                                        <li><i class="careerfy-icon careerfy-arrows22"></i> A enim magnis dapibus, nullam odio porta, nisl class.</li>
-                                        <li><i class="careerfy-icon careerfy-arrows22"></i> Turpis leo pellentesque per nam, nostra fringilla id.</li>
-                                    </ul> -->
-                                </div>
+                            
                             </div>
+                            <div class="careerfy-column-8 careerfy-typo-wrap">
+                            <div class="careerfy-content-title"><h2>Company Description</h2>
+                            <div class="careerfy-description ">
+                                <!-- <p>{{company.descriptiion}}</p> -->
+                                <p>{{company.descriptiion}}</p>
+                                <ul class="careerfy-list-style-icon">
+                                    <!-- <li><i class="careerfy-icon careerfy-arrows22"></i> {{company.descriptiion}}.</li> -->
+                                 
+                                </ul>
+                            </div>
+                        </div>
+                        </div>
                             <div class="careerfy-employer-wrap-section">
                                 <div class="careerfy-content-title careerfy-addmore-space"><h2>Office Photos</h2></div>
                                 <div class="careerfy-gallery careerfy-simple-gallery">
                                     <ul class="careerfy-row grid">
-                                        <li class="grid-item careerfy-column-3"> <a href="extra-images/employer-gallery-2.jpg" class="fancybox" data-fancybox-group="group"><img src="extra-images/employer-gallery-1.jpg" alt=""></a> </li>
-                                        <li class="grid-item careerfy-column-6"> <a href="extra-images/employer-gallery-2.jpg" class="fancybox" data-fancybox-group="group"><img src="extra-images/employer-gallery-2.jpg" alt=""></a> </li>
-                                        <li class="grid-item careerfy-column-3"> <a href="extra-images/employer-gallery-2.jpg" class="fancybox" data-fancybox-group="group"><img src="extra-images/employer-gallery-3.jpg" alt=""></a> </li>
-                                        <li class="grid-item careerfy-column-3"> <a href="extra-images/employer-gallery-2.jpg" class="fancybox" data-fancybox-group="group"><img src="extra-images/employer-gallery-4.jpg" alt=""></a> </li>
-                                        <li class="grid-item careerfy-column-3"> <a href="extra-images/employer-gallery-2.jpg" class="fancybox" data-fancybox-group="group"><img src="extra-images/employer-gallery-5.jpg" alt=""></a> </li>
+                                        {% for photo in photos %}
+                                        
+                                        <li class="grid-item careerfy-column-3"> <a href="" al class="fancybox" data-fancybox-group="group"><img src="{{photo.gallery.url}}" alt="ddd"></a> </li>
+                                         {% endfor %}
                                     </ul>
                                 </div>
                             </div>
@@ -174,7 +176,7 @@
                                     {% for job in job %}
                                     <li class="careerfy-column-12">
                                         <div class="careerfy-joblisting-classic-wrap">
-                                            <figure><a href="#"><img src="/media/{{job.user.logo}}" alt=""></a></figure>
+                                            <figure><a href="#"><img src="{{job.user.logo.url}}" alt=""></a></figure>
                                             <div class="careerfy-joblisting-text">
                                                 <div class="careerfy-list-option">
                                                     <h2><a href="{% url 'job_details' job.slug %}">{{job.job_title}}</a> <span>Featured</span></h2>

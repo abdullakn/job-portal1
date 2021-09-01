@@ -2,6 +2,32 @@
 
 {% block content %}
 
+<style>
+    .wrapper {
+        width: 380px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%
+    }
+    
+    .toast {
+        width: 100%;
+        height: 80px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 7px;
+        display: grid;
+        grid-template-columns: 1.3fr 6fr 0.5fr;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08)
+    }
+    
+    .success {
+        border-left: 3px solid #47D764
+    }
+  
+</style>
+
 <div class="dashboard-content">
 
 
@@ -22,6 +48,10 @@
         </div>
     </div>
 
+    {% if not subscription %}
+
+    {% if not job %}
+    <div class= "alert alert-success" style="border:1px solid white;text-align:center;margin-bottom:5px;padding:15px 0px;border-radius:8px;background-color:#cfe6d2"> <b style="color: black;">Only 1 job for Free. Do you want more add more job subscibe the site <a href="{% url 'add_subscription' %}">click here</a></b> </div>
     <div class="row">
         
         <!-- Table-->
@@ -30,7 +60,7 @@
             <div class="dashboard-list-box margin-top-0">
                 <h4>Job Details</h4>
                 <div class="dashboard-list-box-content" >
-                    <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
+                    <form action="" id="job-form" method="POST" enctype="multipart/form-data" autocomplete="off">
                         {% csrf_token %}
 
                 <div class="submit-page">
@@ -46,14 +76,14 @@
                    
                     <div class="form">
                         <h5>Job Title</h5>
-                        <input class="search-field " name="title"  required data-rule-required="true" 
+                        <input class="search-field " required id="title" name="title"  data-rule-required="true" 
                         data-msg-required="Required field" type="text" placeholder="" value=""/>
                     </div>
 
                     <!-- Job Type -->
                     <div class="form">
                         <h5>Job Type</h5>
-                        <select data-placeholder="Full-Time" name="job_type" required  class="chosen-select-no-single">
+                        <select class="chosen-select-no-single" data-placeholder="Full-Time" required id="type" name="job_type" >
                             <option value="Full-Time">Full-Time</option>
                             <option value="Part-Time">Part-Time</option>
                             <option value="Internship">Internship</option>
@@ -61,9 +91,10 @@
                             <option value="Temporary">Temporary</option>
                         </select>
                     </div>
+                 
                     <div class="form">
                         <h5>Category</h5>
-                        <select data-placeholder="choose category" name="category" required  class="chosen-select-no-single">
+                        <select data-placeholder="choose category" required id="category" name="category"   class="chosen-select-no-single">
                             <option value="">----choose category---</option>
                             <option value="UI/UX">UI/UX Designing</option>
                             <option value="Web Development">Web Development</option>
@@ -75,7 +106,7 @@
                     </div>
                     <div class="form">
                         <h5>Location</h5>
-                        <select data-placeholder="choose category" name="location" required  class="chosen-select-no-single">
+                        <select data-placeholder="choose category" required id="location" name="location"   class="chosen-select-no-single">
                             <option value="UI/UX">----choose location---</option>
                             <option value="Banglore">Banglore</option>
                             <option value="Kochi">Kochi</option>
@@ -103,7 +134,243 @@
 
                     <div class="form">
                         <h5>Qualification <span></span></h5>
-                        <input class="search-field" type="text" data-role="" required name="qualification" placeholder="Qualification" value=""/>
+                        <input class="search-field" type="text" required data-role="" id="qualification"  name="qualification" placeholder="Qualification" value=""/>
+                        
+                    </div>
+
+                    
+                    <div class="form">
+                        <h5>Experience</h5>
+                        <input type="text" required name="experience" id="experience"  placeholder="Experience...">
+                    </div>
+
+
+
+                    <!-- Tags -->
+     
+                    <script></script>
+
+
+                    <!-- Description -->
+                    <div class="form" style="width: 100%;">
+                        <h5>Description</h5>
+                        <textarea class="WYSIWYG" name="desc" required   cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+                    </div>
+
+                    <!-- Application email/url -->
+                 
+
+                    <!-- TClosing Date -->
+                   
+                    <div class="form">
+                        <h5>Required Skills <span></span></h5>
+                      
+                        <input class="search-field" required name="skills" id="skill"  type="text" placeholder="HTML,CSS" value=""/>
+                   </div>
+
+                    <div class="form">
+                        <h5>Industry</h5>
+                        <input type="text" required id="industry" name="industry"  placeholder="Industry...">
+                    </div>
+                    <div class="form">
+                        <h5>Closing Date <span>(optional)</span></h5>
+                        <input data-role="date"  required name="close_date" id="close-date" style="    padding: 14px 18px;
+                        outline: none;
+                        font-size: 14px;
+                        color: #909090;
+                        margin: 0;
+                        max-width: 100%;
+                        width: 100%;
+                        box-sizing: border-box;
+                        display: block;
+                        background-color: #fcfcfc;
+                        font-weight: 500;
+                        border: 1px solid #e0e0e0;
+                        opacity: 1;" type="date" placeholder="yyyy-mm-dd">
+                        <p class="note">Deadline for new applicants.</p>
+                    </div>
+                 
+                <div class="form">
+                    <h5>Additional <span>Information</span></h5>
+                    <label class="upload-btn" id="one">
+                        <input type="file" name="additional_data" required  onclick="fileFunc()" style="margin-left:200px;" id="inp" multiple />
+                        <i class="fa fa-upload"></i> Browse
+                    </label>
+                    <span style="height: 48px;" class="fake-input"></span>
+                </div>
+                <script>
+                    function fileFunc() {
+                        //console.log(e.target.files[0].name)
+                        //console.log(e)
+                        //var x = e.target.files[0].name
+                        //var d = document.getElementById("one")
+                        //d.innerText = x
+
+                        //document.getElementById('one').change(function() {
+                          //  var i = document.getElementById('one').prev('label').clone();
+                            //var input = document.getElementById('inp')[0].files[0].name;
+                            //document.getElementById('one').prev('label').text(file);
+                          //});
+
+                    }
+                </script>
+                <div class="form">
+                    <h5>Minimum Salary</h5>
+                    <input type="text" name="min_sal" id="min-salary" required   oninput="this.value = this.value.replace(/\D/g,'');" placeholder="Salary...">
+                </div>
+                <div class="form">
+                    <h5>Maximum Salary</h5>
+                    <input type="text" name="max_sal" id="max-salary"  required  oninput="this.value = this.value.replace(/\D/g,'');" placeholder="Salary...">
+                </div>
+
+                </div>
+                <p id="error" style="color:  red;"></p>
+                
+        <button type="submit" class="button margin-top-30">Add Job <i class="fa fa-arrow-circle-right"></i></button>
+            </form>
+            </div>
+
+
+
+
+                   
+<script>
+    const title=document.getElementById("title")
+    const type=document.getElementById("type")
+    const category=document.getElementById("category")
+    const location=document.getElementById("location")
+    const qualification=document.getElementById("qualification")
+    const experience=document.getElementById("experience")
+    const summary=document.getElementById("summary")
+    const skill=document.getElementById("skill")
+   
+    const industry=document.getElementById("industry")
+    const closedate=document.getElementById("close-date")
+    const inp=document.getElementById("inp")
+    const minsalry=document.getElementById("max-salary")
+    const maxsalry=document.getElementById("min-salary")
+
+    const form=document.getElementById("job-form")
+    const error=document.getElementById("error")
+   
+    
+
+    form.addEventListener('submit',(e)=>{
+        
+        if (title.value === '' || type.value === ''  || category.value === '' || location.value === ''  || qualification.value === ''  || experience.value === ''  || summary.value === ''  || skill.value === ''  || industry.value === '' || closedate.value === ''  || inp.value === ''  || minsalry.value === '' || maxsalry.value === ''){
+            
+        e.preventDefault()
+        error.innerHTML="Please fill the Compulsory Fields"
+
+        }
+    })
+</script>
+
+
+
+
+
+        </div>
+
+
+        <!-- Copyrights -->
+        <div class="col-md-12">
+            <div class="copyrights">© 2019 WorkScout. All Rights Reserved.</div>
+        </div>
+    </div>
+
+    </div>
+
+    {% else %}
+    <div class= "alert alert-success" style="border:1px solid white;text-align:center;margin-bottom:5px;padding:15px 0px;border-radius:8px;background-color:#cfe6d2"> <b style="color: black;">Your already created 1 job. Do you want add more job , subscribe <a href="{% url 'add_subscription' %}">click here</a></b> </div>
+
+
+    {% endif %}
+
+    {% else %}
+
+    <div class="row">
+        
+        <!-- Table-->
+        <div class="col-lg-12 col-md-12">
+
+            <div class="dashboard-list-box margin-top-0">
+                <h4>Job Details</h4>
+                <div class="dashboard-list-box-content" >
+                    <form action="" id="job1-form" method="POST" enctype="multipart/form-data" autocomplete="off">
+                        {% csrf_token %}
+
+                <div class="submit-page">
+
+                    <!-- Email -->
+                    <!-- <div class="form">
+                        <h5>Your Email</h5>
+                        <input class="search-field" type="text" placeholder="mail@example.com" value=""/>
+                    </div> -->
+
+                    <!-- Title -->
+
+                   
+                    <div class="form">
+                        <h5>Job Title</h5>
+                        <input class="search-field " id="title" name="title"  required data-rule-required="true" 
+                        data-msg-required="Required field" type="text" placeholder="" value=""/>
+                    </div>
+
+                    <!-- Job Type -->
+                    <div class="form">
+                        <h5>Job Type</h5>
+                        <select data-placeholder="Full-Time" id="type" name="job_type" required  class="chosen-select-no-single">
+                            <option value="Full-Time">Full-Time</option>
+                            <option value="Part-Time">Part-Time</option>
+                            <option value="Internship">Internship</option>
+                            <option value="Freelance">Freelance</option>
+                            <option value="Temporary">Temporary</option>
+                        </select>
+                    </div>
+                    <div class="form">
+                        <h5>Category</h5>
+                        <select data-placeholder="choose category" id="category" name="category" required  class="chosen-select-no-single">
+                            <option value="">----choose category---</option>
+                            <option value="UI/UX">UI/UX Designing</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="App Development">App Development</option>
+                            <option value="Web Designer">Web Designer</option>
+                            <option value="Devops">Devops</option>
+                            <option value="Test Engineer">Test Engineer</option>
+                        </select>
+                    </div>
+                    <div class="form">
+                        <h5>Location</h5>
+                        <select data-placeholder="choose category" id="location" name="location" required  class="chosen-select-no-single">
+                            <option value="UI/UX">----choose location---</option>
+                            <option value="Banglore">Banglore</option>
+                            <option value="Kochi">Kochi</option>
+                            <option value="Kozhikode">Kozhikode</option>
+                            <option value="Eranakulam">Eranakulam</option>
+                            <option value="Delhi">Delhi</option>
+                           
+                        </select>
+                    </div>
+
+
+                    <!-- Choose Category -->
+                    <!-- <div class="form">
+                        <h5>Category <span></span></h5>
+                        <input class="search-field" type="text" name="category" required placeholder="Job Category" name="category"  value=""/>
+                    </div> -->
+
+
+                    <!-- Location -->
+                    <!-- <div class="form">
+                        <h5>Location <span></span></h5>
+                        <input class="search-field" type="text" name="location" required  placeholder="e.g. Ernakulam" value=""/>
+                       
+                    </div> -->
+
+                    <div class="form">
+                        <h5>Qualification <span></span></h5>
+                        <input class="search-field" type="text" data-role=""  required name="qualification" placeholder="Qualification" value=""/>
                         
                     </div>
 
@@ -210,7 +477,14 @@
         </div>
     </div>
 
-</div>
+    </div>
+
+    {% endif %}
+
+  
+ 
+
+   
 <!-- Content / End -->
 
 

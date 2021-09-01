@@ -32,6 +32,12 @@ def login(request):
 
 
 
+def logout(request):
+    del request.session['admin']
+    return redirect('superadmin_login')
+
+
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def superadmin_home(request):

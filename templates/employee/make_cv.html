@@ -1,5 +1,10 @@
 {% extends 'employee/employee_profile.html' %}
 
+{% block propic %}
+
+
+{% endblock %}
+
 {% block basic %}
 
 <style>
@@ -60,126 +65,154 @@
       }
 </style>
 
-<h4 style="text-align: center;">Upload CV</h4>
-<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-<div>
-<div class='file-input'  style="margin-left: 15px;">
- 
-    <input type='file' name="mycv">
-    <span class='button'>Choose</span>
-    <span class='label' data-js-label>No file selected</label>
-  </div>
 
+
+
+
+
+  <script>
+    function fileValidation() {
+        var fileInput = 
+            document.getElementById('file');
+          
+        var filePath = fileInput.value;
+      
+        // Allowing file type
+        var allowedExtensions = 
+/(\.doc|\.docx|\.odt|\.pdf|\.tex|\.txt|\.rtf|\.wps|\.wks|\.wpd)$/i;
+          
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Invalid file type');
+            fileInput.value = '';
+            return false;
+        } else{
+            document.getElementById("careerfy-uploadfile").value=filePath
+        }
+    }
+</script>
 
 
   
 
-</div>
-
-<br>
-
-<button style="margin-left:15px" type="submit" class="btn btn-info">Upload CV</button>
-</form>
   <br>
   <br>
 
 
 
-  <h4 style="text-align: center;"> or Create CV</h4>
+ 
 
 
 
 
 
 <div>
+    <h4 style="text-align: center;">Upload CV</h4>
 
   <div class="careerfy-column-9">
     <div class="careerfy-typo-wrap">
-        <form class="careerfy-candidate-dasboard">
+        <div class="careerfy-upload-cv">
+            <form action="{% url 'make_cv' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            
+            <input class="careerfy-disabled-input" id="careerfy-uploadfile" placeholder="" disabled="disabled"  />
+                <div class="careerfy-cvupload-file">
+                <span><i class="careerfy-icon careerfy-arrows-2"></i> Upload CV</span>
+                <input  type="file" id='file' required  name="mycv" onchange="return fileValidation()" class="careerfy-upload-btn" />
+            </div>
+            <p>Suitable files are .doc,docx,rft,pdf & .pdf</p>
+            <br>
+            <br>    
+            <br>
+            <button style="margin-left:15px;padding:7px 15px"  type="submit" class="btn btn-info p-5">Upload CV</button>
+
+            </form>
+        </div>
+
+        <h4 style="text-align: center;"> or Create CV</h4>
+       
             <div class="careerfy-employer-box-section">
                 <div class="careerfy-profile-title"><h2>My Resume</h2></div>
                 <div class="careerfy-candidate-section">
-                    <div class="careerfy-candidate-title"> <h2><i class="careerfy-icon careerfy-resume-1"></i> Cover Letter</h2> </div>
-                    <div class="careerfy-candidate-dashboard-editor"><img src="extra-images/candidate-dashboard-editor.jpg" alt=""></div>
+                  
+                    <form action="{% url 'make_coverletter' %}" method='POST' >{% csrf_token %}
                     
+                        {{form.media}}
+                        {{form.as_p}}
+                        <br>
+                        <input type="submit" class="btn btn-info" style="border-radius: 20px;margin-right:60px;padding:7px 30px">
+
+                    </form>
+                    <br>
+                    <br>
+                    <br>
+              
+                    <!-- <div class="careerfy-candidate-title"> <h2><i class="careerfy-icon careerfy-resume-1"></i> Cover Letter</h2> </div>
+                    <div class="careerfy-candidate-dashboard-editor"><img src="extra-images/candidate-dashboard-editor.jpg" alt=""></div>
+                     -->
                     <div class="careerfy-candidate-resume-wrap">    
                         <div class="careerfy-candidate-title"> <h2>
                             <i class="careerfy-icon careerfy-mortarboard"></i> Education 
                             <a href="javascript:void(0)" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add education</a>
                         </h2> </div>
 
+                    <form action="{% url 'add_education' %}" method="POST">{% csrf_token %}
+
                         <div class="careerfy-add-popup">
                             <ul class="careerfy-row careerfy-employer-profile-form">
                                 <li class="careerfy-column-12">
                                     <label>Title *</label>
-                                    <input value="Masters in Fine Arts" onblur="if(this.value == '') { this.value ='Masters in Fine Arts'; }" onfocus="if(this.value =='Masters in Fine Arts') { this.value = ''; }" type="text">
+                                    <input placeholder="Title" name="title"  type="text" id="title" onkeyup="checkTitle()"
+                                    onblur="checkTitle()">
+                                    <p id="title-alert" style="color:red;"></p>
+                                    <div class="validate"></div>
                                 </li>
-                                <li class="careerfy-column-6">
-                                    <label>From Date *</label>
-                                    <div class="careerfy-profile-select">
-                                        <select>
-                                            <option>10-05-2012</option>
-                                            <option>10-05-2012</option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="careerfy-column-6">
-                                    <label>To Date *</label>
-                                    <div class="careerfy-profile-select">
-                                        <select>
-                                            <option>10-05-2014</option>
-                                            <option>10-05-2014</option>
-                                        </select>
-                                    </div>
-                                </li>
+                           
+                                    <li class="careerfy-column-6">
+                                        <label>Start Year *</label>
+                                        <input placeholder="Start Year" name="startyear"  type="text" id="startdate"
+                                        oninput="this.value = this.value.replace(/\D/g,'');" onkeyup="checkStart()" onblur="checkstart()">
+                                        <p id="start-alert" style="color:red;"></p>
+                                        <div class="validate"></div>
+                                    </li>
+                                
+                                    <li class="careerfy-column-6">
+                                        <label>End Year *</label>
+                                        <input placeholder="End Year" name="endyear"  type="text" id="enddate"
+                                        oninput="this.value = this.value.replace(/\D/g,'');" onkeyup="checkEnd()" onblur="checkEnd()">
+                                        <p id="end-alert" style="color:red;"></p>
+                                        <div class="validate"></div>
+                                    </li>
                                 <li class="careerfy-column-12">
                                     <label>Institute *</label>
-                                    <input value="Walters University" onblur="if(this.value == '') { this.value ='Walters University'; }" onfocus="if(this.value =='Walters University') { this.value = ''; }" type="text">
+                                    <input placeholder="College or University" name="institute" type="text" id="institute" onkeyup="checkCollege()"
+                                    onblur="checkcollege()">
+                                    <p id="institute-alert" style="color:red;"></p>
+                                    <div class="validate"></div>
                                 </li>
-                                <li class="careerfy-column-12">
-                                    <label>Description *</label>
-                                    <img src="extra-images/candidate-add-popup-textarea.png" alt="">
-                                </li>
+                            
                                 <li class="careerfy-column-12">
                                     <input type="submit" value="Add education">
                                 </li>
                             </ul>
                         </div>
+
+                    </form>
                         <div class="careerfy-resume-education">
                             <ul class="careerfy-row">
+                                {% for edu in education %}
                                 <li class="careerfy-column-12">
                                     <div class="careerfy-resume-education-wrap">
-                                        <small>2002 - 2004</small>
-                                        <h2><a href="#">Masters in Fine Arts</a></h2>
-                                        <span>Walters University</span>
+                                        <small>{{edu.startyear}} - {{edu.endyear}}</small>
+                                        <h2><a href="#">{{edu.title}}</a></h2>
+                                        <span>{{edu.institute}}</span>
                                     </div>
                                     <div class="careerfy-resume-education-btn">
                                         <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                       
+                                        <a  onclick="return confirm ('are you sure Do you want to delete') ? window.location.href='{% url 'delete_education' edu.id %}' : ''  " class="careerfy-cv-manager-link"><i class="careerfy-icon careerfy-rubbish"></i></a>
                                     </div>
                                 </li>
-                                <li class="careerfy-column-12">
-                                    <div class="careerfy-resume-education-wrap">
-                                        <small>2012 - 2015</small>
-                                        <h2><a href="#">Tommers College</a></h2>
-                                        <span>Bachlors in Fine Arts</span>
-                                    </div>
-                                    <div class="careerfy-resume-education-btn">
-                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                    </div>
-                                </li>
-                                <li class="careerfy-column-12">
-                                    <div class="careerfy-resume-education-wrap">
-                                        <small>2014 - 2015</small>
-                                        <h2><a href="#">Diploma in Fine Arts</a></h2>
-                                        <span>Imperieal Institute of Art Direction</span>
-                                    </div>
-                                    <div class="careerfy-resume-education-btn">
-                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                    </div>
-                                </li>
+                                {% endfor %}
+                              
                             </ul>
                         </div>
                     </div>
@@ -189,245 +222,128 @@
                             <a href="javascript:void(0)" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add experince</a>
                         </h2> </div>
 
+                        <form action="{% url 'add_experience' %}" method="POST">
+                            {% csrf_token %}
+
                         <div class="careerfy-add-popup">
                             <ul class="careerfy-row careerfy-employer-profile-form">
                                 <li class="careerfy-column-12">
                                     <label>Title *</label>
-                                    <input value="Masters in Fine Arts" onblur="if(this.value == '') { this.value ='Masters in Fine Arts'; }" onfocus="if(this.value =='Masters in Fine Arts') { this.value = ''; }" type="text">
+                                    <input placeholder="Title" name="title" type="text" id="title1" onkeyup="checkTitle1()"
+                                    onblur="checkTitle1()">
+                                    <p id="title1-alert" style="color:red;"></p>
+                                    <div class="validate"></div>
                                 </li>
-                                <li class="careerfy-column-5">
-                                    <label>From Date *</label>
-                                    <div class="careerfy-profile-select">
-                                        <select>
-                                            <option>10-05-2012</option>
-                                            <option>10-05-2012</option>
-                                        </select>
-                                    </div>
+                                
+                                <li class="careerfy-column-6">
+                                    <label>Year of Experience *</label>
+                                    <input placeholder=" Year" name="years"  type="text" id="year"
+                                    oninput="this.value = this.value.replace(/\D/g,'');" onkeyup="checkYear()" onblur="checkYear()">
+                                    <p id="year-alert" style="color:red;"></p>
+                                    <div class="validate"></div>
                                 </li>
-                                <li class="careerfy-column-5">
-                                    <label>To Date *</label>
-                                    <div class="careerfy-profile-select">
-                                        <select>
-                                            <option>10-05-2014</option>
-                                            <option>10-05-2014</option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="careerfy-column-2">
-                                    <div class="careerfy-checkbox">
-                                        <input id="r8" name="rr" type="checkbox">
-                                        <label for="r8"><span></span>Present</label>
-                                    </div>
-                                </li>
+                           
+                             
                                 <li class="careerfy-column-12">
                                     <label>Company *</label>
-                                    <input value="Walters University" onblur="if(this.value == '') { this.value ='Walters University'; }" onfocus="if(this.value =='Walters University') { this.value = ''; }" type="text">
+                                    <input placeholder="Company" name="company"  type="text" id="company" onkeyup="checkCompany()"
+                                    onblur="checkCompany()">
+                                    <p id="company-alert" style="color:red;"></p>
+                                    <div class="validate"></div>
                                 </li>
-                                <li class="careerfy-column-12">
-                                    <label>Description *</label>
-                                    <img src="extra-images/candidate-add-popup-textarea.png" alt="">
-                                </li>
+                           
                                 <li class="careerfy-column-12">
                                     <input type="submit" value="Add experince">
                                 </li>
                             </ul>
                         </div>
+                    </form>
                         <div class="careerfy-resume-education">
                             <ul class="careerfy-row">
+                                {% for exp in experience %}
                                 <li class="careerfy-column-12">
                                     <div class="careerfy-resume-education-wrap">
-                                        <small>2010 - 2012</small>
-                                        <h2><a href="#">Development Manager</a></h2>
-                                        <span>Atract Solutions</span>
+                                        <small>{{exp.years}} years</small>
+                                        <h2><a href="#">{{exp.title}}</a></h2>
+                                        <span>{{exp.company}}</span>
                                     </div>
                                     <div class="careerfy-resume-education-btn">
                                         <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                        
+                                        <a  onclick="return confirm ('are you sure Do you want to delete') ? window.location.href='{% url 'delete_experience' exp.id %}' : ''  " class="careerfy-cv-manager-link"><i class="careerfy-icon careerfy-rubbish"></i></a>
                                     </div>
                                 </li>
-                                <li class="careerfy-column-12">
-                                    <div class="careerfy-resume-education-wrap">
-                                        <small>2006 - 2008</small>
-                                        <h2><a href="#">Senior PHP/Drupal developer</a></h2>
-                                        <span>Minor Solutions</span>
-                                    </div>
-                                    <div class="careerfy-resume-education-btn">
-                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                    </div>
-                                </li>
-                                <li class="careerfy-column-12">
-                                    <div class="careerfy-resume-education-wrap">
-                                        <small>2002 - 2004</small>
-                                        <h2><a href="#">Self Employed Professional</a></h2>
-                                        <span> Abstraxct Max</span>
-                                    </div>
-                                    <div class="careerfy-resume-education-btn">
-                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                    </div>
-                                </li>
+                                {% endfor %}
+                              
                             </ul>
                         </div>
                     </div>
-                    <div class="careerfy-candidate-resume-wrap">    
-                        <div class="careerfy-candidate-title"> <h2>
-                            <i class="careerfy-icon careerfy-briefcase"></i> Portfolio 
-                            <a href="#" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add Portfolio</a>
-                        </h2> </div>
-
-                        <div class="careerfy-company-gallery">
-                            <ul class="careerfy-row">
-                                <li class="careerfy-column-3">
-                                    <figure>
-                                        <a href="#"><img src="extra-images/employer-company-photo-1.png" alt=""></a>
-                                        <figcaption>
-                                            <span>Peca8 World</span>
-                                            <div class="careerfy-company-links">
-                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                            </div>
-                                        </figcaption>
-                                    </figure>
-                                </li>
-                                <li class="careerfy-column-3">
-                                    <figure>
-                                        <a href="#"><img src="extra-images/employer-company-photo-2.png" alt=""></a>
-                                        <figcaption>
-                                            <span>City Light</span>
-                                            <div class="careerfy-company-links">
-                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                            </div>
-                                        </figcaption>
-                                    </figure>
-                                </li>
-                                <li class="careerfy-column-3">
-                                    <figure>
-                                        <a href="#"><img src="extra-images/employer-company-photo-3.png" alt=""></a>
-                                        <figcaption>
-                                            <span>Spass Life</span>
-                                            <div class="careerfy-company-links">
-                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                            </div>
-                                        </figcaption>
-                                    </figure>
-                                </li>
-                                <li class="careerfy-column-3">
-                                    <figure>
-                                        <a href="#"><img src="extra-images/employer-company-photo-4.png" alt=""></a>
-                                        <figcaption>
-                                            <span>Cass Rasioaror</span>
-                                            <div class="careerfy-company-links">
-                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                            </div>
-                                        </figcaption>
-                                    </figure>
-                                </li>
-                                <li class="careerfy-column-3">
-                                    <figure>
-                                        <a href="#"><img src="extra-images/employer-company-photo-5.png" alt=""></a>
-                                        <figcaption>
-                                            <span>Miki Uni</span>
-                                            <div class="careerfy-company-links">
-                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                            </div>
-                                        </figcaption>
-                                    </figure>
-                                </li>
-                                <li class="careerfy-column-3">
-                                    <figure>
-                                        <a href="#"><img src="extra-images/employer-company-photo-6.png" alt=""></a>
-                                        <figcaption>
-                                            <span>Manhattoon</span>
-                                            <div class="careerfy-company-links">
-                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                            </div>
-                                        </figcaption>
-                                    </figure>
-                                </li>
-                                <li class="careerfy-column-3">
-                                    <figure>
-                                        <a href="#"><img src="extra-images/employer-company-photo-7.png" alt=""></a>
-                                        <figcaption>
-                                            <span>Aocan Active</span>
-                                            <div class="careerfy-company-links">
-                                                <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                                <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                            </div>
-                                        </figcaption>
-                                    </figure>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                  
                     <div class="careerfy-candidate-resume-wrap">    
                         <div class="careerfy-candidate-title"> <h2>
                             <i class="careerfy-icon careerfy-design-skills"></i> Skills 
                             <a href="javascript:void(0)" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add Skills</a>
                         </h2> </div>
+                        <form action="{% url 'add_skills' %}" id="skill-form" method="POST">
+                            {% csrf_token %}
 
                         <div class="careerfy-add-popup">
                             <ul class="careerfy-row careerfy-employer-profile-form">
                                 <li class="careerfy-column-12">
                                     <label>Skill Heading *</label>
-                                    <input value="Web Development" onblur="if(this.value == '') { this.value ='Web Development'; }" onfocus="if(this.value =='Web Development') { this.value = ''; }" type="text">
+                                    <input placeholder="Skill" name="skill"  type="text" id="skill" onkeyup="checkSkill()"
+                                    onblur="checkSkill()">
+                                    <p id="skill-alert" style="color:red;"></p>
+                                    <div class="validate"></div>
                                 </li>
                                 <li class="careerfy-column-12">
                                     <label>Percentage *</label>
-                                    <input value="75%" onblur="if(this.value == '') { this.value ='75%'; }" onfocus="if(this.value =='75%') { this.value = ''; }" type="text">
+                                    <input placeholder="Percentage" name="percentage"  type="text" id="percentage"
+                                    oninput="this.value = this.value.replace(/\D/g,'');" onkeyup="checkPerc()" onblur="checkPerc()">
+                                    <p id="percentage-alert" style="color:red;"></p>
+                                    <div class="validate"></div>
                                 </li>
                                 <li class="careerfy-column-12">
                                     <input type="submit" value="Add Skills">
                                 </li>
+                                <p  style="color:red"id="err"></p>
                             </ul>
                         </div>
+                    </form>
+
+                    <script>
+                        const skill=document.getElementById("skill")
+                        const perc=document.getElementById("percentage")
+                        const form=document.getElementById("skill-form")
+                        const error=document.getElementById("err")
+
+                        form.addEventListener('submit',(e)=>{
+                            if (skill.value === '' || perc.value === ''){
+                                
+                            e.preventDefault()
+                            error.innerHTML="please fill the form"
+
+                            }
+                        })
+                       
+
+                    </script>
                         <div class="careerfy-add-skills">
                             <ul class="careerfy-row">
+                                {% for skill in skills %}
                                 <li class="careerfy-column-12">
                                     <div class="careerfy-add-skills-wrap">
-                                        <span>74</span>
-                                        <h2><a href="#">Social Media Marketing</a></h2>
+                                        <span>{{skill.percentage}}</span>
+                                        <h2><a href="#">{{skill.skill}}</a></h2>
                                     </div>
                                     <div class="careerfy-resume-education-btn">
                                         <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                        
+                                        <a  onclick="return confirm ('are you sure Do you want to delete') ? window.location.href='{% url 'delete_skills' skill.id %}' : ''  " class="careerfy-cv-manager-link"><i class="careerfy-icon careerfy-rubbish"></i></a>
                                     </div>
                                 </li>
-                                <li class="careerfy-column-12">
-                                    <div class="careerfy-add-skills-wrap">
-                                        <span>67</span>
-                                        <h2><a href="#">Web Development</a></h2>
-                                    </div>
-                                    <div class="careerfy-resume-education-btn">
-                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                    </div>
-                                </li>
-                                <li class="careerfy-column-12">
-                                    <div class="careerfy-add-skills-wrap">
-                                        <span>25</span>
-                                        <h2><a href="#">Search Engine Optimization</a></h2>
-                                    </div>
-                                    <div class="careerfy-resume-education-btn">
-                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                    </div>
-                                </li>
-                                <li class="careerfy-column-12">
-                                    <div class="careerfy-add-skills-wrap">
-                                        <span>20</span>
-                                        <h2><a href="#">User Experience Design</a></h2>
-                                    </div>
-                                    <div class="careerfy-resume-education-btn">
-                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                    </div>
-                                </li>
+                                {% endfor %}
+                               
                             </ul>
                         </div>
                     </div>
@@ -437,88 +353,292 @@
                             <a href="#" class="careerfy-resume-addbtn"><span class="fa fa-plus"></span> Add Award</a>
                         </h2> </div>
 
+                    <form action="{% url 'add_awards' %}" method="POST">
+                            {% csrf_token%}
+                      
+
                         <div class="careerfy-add-popup">
                             <ul class="careerfy-row careerfy-employer-profile-form">
                                 <li class="careerfy-column-12">
                                     <label>Award Title *</label>
-                                    <input value="Distinguished Service Award" onblur="if(this.value == '') { this.value ='Distinguished Service Award'; }" onfocus="if(this.value =='Distinguished Service Award') { this.value = ''; }" type="text">
+                                    <input placeholder="Distinguished Service Award" name="award"  type="text" id="award" onkeyup="checkAward()"
+                                    onblur="checkAward()">
+                                    <p id="award-alert" style="color:red;"></p>
+                                    <div class="validate"></div>
                                 </li>
                                 <li class="careerfy-column-6">
-                                    <label>Year *</label>
-                                    <div class="careerfy-profile-select">
-                                        <select>
-                                            <option>2012</option>
-                                            <option>2012</option>
-                                        </select>
-                                    </div>
+                                    <label>Year  *</label>
+                                    <input placeholder=" Year" name="years"  type="text" id="year1"
+                                    oninput="this.value = this.value.replace(/\D/g,'');" onkeyup="checkYear1()" onblur="checkYear1()">
+                                    <p id="year1-alert" style="color:red;"></p>
+                                    <div class="validate"></div>
                                 </li>
+                               
                                 <li class="careerfy-column-6">
                                     <label>Company *</label>
-                                    <input value="Gldtech" onblur="if(this.value == '') { this.value ='Gldtech'; }" onfocus="if(this.value =='Gldtech') { this.value = ''; }" type="text">
+                                    <input placeholder="company or institute "  name="company" type="text" id="company1" onkeyup="checkCompany1()"
+                                    onblur="checkCompany1()">
+                                    <p id="company1-alert" style="color:red;"></p>
+                                    <div class="validate"></div>
                                 </li>
-                                <li class="careerfy-column-12">
-                                    <label>Description *</label>
-                                    <img src="extra-images/candidate-add-popup-textarea.png" alt="">
-                                </li>
+                                
                                 <li class="careerfy-column-12">
                                     <input type="submit" value="Add Award">
                                 </li>
                             </ul>
                         </div>
+                    </form>
                         <div class="careerfy-resume-education careerfy-resume-awards">
                             <ul class="careerfy-row">
+                                {% for award in awards %}
                                 <li class="careerfy-column-12">
                                     <div class="careerfy-resume-education-wrap">
-                                        <small>1970</small>
-                                        <h2><a href="#">Distinguished Service Award</a></h2>
+                                        <small>{{award.years}} - {{award.company}}</small>
+                                        <h2><a href="#">{{award.award}}</a></h2>
                                     </div>
                                     <div class="careerfy-resume-education-btn">
                                         <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
+                                        <a href="{% url 'delete_awards' award.id %}" class="careerfy-icon careerfy-rubbish"></a>
+                                        <a  onclick="return confirm ('are you sure Do you want to delete') ? window.location.href='{% url 'delete_awards' award.id %}' : ''  " class="careerfy-cv-manager-link"><i class="careerfy-icon careerfy-rubbish"></i></a>
                                     </div>
                                 </li>
-                                <li class="careerfy-column-12">
-                                    <div class="careerfy-resume-education-wrap">
-                                        <small>1979</small>
-                                        <h2><a href="#">Robin Milner Young Researcher Award</a></h2>
-                                    </div>
-                                    <div class="careerfy-resume-education-btn">
-                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                    </div>
-                                </li>
-                                <li class="careerfy-column-12">
-                                    <div class="careerfy-resume-education-wrap">
-                                        <small>1985</small>
-                                        <h2><a href="#">Doctoral Dissertation Award</a></h2>
-                                    </div>
-                                    <div class="careerfy-resume-education-btn">
-                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                    </div>
-                                </li>
-                                <li class="careerfy-column-12">
-                                    <div class="careerfy-resume-education-wrap">
-                                        <small>1990</small>
-                                        <h2><a href="#">Programming Languages Achievement</a></h2>
-                                    </div>
-                                    <div class="careerfy-resume-education-btn">
-                                        <a href="#" class="careerfy-icon careerfy-edit"></a>
-                                        <a href="#" class="careerfy-icon careerfy-rubbish"></a>
-                                    </div>
-                                </li>
+                                {% endfor %}
+                                
                             </ul>
                         </div>
                     </div>
 
                 </div>
             </div>
-            <input type="submit" class="careerfy-employer-profile-submit" value="Update Resume">
-        </form>
+            <a href="{% url 'load_cv' %}" class="careerfy-employer-profile-submit">Make PDF</a>
+            <!-- <input type="submit" class="careerfy-employer-profile-submit" value="Update Resume"> -->
+       
     </div>
 </div>
 
 </div>
+
+
+
+<script>
+    const validated={
+        title:false,
+        start:false,
+        end:false,
+        college:false,
+        title1:false,
+        year:false,
+        company:false,
+        skill:false,
+        percentage:false,
+        award:false,
+        year1:false,
+        company2:false
+    }
+
+    function checkTitle() {
+        var title = document.getElementById("title").value;
+        if (title.length <= 0) {
+            document.getElementById("title-alert").innerHTML = "Enter Your Title"
+            validated.title = false;
+        }
+    
+        else {
+            document.getElementById("title-alert").innerHTML = "";
+            validated.title = true;
+        }
+    }
+
+    
+    function checkstart() {
+        var start = document.getElementById('startdate').value;
+        var expalert = document.getElementById('start-alert');
+        if (start == "" || start == null) {
+            validated.start = false;
+            expalert.innerHTML = "Required";
+        }
+        if (start > 1){
+            validated.start = true;
+            expalert.innerHTML = "";
+
+        }
+        if (start > 4){
+            validated.start=false
+            expalert.innerHTML = "Enter Valid Year";
+
+        }
+
+    }
+
+    
+    function checkEnd() {
+        var end = document.getElementById('enddate').value;
+        var expalert = document.getElementById('end-alert');
+        if (end == "" || end == null) {
+            validated.end = false;
+            expalert.innerHTML = "Required";
+        }
+        if (end > 1){
+            validated.end = true;
+            expalert.innerHTML = "";
+
+        }
+
+        if (end > 4){
+            validated.end=false
+            expalert.innerHTML = "Enter Valid Year";
+
+        }
+
+
+    }
+
+    function checkCollege() {
+        var company = document.getElementById("institute").value;
+        if (company.length <= 0) {
+            document.getElementById("institute-alert").innerHTML = "Enter Your company"
+            validated.company = false;
+        }
+    
+        else {
+            document.getElementById("institute-alert").innerHTML = "";
+            validated.company = true;
+        }
+    }
+
+
+    function checkTitle1() {
+        var title = document.getElementById("title1").value;
+        if (title.length <= 0) {
+            document.getElementById("title1-alert").innerHTML = "Enter Your Title"
+            validated.title1 = false;
+        }
+    
+        else {
+            document.getElementById("title1-alert").innerHTML = "";
+            validated.title1 = true;
+        }
+    }
+
+
+
+    function checkYear() {
+        var year = document.getElementById('year').value;
+        var expalert = document.getElementById('year-alert');
+        if (year == "" || year == null) {
+            validated.year = false;
+            expalert.innerHTML = "Required";
+        }
+        if (year > 1){
+            validated.year = true;
+            expalert.innerHTML = "";
+
+        }
+      
+
+    }  
+
+
+    function checkCompany() {
+        var company = document.getElementById("company").value;
+        if (company.length <= 0) {
+            document.getElementById("company-alert").innerHTML = "Enter Your company"
+            validated.company = false;
+        }
+    
+        else {
+            document.getElementById("company-alert").innerHTML = "";
+            validated.company = true;
+        }
+    }
+
+
+    function checkSkill() {
+        var skill = document.getElementById("skill").value;
+        if (skill.length <= 0) {
+            document.getElementById("skill-alert").innerHTML = "Enter Your skill"
+            validated.skill = false;
+        }
+    
+        else {
+            document.getElementById("skill-alert").innerHTML = "";
+            validated.skill = true;
+        }
+    }
+
+
+    function checkPerc() {
+        var percentage = document.getElementById('percentage').value;
+        var expalert = document.getElementById('percentage-alert');
+        if (percentage == "" || percentage == null) {
+            validated.percentage = false;
+            expalert.innerHTML = "Required";
+        }
+        if (percentage > 1){
+            validated.percentage = true;
+            expalert.innerHTML = "";
+
+        }
+      
+
+    }  
+
+
+    
+
+    function checkAward() {
+        var award = document.getElementById("award").value;
+        if (award.length <= 0) {
+            document.getElementById("award-alert").innerHTML = "Enter Your award"
+            validated.award = false;
+        }
+    
+        else {
+            document.getElementById("award-alert").innerHTML = "";
+            validated.award = true;
+        }
+    }
+
+
+    
+    function checkYear1() {
+        var year1 = document.getElementById('year1').value;
+        var expalert = document.getElementById('year1-alert');
+        if (year1 == "" || year1 == null) {
+            validated.year1 = false;
+            expalert.innerHTML = "Required";
+        }
+        if (year1 > 1){
+            validated.year1 = true;
+            expalert.innerHTML = "";
+
+        }
+      
+
+    }  
+
+
+    function checkCompany1() {
+        var company1 = document.getElementById("company1").value;
+        if (company1.length <= 0) {
+            document.getElementById("company1-alert").innerHTML = "Enter Your company"
+            validated.company1 = false;
+        }
+    
+        else {
+            document.getElementById("company1-alert").innerHTML = "";
+            validated.company1 = true;
+        }
+    }
+
+
+
+   
+
+       
+
+
+</script>
 
 
 

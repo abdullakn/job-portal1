@@ -1,5 +1,10 @@
 {% extends 'employee/employee_profile.html' %}
 
+{% block propic %}
+
+
+{% endblock %}
+
 
 {% block basic %}
 
@@ -25,8 +30,8 @@
                             <a href="#" class="careerfy-applied-jobs-thumb"><img src="{{job.job.user.logo.url}}" alt=""></a>
                             <div class="careerfy-applied-jobs-text">
                                 <div class="careerfy-applied-jobs-left">
-                                    <span>{{job.job.user.company_name}}</span>
-                                    <h2><a href="#">{{job.job.job_title}}</a></h2>
+                                    <span><a href="{% url  'companies_details' job.job.user.id %}">{{job.job.user.company_name}}</a></span>
+                                    <h2><a href="{% url 'job_details' job.job.slug %}">{{job.job.job_title}}</a></h2>
                                     <ul>
                                         <li><i class="fa fa-map-marker"></i> {{job.job.location}}</li>
                                         <li><i class="careerfy-icon careerfy-filter-tool-black-shape"></i> <a href="#">{{job.job.category}}</a></li>

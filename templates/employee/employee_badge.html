@@ -1,183 +1,141 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=<cen>, initial-scale=1.0">
     <title>Document</title>
-
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<style>
-    @import('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css') 
-
-.funkyradio div {
-  clear: both;
-  overflow: hidden;
-}
-
-.funkyradio label {
-  width: 100%;
-  border-radius: 3px;
-  border: 1px solid #D1D3D4;
-  font-weight: normal;
-}
-
-.funkyradio input[type="radio"]:empty,
-.funkyradio input[type="checkbox"]:empty {
-  display: none;
-}
-
-.funkyradio input[type="radio"]:empty ~ label,
-.funkyradio input[type="checkbox"]:empty ~ label {
-  position: relative;
-  line-height: 2.5em;
-  text-indent: 3.25em;
-  margin-top: 2em;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-.funkyradio input[type="radio"]:empty ~ label:before,
-.funkyradio input[type="checkbox"]:empty ~ label:before {
-  position: absolute;
-  display: block;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  content: '';
-  width: 2.5em;
-  background: #D1D3D4;
-  border-radius: 3px 0 0 3px;
-}
-
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
-.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
-  color: #888;
-}
-
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
-.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
-  content: '\2714';
-  
-  color: #C2C2C2;
-}
-
-.funkyradio input[type="radio"]:checked ~ label,
-.funkyradio input[type="checkbox"]:checked ~ label {
-  color: #777;
-}
-
-.funkyradio input[type="radio"]:checked ~ label:before,
-.funkyradio input[type="checkbox"]:checked ~ label:before {
-  content: '\2714';
-  text-indent: .9em;
-  color: #333;
-  background-color: #ccc;
-}
-
-.funkyradio input[type="radio"]:focus ~ label:before,
-.funkyradio input[type="checkbox"]:focus ~ label:before {
-  box-shadow: 0 0 0 3px #999;
-}
-
-
-
-
-
-
-
-
-</style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
+<body style="background-color:rgb(242, 249, 255);margin-top:200px">
+    <h4 class="" style="text-align: center;"><span id="timer" style="border: 1px solid rgb(161, 134, 134);padding:10px 20px">Time left</span>
+    </h4>
+   <div class="col-lg-8 border border-success p-4 m-4 mx-auto" style="border-radius: 10px; margin-top:600px">
+       {% for question in questions %}
+       <h4> {{question.question}}</h4>
+       <form action="">
+           <div class="radio">
+               <label for="">
+                   <input type="radio" id="option1" name="name" value="{{question.option1}}">{{question.option1}}
+               </label>
+            </div>
+            <div class="radio">
+               <label for="">
+                   <input type="radio" id="option2" name="name" value="{{question.option2}}">{{question.option2}}
+               </label>
+               </div>
+               <div class="radio">
+               
+               <label for="">
+                   <input type="radio" id="option3" name="name" value="{{question.option3}}">{{question.option3}}
+               </label>
+               </div>
+               <div class="radio">
+               <label for="">
+                   <input type="radio" required id="option4" name="name" value="{{question.option4}}">{{question.option4}}
+               </label>
+               </div>
+           
+       </form>
 
-    
-<div class="container">
-	<div class="row">
-	    <br/>
-        <div class="panel panel-primary">
-             <div class="panel-heading">                  
-                  <pre>
+       {% endfor %}
+       <div class="form-group">
+           <button class="btn btn-success" id="save_ans">Submit</button>
+       </div>
 
-        
-<div class = "panel-body">
-      <h4>Your Answer</h4>
-           </div>
-<ul class = "list-group">
-    <li class = "list-group-item">
-          <div class="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <label for="checkbox">
-                1 and 2 only
-            </label>
-        </div>
-    </li>
-    <li class = "list-group-item">
-          <div class="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <label for="checkbox">
-                2 and 3 only
-            </label>
-        </div>
-    </li>
-    <li class = "list-group-item">
-          <div class="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <label for="checkbox">
-                1 and 3 only
-            </label>
-        </div>
-    </li>
-    <li class = "list-group-item">
-          <div class="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <label for="checkbox">
-                1, 2 and 3
-            </label>
-        </div>
-    </li>
-   </ul>
-                <div class="panel-footer">
-                    <div class="row">
-    <div class="funkyradio">
-        <div class="funkyradio-default">
-            <input type="radio" name="radio" id="radio1" />
-            <label for="radio1">First Option default</label>
-        </div>
-        <div class="funkyradio-primary">
-            <input type="radio" name="radio" id="radio2" checked/>
-            <label for="radio2">Second Option primary</label>
-        </div>
-        <div class="funkyradio-success">
-            <input type="radio" name="radio" id="radio3" />
-            <label for="radio3">Third Option success</label>
-        </div>
-        <div class="funkyradio-danger">
-            <input type="radio" name="radio" id="radio4" />
-            <label for="radio4">Fourth Option danger</label>
-        </div>
-        <div class="funkyradio-warning">
-            <input type="radio" name="radio" id="radio5" />
-            <label for="radio5">Fifth Option warning</label>
-        </div>
-        <div class="funkyradio-info">
-            <input type="radio" name="radio" id="radio6" />
-            <label for="radio6">Sixth Option info</label>
-        </div>
-    </div>        
-                           
-                    </div>
-                </div>
-        </div>
-</div>
-</div>
-    
+       <div class="paginator">
+           <div class="form-group">
+               {% if questions.has_next %}
+               <a href="?page={{ questions.next_page_number}}"><button style="display: none;" class="btn btn-primary form-control" id="submitAnswer">Next</button></a>
+                {% else %}
+               <a href="{% url 'submit_answers' %}"><button  style="display: none;" class="btn btn-success form-control" id="submitAnswer">submit Test</button></a>
+            {% endif %}
+
+            </div>
+       </div>
+
+     
+
+   </div>
+
+   <a href="{% url 'employee_home' %}"><button style="margin-left: 700px;" class="btn btn-info">Quit Test</button></a>
+
+
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+<script>
+    window.onload=initall;
+    var saveAnsButton;
+    function initall(){
+        console.log("automatic")
+        saveAnsButton=document.getElementById('save_ans')
+     
+        saveAnsButton.onclick=saveans
+
+    }
+
+    function saveans(){
+        saveAnsButton=document.getElementById('save_ans')
+        submit_button=document.getElementById("submitAnswer")
+        saveAnsButton.style.display='none'
+
+        var ans=$("input:radio[name=name]:checked").val()
+        if(!ans){
+            ans=null
+        } 
+        console.log(ans)
+        alert("answer is submitted click next")
+        submit_button.style.display='block'
+
+        $.ajax({
+            url : "{% url 'saveans' %}",
+            type: "GET",
+            data:{'ans':ans},
+        })
+
+    }
+</script>
+<script>
+
+
+
+
+  var time = 20;
+  var testDis=setInterval(function() {
+    if(time > 0) {
+   
+      time--;
+      console.log(time)
+      var left=document.getElementById("timer")
+      left.innerHTML="TIME LEFT "+time
+    } else {
+        alert("Your Time is Up")
+        $("#save_ans").trigger('click');
+        $("#submitAnswer").trigger('click');
+
+
+      
+        clearInterval(testDis)
+
+    }
+
+  },1000)
+
+</script>
 </body>
 </html>
-
-<!------ Include the above in your HEAD tag ---------->

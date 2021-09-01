@@ -24,7 +24,9 @@ urlpatterns = [
     path('',include('accounts.urls')),
     path('companies/',include('companies.urls')),
     path('employee/',include('employee.urls')),
-    path('superadmin/',include('superadmin.urls'))
+    path('superadmin/',include('superadmin.urls')),
+    path('cvapp/',include('cvapp.urls')),
+    path('chat/',include('chat.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

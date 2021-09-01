@@ -95,7 +95,7 @@
 
 			<ul class="responsive float-right">
 				<!-- <li><a href="dashboard.html"><i class="fa fa-cog"></i> Dashboard</a></li> -->
-				<li><a href="index-2.html"><i class="fa fa-lock"></i> Log Out</a></li>
+				<li><a href="{% url 'logout' %}"><i class="fa fa-lock"></i> Log Out</a></li>
 			</ul>
 
 		</nav>
@@ -133,6 +133,7 @@
 				<li><a href="{% url 'view_companies' %}">View Companies </a></li>
 				<li><a href="{% url 'see_jobs' %}">View Jobs</a></li>
 				<li><a href="{%  url 'see_applications' %}">View Applications</a></li>
+				<li><a href="{%  url 'add_category' %}">Add Category</a></li>
 			</ul>
 
 			<!-- <ul data-submenu-title="Management">

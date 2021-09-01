@@ -39,29 +39,35 @@
                     <table class="manage-table responsive-table">
 
                         <tr>
-                            <th><i class="fa fa-file-develop"></i> Job</th>
-                            <th><i class="fa fa-check-square-o"></i>Job Type</th>
+                            <th><i class="fa fa-file-develop"></i> Name of the Applicant</th>
+                            <th><i class="fa fa-check-square-o"></i>Job </th>
                             <th><i class="fa fa-calendar"></i> Date Posted</th>
                             <th><i class="fa fa-calendar"></i> Category</th>
 
-                            <th><i class="fa fa-calendar"></i> Name of the User</th>
+                            <th><i class="fa fa-type"></i> Job Type</th>
                             
-                            <th><i class="fa fa-user"></i> Salary Range</th>
+                            <th><i class="fa fa-money"></i> Salary Range</th>
                             <th><i class="fa fa-user"></i>Email</th>
+                            <th></th>
                            </tr>
                                 
                         <!-- Item #1 -->
                         {% for app in applications %}
                         <tr>
+                            <td style="color: blue;"><a style="color:blue;" href="{% url 'applicant_details' app.id %}">{{app.user.name}}</a></td>
+
                             <td class="title"><a href="#">{{app.job.job_title}}</a></td>
-                            <td class="centered">{{app.job.job_type}}</td>
+                          
                             <td>{{app.job.create_at}}</td>
                             <td>{{app.job.category}}</td>
+                              <td class="centered">{{app.job.job_type}}</td>
                             <td class="centered">{{app.job.salary_min}}-{{app.job.salary_max}}</td>
-                            <td><a href="{% url 'manage_applications' app.id %}">{{app.user.name}}</a></td>
-                            
+                            <!-- <td><a href="{% url 'manage_applications' app.id %}">{{app.user.name}}</a></td> -->
+                           
+                            <!-- <a href="{% url 'applicant_details' app.user.id %}"></a> -->
                             <td class="centered">{{app.user.email}}</td>
-                            <td class="action">
+                            
+                            <td class="action"><a href="{% url 'manage_applications' app.id %}"><button style="border-radius: 10px;">Send Machine Test</button></a> </td>
                           
                         </tr>
                         {% endfor %}
@@ -77,7 +83,7 @@
 
                 </div>
             </div>
-            <a href="{% url 'add_jobs' %}" class="button margin-top-30">Add New Job</a>
+           
         </div>
 
 
