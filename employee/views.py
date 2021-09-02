@@ -117,8 +117,11 @@ def job_list_view(request):
     print("aasdfghjkl",obj)
 
     #get the hotest job in the site based on most apllications
+    try:
 
-    max_applicants=obj.order_by('job')[0]
+        max_applicants=obj.order_by('job')[0]
+    except:
+        max_applicants=None    
     print("max applicant",max_applicants)
     try:
         employee=EmployeeProfile.objects.get(user=request.user)        
