@@ -25,7 +25,7 @@ from .form import CoverletterForm
 from django.template.loader import get_template
 from django.core.paginator import EmptyPage, InvalidPage, Paginator
 import random
-from django.core.mail import EmailMessage, message
+#from django.core.mail import EmailMessage, message
 from django.contrib import messages
 import random
 # import pdfkit
@@ -724,9 +724,6 @@ def load_cv(request):
 
     
 
-
-
-
 def employee_badge(request,id):
     try:
         user=EmployeeProfile.objects.get(user=request.user)
@@ -734,6 +731,8 @@ def employee_badge(request,id):
         messages.error(request,"Please Fill the Employee Profile First")
         return redirect('employee_profile')    
     category=CategoryDomain.objects.get(id=id)
+    request.session['cat_id']=id
+    print("category id", request.session['cat_id'],"hhhhhhh")
     request.session['category']=category.category
    
     # question=Question.objects.filter(category=id)[:6]
@@ -751,11 +750,12 @@ def employee_badge(request,id):
     
 
 
-    count=0
+    
     for quest in question:
-        request.session['answer'+str(count)]=quest.answer
-        count=count+1
-        print(quest)
+        print("working")
+        request.session['answer'+str(quest.id)]=quest.answer
+        print(request.session['answer'+str(quest.id)])
+        
 
     paginator=Paginator(question,1)
     try:
@@ -781,20 +781,26 @@ def saveans(request):
     print("defhfdfd")
     if request.method == "GET":
         ans=request.GET['ans']
+        
+        x = ans.split("$")
+        print("splited answer..............",x)  
         print("asdfghjkk",ans)
+        request.session['useranswer'+x[1]]=x[0]
+        print("session user",request.session['useranswer'+x[1]])
         userans_list.append(ans)
         return JsonResponse({'data':"success"},safe=False)
 
 
 def submit_answers(request):
-    print("session",request.session['answer0'])
-    print("session",request.session['answer1'])
-    print("session",request.session['answer2'])
-    print("session",request.session['answer3'])
-    print("session",request.session['answer4'])
+    # print("session",request.session['answer0'])
+    # print("session",request.session['answer1'])
+    # print("session",request.session['answer2'])
+    # print("session",request.session['answer3'])
+    # print("session",request.session['answer4'])
 
-    for li in userans_list:
-        print("userrrrr",li)
+    # for li in userans_list:
+    #     print("userrrrr",li)
+
     obj=Question.objects.all()[:5]
     score=0
     # answers=[]
@@ -802,13 +808,23 @@ def submit_answers(request):
     #     answers.append(ans.answer)
     #     print(ans.answer)
 
-    for i in range(5):
-        if request.session['answer'+str(i)] == userans_list[i]:
-            print(userans_list[i],request.session['answer'+str(i)])
+    cat_id=int(request.session['cat_id'])
+    print(cat_id,"ssssssssssss")
+    question=Question.objects.filter(category=cat_id)[:5]
+
+    for quest in question:
+        if request.session['answer'+str(quest.id)] ==  request.session['useranswer'+str(quest.id)]:
+            print(request.session['answer'+str(quest.id)],request.session['useranswer'+str(quest.id)])
             score=score+1
-            print("session",request.session['answer'+str(i)])
+            
 
     userans_list.clear()   
+
+    
+
+    for quest in question:
+        del request.session['answer'+str(quest.id)]
+        del request.session['useranswer'+str(quest.id)]
 
     score=score+score   
     
@@ -846,7 +862,6 @@ def submit_answers(request):
     return render(request,'employee/congratulation.html',{'score':score})  
 
 
-
 def badges(request):
     try:
         user=EmployeeProfile.objects.get(user=request.user)
@@ -872,13 +887,7 @@ def reply_machine_test(request,id):
         host=request.POST.get('host', None)
         
         print(host)
-        email=EmailMessage('Machine Test completed Sended from',user + " send the machine test of "+ job_name,
-                  'abdudebanjazz@gmail.com', [comp_email])
-        # email.content_subtype='html'  
-        # email.attach(compressed)  
-        email.send()   
-
-      
+    
         reply=ReplyMachineTest(machinetest=test,compressed=compressed,github=github,host=host)
         reply.save()
           

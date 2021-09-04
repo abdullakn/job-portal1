@@ -42,7 +42,7 @@
                                         color: #3498db;
                                         font-size: 15px;
                                         display:none;
-                                        border-radius:30px;">Add Photo</button>
+                                        border-radius:30px;">Submit</button>
                                     </div>
                                 </form>
 
@@ -127,7 +127,9 @@
 
 
                                     <h2>{{request.user}}</h2>
-                                    <span class="careerfy-dashboard-subtitle">UI/UX Designer</span>
+                                     {% if employee.specialization %}
+                                    <span class="careerfy-dashboard-subtitle">{{employee.specialization}}</span>
+                                        {% endif %}
                                 </figcaption>
                             </figure>
                             <ul>

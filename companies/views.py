@@ -8,8 +8,8 @@ from django.shortcuts import redirect, render
 from django.utils.text import slugify
 from django.http import HttpResponse, HttpResponseNotFound
 
-from django.core.mail import send_mail
-from django.core.mail import EmailMessage
+#from django.core.mail import send_mail
+#from django.core.mail import EmailMessage
 import zipfile
 from io import BytesIO,StringIO
 import os
@@ -403,18 +403,6 @@ def manage_applications(request,id):
         # else:
         #     host=None        
            
-        email=EmailMessage('Machine Test Sended',company + " send the machine test of "+ job_name,
-                  'abdudebanjazz@gmail.com', [remail])
-        email.content_subtype='html'  
-        email.attach(machinetest.name,machinetest.read(),machinetest.content_type)  
-        email.send()      
-        
-        # send_mail(''
-        #           'Machine Test Sended',
-        #           company + " send the machine test of "+ job_name,
-        #           'abdudebanjazz@gmail.com',
-        #           [remail],
-        #           )
 
         machine=MachineTestfiles(machinetest=machinetest,user=user,job=job)
         machine.save()

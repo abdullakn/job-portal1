@@ -219,6 +219,9 @@
                              
                                 <div class="careerfy-job careerfy-joblisting-classic">
                                     <ul class="careerfy-row">
+                                      {% if not job_list %}
+                                         <h1>No Result Found </h1>
+                                     {% else %}    
                                         
                                         {% for jobs in job_list %}
                                         <a href="{% url 'job_details' jobs.slug %}">
@@ -247,7 +250,7 @@
                                         </li>
                                     </a>
                                         {% endfor %}
-                                      
+                                      {% endif %}
                       
                             </div>
                         </div>

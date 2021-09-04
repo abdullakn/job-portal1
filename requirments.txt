@@ -54,8 +54,8 @@ six==1.16.0
 sqlparse==0.4.1
 stripe==2.60.0
 tinycss2==1.1.0
-Twisted==21.7.0
-twisted-iocpsupport==1.0.1
+#Twisted==21.7.0
+#twisted-iocpsupport==1.0.1
 txaio==21.2.1
 typing-extensions==3.10.0.0
 urllib3==1.26.6

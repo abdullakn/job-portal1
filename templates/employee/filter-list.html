@@ -1,3 +1,4 @@
+{% if job_list %}
 {% for jobs in job_list %}
 <a href="{% url 'job_details' jobs.slug %}">
 <li class="careerfy-column-12">
@@ -25,3 +26,6 @@
 </li>
 </a>
 {% endfor %}
+{% else %}
+<h1> No Result Found </h1>
+{% endif %}

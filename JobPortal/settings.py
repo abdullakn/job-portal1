@@ -31,7 +31,7 @@ SECRET_KEY = '6#buy5kt))kt=n@1$h4ulx&n@l18)xw4l83-#65pl)u%9y=f$p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -83,7 +83,7 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'JobPortal.wsgi.application'
+WSGI_APPLICATION = 'JobPortal.wsgi.application'
 ASGI_APPLICATION = 'JobPortal.asgi.application'
 
 
@@ -100,7 +100,7 @@ ASGI_APPLICATION = 'JobPortal.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'jobPortal',
+        'NAME':'jobportal1',
         'USER':'postgres',
         'PASSWORD':'Abdulla@123',
         'HOST':'localhost'
@@ -141,16 +141,20 @@ USE_L10N = True
 
 USE_TZ = False
 
-
+#EMAIL_USE_TLS = True
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'abdullakn.sample@gmail.com'
+#EMAIL_HOST_PASSWORD = 'Abdulla@123'
 
 #email
 
 
-EMAIL_USE_TLS = True
-EMAIL_HOST =config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT',cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD =config('EMAIL_HOST_PASSWORD')
+#EMAIL_USE_TLS = True
+#EMAIL_HOST =config('EMAIL_HOST')
+#EMAIL_PORT = config('EMAIL_PORT',cast=int)
+#EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+#EMAIL_HOST_PASSWORD =config('EMAIL_HOST_PASSWORD')
 
 
 
@@ -193,6 +197,8 @@ EMAIL_HOST_PASSWORD =config('EMAIL_HOST_PASSWORD')
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 
 

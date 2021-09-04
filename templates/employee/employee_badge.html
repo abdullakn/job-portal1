@@ -16,27 +16,28 @@
     </h4>
    <div class="col-lg-8 border border-success p-4 m-4 mx-auto" style="border-radius: 10px; margin-top:600px">
        {% for question in questions %}
+       <p id="def-id" style="display:none">{{question.id}}</p>
        <h4> {{question.question}}</h4>
        <form action="">
            <div class="radio">
                <label for="">
-                   <input type="radio" id="option1" name="name" value="{{question.option1}}">{{question.option1}}
+                   <input type="radio" id="option1" name="name" value="{{question.option1}}${{question.id}}">{{question.option1}}
                </label>
             </div>
             <div class="radio">
                <label for="">
-                   <input type="radio" id="option2" name="name" value="{{question.option2}}">{{question.option2}}
+                   <input type="radio" id="option2" name="name" value="{{question.option2}}${{question.id}}">{{question.option2}}
                </label>
                </div>
                <div class="radio">
                
                <label for="">
-                   <input type="radio" id="option3" name="name" value="{{question.option3}}">{{question.option3}}
+                   <input type="radio" id="option3" name="name" value="{{question.option3}}${{question.id}}">{{question.option3}}
                </label>
                </div>
                <div class="radio">
                <label for="">
-                   <input type="radio" required id="option4" name="name" value="{{question.option4}}">{{question.option4}}
+                   <input type="radio" required id="option4" name="name" value="{{question.option4}}${{question.id}}">{{question.option4}}
                </label>
                </div>
            
@@ -96,7 +97,8 @@
 
         var ans=$("input:radio[name=name]:checked").val()
         if(!ans){
-            ans=null
+          var def_id=document.getElementById('def-id').innerText
+            ans=null+"$"+def_id
         } 
         console.log(ans)
         alert("answer is submitted click next")

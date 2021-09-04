@@ -48,6 +48,8 @@ class MachineTestfiles(models.Model):
     job=models.ForeignKey(JobDetails,on_delete=models.CASCADE) 
     created_at=models.DateField(auto_now_add=True,null=True,blank=True)
 
+class CoverLetters(models.Model):
+    user=models.CharField(max_length=200) 
 
 class CoverLetter(models.Model):
     user=models.ForeignKey(EmployeeProfile,on_delete=models.CASCADE)
