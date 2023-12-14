@@ -141,41 +141,10 @@ USE_L10N = True
 
 USE_TZ = False
 
-#EMAIL_USE_TLS = True
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'abdullakn.sample@gmail.com'
-#EMAIL_HOST_PASSWORD = 'Abdulla@123'
-
-#email
-
-
-#EMAIL_USE_TLS = True
-#EMAIL_HOST =config('EMAIL_HOST')
-#EMAIL_PORT = config('EMAIL_PORT',cast=int)
-#EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-#EMAIL_HOST_PASSWORD =config('EMAIL_HOST_PASSWORD')
 
 
 
 
-
-# AWS_ACCESS_KEY_ID = 'AKIATI5UOAYSCJVXYJOV'
-
-# AWS_SECRET_ACCESS_KEY='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'
-
-# AWS_STORAGE_BUCKET_NAME='careerfy-bucket'
-
-
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
-
-# DEFAULT_FILE_STORAGE = 'JobPortal.storage_backends.MediaStorage'
-
-# AWS_DEFAULT_ACL = 'public-read'
 
 
 
